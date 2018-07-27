@@ -2,12 +2,24 @@
 
 namespace App\Infrastructure\Controller;
 
-use Symfony\Component\HttpFoundation\JsonResponse;
+use App\Infrastructure\ApiClient\BuienradarApiClient;
+use Symfony\Component\HttpFoundation\Response;
 
 class HomeController
 {
+    /**
+     * @var BuienradarApiClient
+     */
+    private $apiClient;
+
+    public function __construct(BuienradarApiClient $apiClient)
+    {
+        $this->apiClient = $apiClient;
+    }
+
     public function index()
     {
-        return new JsonResponse(['hoi']);
+        $this->apiClient->getData();
+        return new Response('hoi');
     }
 }
