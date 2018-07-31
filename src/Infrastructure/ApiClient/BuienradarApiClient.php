@@ -2,7 +2,9 @@
 
 namespace App\Infrastructure\ApiClient;
 
+use App\Infrastructure\Dto\Buienradar\BuienradarnlDto;
 use GuzzleHttp\Client;
+use JMS\Serializer\SerializerInterface;
 use RuntimeException;
 
 class BuienradarApiClient
@@ -14,9 +16,15 @@ class BuienradarApiClient
      */
     private $httpClient;
 
-    public function __construct(Client $httpClient)
+    /**
+     * @var SerializerInterface
+     */
+    private $serializer;
+
+    public function __construct(Client $httpClient, SerializerInterface $serializer)
     {
         $this->httpClient = $httpClient;
+        $this->serializer = $serializer;
     }
 
     public function getData()
@@ -26,7 +34,9 @@ class BuienradarApiClient
             throw new RuntimeException('Unable to contact buienradar API');
         }
         $data = $response->getBody()->getContents();
-        $xml = simplexml_load_string($data);
-        var_dump($xml);
+        var_dump($data);
+        $output = $this->serializer->deserialize($data, BuienradarnlDto::class, 'xml');
+        var_dump($output);
+        var_dump(simplexml_load_string($data));
     }
 }
