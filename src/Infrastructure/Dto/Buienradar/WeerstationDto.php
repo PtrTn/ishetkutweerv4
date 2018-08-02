@@ -2,10 +2,18 @@
 
 namespace App\Infrastructure\Dto\Buienradar;
 
+use JMS\Serializer\Annotation as Serializer;
 use JMS\Serializer\Annotation\Type;
+use JMS\Serializer\Annotation\XmlAttribute;
 
 class WeerstationDto
 {
+    /**
+     * @Type("string")
+     * @XmlAttribute
+     */
+    public $id;
+
     /**
      * @Type("string")
      */
@@ -38,21 +46,25 @@ class WeerstationDto
 
     /**
      * @Type("float")
+     * @Serializer\SerializedName("temperatuurGC")
      */
     public $temperatuurGC;
 
     /**
      * @Type("float")
+     * @Serializer\SerializedName("windsnelheidMS")
      */
     public $windsnelheidMS;
 
     /**
      * @Type("integer")
+     * @Serializer\SerializedName("windsnelheidBF")
      */
     public $windsnelheidBF;
 
     /**
      * @Type("integer")
+     * @Serializer\SerializedName("windrichtingGR")
      */
     public $windrichtingGR;
 
@@ -103,11 +115,13 @@ class WeerstationDto
 
     /**
      * @Type("float")
+     * @Serializer\SerializedName("latGraden")
      */
     public $latGraden;
 
     /**
      * @Type("float")
+     * @Serializer\SerializedName("lonGraden")
      */
     public $lonGraden;
 }

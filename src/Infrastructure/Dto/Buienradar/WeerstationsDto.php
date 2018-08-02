@@ -3,11 +3,13 @@
 namespace App\Infrastructure\Dto\Buienradar;
 
 use JMS\Serializer\Annotation\Type;
+use JMS\Serializer\Annotation\XmlList;
 
 class WeerstationsDto
 {
     /**
-     * @Type("App\Infrastructure\Dto\Buienradar\StationDto")
+     * @Type("array<App\Infrastructure\Dto\Buienradar\WeerstationDto>")
+     * @XmlList(entry = "weerstation")
      */
     public $weerstations;
 }
