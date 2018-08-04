@@ -31,3 +31,6 @@ services:
 
     GuzzleHttp\Client:
         class: GuzzleHttp\Client
+
+    Geokit\Math:
+        class: Geokit\Math
