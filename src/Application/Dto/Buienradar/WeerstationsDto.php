@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Infrastructure\Dto\Buienradar;
+namespace App\Application\Dto\Buienradar;
 
 use JMS\Serializer\Annotation\Type;
 use JMS\Serializer\Annotation\XmlList;
@@ -8,7 +8,8 @@ use JMS\Serializer\Annotation\XmlList;
 class WeerstationsDto
 {
     /**
-     * @Type("array<App\Infrastructure\Dto\Buienradar\WeerstationDto>")
+     * @var WeerstationDto[]
+     * @Type("array<App\Application\Dto\Buienradar\WeerstationDto>")
      * @XmlList(entry = "weerstation")
      */
     public $weerstations;

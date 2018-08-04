@@ -1,126 +1,144 @@
 <?php
 
-namespace App\Infrastructure\Dto\Buienradar;
+namespace App\Application\Dto\Buienradar;
 
+use DateTimeImmutable;
 use JMS\Serializer\Annotation as Serializer;
 use JMS\Serializer\Annotation\Type;
-use JMS\Serializer\Annotation\XmlAttribute;
 
 class WeerstationDto
 {
     /**
-     * @Type("string")
-     * @XmlAttribute
-     */
-    public $id;
-
-    /**
+     * @var string
      * @Type("string")
      */
     public $stationcode;
 
     /**
+     * @var string
      * @Type("string")
      */
     public $stationnaam;
 
     /**
-     * @Type("float")
+     * @var string
+     * @Type("string")
      */
     public $lat;
 
     /**
-     * @Type("float")
+     * @var string
+     * @Type("string")
      */
     public $lon;
 
     /**
+     * @var DateTimeImmutable
      * @Type("DateTimeImmutable<'m/d/Y H:i:s'>")
      */
     public $datum;
 
     /**
-     * @Type("integer")
+     * @var string
+     * @Type("string")
      */
     public $luchtvochtigheid;
 
     /**
-     * @Type("float")
+     * @var string
+     * @Type("string")
      * @Serializer\SerializedName("temperatuurGC")
      */
     public $temperatuurGC;
 
     /**
-     * @Type("float")
+     * @var string
+     * @Type("string")
      * @Serializer\SerializedName("windsnelheidMS")
      */
     public $windsnelheidMS;
 
     /**
-     * @Type("integer")
+     * @var string
+     * @Type("string")
      * @Serializer\SerializedName("windsnelheidBF")
      */
     public $windsnelheidBF;
 
     /**
-     * @Type("integer")
+     * @var string
+     * @Type("string")
      * @Serializer\SerializedName("windrichtingGR")
      */
     public $windrichtingGR;
 
     /**
+     * @var string
      * @Type("string")
      */
     public $windrichting;
 
     /**
+     * @var string
      * @Type("string")
      */
     public $luchtdruk;
 
     /**
+     * @var string
      * @Type("string")
      */
     public $zichtmeters;
 
     /**
+     * @var string
      * @Type("string")
+     * @Serializer\SerializedName("windstotenMS")
      */
     public $windstotenMS;
 
     /**
+     * @var string
      * @Type("string")
+     * @Serializer\SerializedName("regenMMPU")
      */
     public $regenMMPU;
 
     /**
+     * @var string
      * @Type("string")
+     * @Serializer\SerializedName("zonintensiteitWM2")
      */
     public $zonintensiteitWM2;
 
     /**
+     * @var string
      * @Type("string")
      */
     public $icoonactueel;
 
     /**
+     * @var string
      * @Type("string")
      */
     public $temperatuur10cm;
 
     /**
+     * @var string
      * @Type("string")
      */
     public $url;
 
     /**
-     * @Type("float")
+     * @var string
+     * @Type("string")
      * @Serializer\SerializedName("latGraden")
      */
     public $latGraden;
 
     /**
-     * @Type("float")
+     * @var string
+     * @Type("string")
      * @Serializer\SerializedName("lonGraden")
      */
     public $lonGraden;
