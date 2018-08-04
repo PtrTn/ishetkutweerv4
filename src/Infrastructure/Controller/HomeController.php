@@ -2,24 +2,29 @@
 
 namespace App\Infrastructure\Controller;
 
-use App\Infrastructure\ApiClient\BuienradarApiClient;
+use App\Application\Query\WeatherDataQuery;
+use App\Application\QueryHandler\WeatherQueryHandler;
 use Symfony\Component\HttpFoundation\Response;
 
 class HomeController
 {
     /**
-     * @var BuienradarApiClient
+     * @var WeatherQueryHandler
      */
-    private $apiClient;
+    private $queryHandler;
 
-    public function __construct(BuienradarApiClient $apiClient)
+    public function __construct(WeatherQueryHandler $queryHandler)
     {
-        $this->apiClient = $apiClient;
+        $this->queryHandler = $queryHandler;
     }
 
     public function index()
     {
-        $this->apiClient->getData();
+        $lat = 51.498401;
+        $lon = 3.602145;
+        $this->queryHandler->getWeatherData(
+            new WeatherDataQuery($lat, $lon)
+        );
         return new Response('hoi');
     }
 }
