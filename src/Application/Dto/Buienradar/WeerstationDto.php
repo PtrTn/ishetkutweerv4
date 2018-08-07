@@ -15,8 +15,8 @@ class WeerstationDto
     public $stationcode;
 
     /**
-     * @var string
-     * @Type("string")
+     * @var StationnaamDto
+     * @Type("App\Application\Dto\Buienradar\StationnaamDto")
      */
     public $stationnaam;
 
