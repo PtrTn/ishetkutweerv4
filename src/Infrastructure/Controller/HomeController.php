@@ -22,9 +22,10 @@ class HomeController
     {
         $lat = 51.498401;
         $lon = 3.602145;
-        $this->queryHandler->getWeatherData(
+        $data = $this->queryHandler->getWeatherData(
             new WeatherDataQuery($lat, $lon)
         );
+        var_dump($data);
         return new Response('hoi');
     }
 }

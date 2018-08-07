@@ -3,6 +3,8 @@
 namespace App\Application\QueryHandler;
 
 use App\Application\ApiClient\BuienradarApiClientInterface;
+use App\Application\Factory\WeatherDtoFactory;
+use App\Application\Factory\WeatherDtoFactoryInterface;
 use App\Application\Query\WeatherDataQuery;
 use App\Application\Service\DistanceService;
 use App\Application\Dto\Buienradar\BuienradarnlDto;
@@ -21,19 +23,26 @@ class WeatherQueryHandler
      */
     private $distanceService;
 
+    /**
+     * @var WeatherDtoFactoryInterface
+     */
+    private $factory;
+
     public function __construct(
         BuienradarApiClientInterface $apiClient,
-        DistanceService $distanceService
+        DistanceService $distanceService,
+        WeatherDtoFactoryInterface $factory
     ) {
         $this->apiClient = $apiClient;
         $this->distanceService = $distanceService;
+        $this->factory = $factory;
     }
 
     public function getWeatherData(WeatherDataQuery $query): WeatherDto
     {
         $data = $this->apiClient->getData();
         $station = $this->getClosestWeerstation($query->lat, $query->lon, $data);
-        var_dump($station);
+        return $this->factory->createFromWeerstationDto($station);
     }
 
     private function getClosestWeerstation(float $latA, float $lonA, BuienradarnlDto $data): ?WeerstationDto
