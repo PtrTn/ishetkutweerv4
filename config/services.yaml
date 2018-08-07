@@ -34,3 +34,11 @@ services:
 
     Geokit\Math:
         class: Geokit\Math
+
+    App\Application\Factory\WeatherDtoFactoryInterface:
+        class: App\Application\Factory\WeatherDtoSanitizer
+        arguments:
+          - '@App\Application\Factory\WeatherDtoFactory'
+
+    App\Application\Factory\WeatherDtoFactory:
+        class: App\Application\Factory\WeatherDtoFactory

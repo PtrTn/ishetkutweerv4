@@ -12,17 +12,10 @@ class WeatherDtoFactory implements WeatherDtoFactoryInterface
         $dto = new WeatherDto();
         $dto->location = $weerstationDto->stationnaam->regio;
         $dto->date = $weerstationDto->datum;
-        $dto->temperature = $this->stringToFloat($weerstationDto->temperatuur10cm);
-        $dto->windSpeed = $this->stringToFloat($weerstationDto->windsnelheidBF);
+        $dto->temperature = $weerstationDto->temperatuur10cm;
+        $dto->windSpeed = $weerstationDto->windsnelheidBF;
         $dto->windDirection = $weerstationDto->windrichting;
-        $dto->rain = $this->stringToFloat($weerstationDto->regenMMPU);
+        $dto->rain = $weerstationDto->regenMMPU;
         return $dto;
-    }
-
-    private function stringToFloat(string $string): ?float {
-        if ($string === '-') {
-            return null;
-        }
-        return floatval($string);
     }
 }
