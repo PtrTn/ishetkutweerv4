@@ -33,4 +33,14 @@ class WeatherDto
      * @var string
      */
     public $windDirection;
+
+    /**
+     * @var int
+     */
+    public $rating;
+
+    /**
+     * @var string
+     */
+    public $background;
 }
