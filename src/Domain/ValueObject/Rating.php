@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Domain\Dto;
+namespace App\Domain\ValueObject;
 
-class WeatherRatingEnum
+class Rating
 {
     /**
      * @var int

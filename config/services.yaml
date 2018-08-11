@@ -103,8 +103,8 @@ services:
       class: App\Domain\Service\RatingService
       arguments: [!tagged 'wind_rule']
 
-    App\Application\Factory\WeatherRatingsDtoFactory:
-      class: App\Application\Factory\WeatherRatingsDtoFactory
+    App\Application\Factory\WeatherRatingDtoFactory:
+      class: App\Application\Factory\WeatherRatingDtoFactory
       arguments:
         - '@TemperatureRatingService'
         - '@RainRatingService'

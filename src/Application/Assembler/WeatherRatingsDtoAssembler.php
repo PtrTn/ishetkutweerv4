@@ -2,17 +2,17 @@
 
 namespace App\Application\Assembler;
 
-use App\Application\Factory\WeatherRatingsDtoFactory;
+use App\Application\Factory\WeatherRatingDtoFactory;
 use App\Domain\Dto\WeatherDto;
 
 class WeatherRatingsDtoAssembler implements WeatherDtoAssemblerInterface
 {
     /**
-     * @var WeatherRatingsDtoFactory
+     * @var WeatherRatingDtoFactory
      */
     private $ratingsDtoFactory;
 
-    public function __construct(WeatherRatingsDtoFactory $ratingsDtoFactory)
+    public function __construct(WeatherRatingDtoFactory $ratingsDtoFactory)
     {
         $this->ratingsDtoFactory = $ratingsDtoFactory;
     }

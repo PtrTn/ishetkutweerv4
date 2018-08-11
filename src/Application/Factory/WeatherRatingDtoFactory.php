@@ -3,10 +3,10 @@
 namespace App\Application\Factory;
 
 use App\Domain\Dto\WeatherDto;
-use App\Domain\Dto\WeatherRatingsDto;
+use App\Domain\Dto\WeatherRatingDto;
 use App\Domain\Service\RatingService;
 
-class WeatherRatingsDtoFactory
+class WeatherRatingDtoFactory
 {
     /**
      * @var RatingService
@@ -31,9 +31,9 @@ class WeatherRatingsDtoFactory
         $this->windRatingService = $windRatingService;
     }
 
-    public function create(WeatherDto $weatherDto): WeatherRatingsDto
+    public function create(WeatherDto $weatherDto): WeatherRatingDto
     {
-        $dto = new WeatherRatingsDto();
+        $dto = new WeatherRatingDto();
         $dto->temperatureRating = $this->temperatureRatingService->getRating($weatherDto);
         $dto->rainRating = $this->rainRatingService->getRating($weatherDto);
         $dto->windRating = $this->windRatingService->getRating($weatherDto);

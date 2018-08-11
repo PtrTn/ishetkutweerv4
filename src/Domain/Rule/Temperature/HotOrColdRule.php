@@ -3,7 +3,7 @@
 namespace App\Domain\Rule\Temperature;
 
 use App\Domain\Dto\WeatherDto;
-use App\Domain\Dto\WeatherRatingEnum;
+use App\Domain\ValueObject\Rating;
 use App\Domain\Rule\WeatherRule;
 
 class HotOrColdRule implements WeatherRule
@@ -13,8 +13,8 @@ class HotOrColdRule implements WeatherRule
         return $dto->temperature > 30 || $dto->temperature < -10;
     }
 
-    public function getRating(WeatherDto $dto): WeatherRatingEnum
+    public function getRating(WeatherDto $dto): Rating
     {
-        return WeatherRatingEnum::megaKut();
+        return Rating::megaKut();
     }
 }

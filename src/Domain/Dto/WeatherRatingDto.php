@@ -2,20 +2,22 @@
 
 namespace App\Domain\Dto;
 
-class WeatherRatingsDto
+use App\Domain\ValueObject\Rating;
+
+class WeatherRatingDto
 {
     /**
-     * @var WeatherRatingEnum
+     * @var Rating
      */
     public $temperatureRating;
 
     /**
-     * @var WeatherRatingEnum
+     * @var Rating
      */
     public $rainRating;
 
     /**
-     * @var WeatherRatingEnum
+     * @var Rating
      */
     public $windRating;
 }

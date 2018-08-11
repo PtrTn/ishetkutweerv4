@@ -3,7 +3,7 @@
 namespace App\Domain\Service;
 
 use App\Domain\Dto\WeatherDto;
-use App\Domain\Dto\WeatherRatingEnum;
+use App\Domain\ValueObject\Rating;
 use App\Domain\Rule\WeatherRule;
 
 class RatingService
@@ -21,7 +21,7 @@ class RatingService
         $this->rules = $rules;
     }
 
-    public function getRating(WeatherDto $dto): WeatherRatingEnum
+    public function getRating(WeatherDto $dto): Rating
     {
         foreach ($this->rules as $rule) {
             if ($rule->matches($dto)) {
@@ -29,6 +29,6 @@ class RatingService
             }
         }
 
-        return WeatherRatingEnum::nietKut();
+        return Rating::nietKut();
     }
 }

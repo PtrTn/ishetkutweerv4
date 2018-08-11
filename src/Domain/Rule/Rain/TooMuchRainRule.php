@@ -3,7 +3,7 @@
 namespace App\Domain\Rule\Rain;
 
 use App\Domain\Dto\WeatherDto;
-use App\Domain\Dto\WeatherRatingEnum;
+use App\Domain\ValueObject\Rating;
 use App\Domain\Rule\WeatherRule;
 
 class TooMuchRainRule implements WeatherRule
@@ -13,8 +13,8 @@ class TooMuchRainRule implements WeatherRule
         return $dto->rain > 30;
     }
 
-    public function getRating(WeatherDto $dto): WeatherRatingEnum
+    public function getRating(WeatherDto $dto): Rating
     {
-        return WeatherRatingEnum::megaKut();
+        return Rating::megaKut();
     }
 }

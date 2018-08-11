@@ -3,9 +3,9 @@
 namespace App\Application\Assembler;
 
 use App\Domain\Dto\WeatherDto;
-use App\Domain\Dto\WeatherRatingsDto;
+use App\Domain\Dto\WeatherRatingDto;
 
 interface WeatherRatingsDtoAssemblerInterface
 {
-    public function assemble(WeatherDto $dto): WeatherRatingsDto;
+    public function assemble(WeatherDto $dto): WeatherRatingDto;
 }

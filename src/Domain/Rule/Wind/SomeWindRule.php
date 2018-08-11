@@ -3,7 +3,7 @@
 namespace App\Domain\Rule\Wind;
 
 use App\Domain\Dto\WeatherDto;
-use App\Domain\Dto\WeatherRatingEnum;
+use App\Domain\ValueObject\Rating;
 use App\Domain\Rule\WeatherRule;
 
 class SomeWindRule implements WeatherRule
@@ -13,8 +13,8 @@ class SomeWindRule implements WeatherRule
         return $dto->windSpeed > 4;
     }
 
-    public function getRating(WeatherDto $dto): WeatherRatingEnum
+    public function getRating(WeatherDto $dto): Rating
     {
-        return WeatherRatingEnum::beetjeKut();
+        return Rating::beetjeKut();
     }
 }
