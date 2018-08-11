@@ -8,9 +8,9 @@ use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Id;
 
 /**
- * @ORM\Entity(repositoryClass="App\Infrastructure\Repository\WeatherRepository")
+ * @ORM\Entity(repositoryClass="App\Infrastructure\Repository\WeatherEntityRepository")
  */
-class Weather
+class WeatherEntity
 {
     /**
      * @var int
