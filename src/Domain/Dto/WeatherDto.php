@@ -35,7 +35,7 @@ class WeatherDto
     public $windDirection;
 
     /**
-     * @var int
+     * @var WeatherRatingDto
      */
     public $rating;
 
