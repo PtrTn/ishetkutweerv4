@@ -67,10 +67,6 @@ services:
       class: App\Domain\Rule\Temperature\MildRule
       tags: ['temperature_rule']
 
-    App\Domain\Service\TemperatureRatingService:
-      class: App\Domain\Service\TemperatureRatingService
-      arguments: [!tagged 'temperature_rule']
-
     App\Domain\Rule\Rain\TooMuchRainRule:
       class: App\Domain\Rule\Rain\TooMuchRainRule
       tags: ['rain_rule']
@@ -82,10 +78,6 @@ services:
     App\Domain\Rule\Rain\AlotRainRule:
       class: App\Domain\Rule\Rain\AlotRainRule
       tags: ['rain_rule']
-
-    App\Domain\Service\RainRatingService:
-      class: App\Domain\Service\RainRatingService
-      arguments: [!tagged 'rain_rule']
 
     App\Domain\Rule\Wind\AlotWindRule:
       class: App\Domain\Rule\Wind\AlotWindRule
@@ -99,6 +91,21 @@ services:
       class: App\Domain\Rule\Wind\TooMuchWindRule
       tags: ['wind_rule']
 
-    App\Domain\Service\WindRatingService:
-      class: App\Domain\Service\WindRatingService
+    TemperatureRatingService:
+      class: App\Domain\Service\RatingService
+      arguments: [!tagged 'temperature_rule']
+
+    RainRatingService:
+      class: App\Domain\Service\RatingService
+      arguments: [!tagged 'rain_rule']
+
+    WindRatingService:
+      class: App\Domain\Service\RatingService
       arguments: [!tagged 'wind_rule']
+
+    App\Application\Factory\WeatherRatingsDtoFactory:
+      class: App\Application\Factory\WeatherRatingsDtoFactory
+      arguments:
+        - '@TemperatureRatingService'
+        - '@RainRatingService'
+        - '@WindRatingService'

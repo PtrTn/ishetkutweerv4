@@ -4,31 +4,28 @@ namespace App\Application\Factory;
 
 use App\Domain\Dto\WeatherDto;
 use App\Domain\Dto\WeatherRatingsDto;
-use App\Domain\Service\RainRatingService;
-use App\Domain\Service\TemperatureRatingService;
-use App\Domain\Service\WindRatingService;
+use App\Domain\Service\RatingService;
 
 class WeatherRatingsDtoFactory
 {
     /**
-     * @var TemperatureRatingService
+     * @var RatingService
      */
     private $temperatureRatingService;
     /**
-     * @var RainRatingService
+     * @var RatingService
      */
     private $rainRatingService;
     /**
-     * @var WindRatingService
+     * @var RatingService
      */
     private $windRatingService;
 
     public function __construct(
-        TemperatureRatingService $temperatureRatingService,
-        RainRatingService $rainRatingService,
-        WindRatingService $windRatingService
-    )
-    {
+        RatingService $temperatureRatingService,
+        RatingService $rainRatingService,
+        RatingService $windRatingService
+    ) {
         $this->temperatureRatingService = $temperatureRatingService;
         $this->rainRatingService = $rainRatingService;
         $this->windRatingService = $windRatingService;

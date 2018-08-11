@@ -6,7 +6,7 @@ use App\Domain\Dto\WeatherDto;
 use App\Domain\Dto\WeatherRatingEnum;
 use App\Domain\Rule\WeatherRule;
 
-class TemperatureRatingService
+class RatingService
 {
     /**
      * @var WeatherRule[]|iterable
