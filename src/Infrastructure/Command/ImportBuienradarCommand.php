@@ -7,13 +7,17 @@ use App\Infrastructure\Factory\ImportJobEntityFactory;
 use App\Infrastructure\Factory\WeatherEntityFactory;
 use App\Infrastructure\Repository\ImportJobEntityRepository;
 use App\Infrastructure\Repository\WeatherEntityRepository;
+use Carbon\Carbon;
 use Exception;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class ImportBuienradarCommand extends Command
 {
+    private const IMPORT_INTERVAL_IN_MINUTES = 10;
+
     /**
      * @var WeatherQueryHandler
      */
@@ -53,19 +57,39 @@ class ImportBuienradarCommand extends Command
         $this->factory = $factory;
         $this->repository = $repository;
     }
-    
+
     protected function configure()
     {
         $this
             ->setName('import:buienradar')
             ->setDescription('Import data from the buienradar API')
             ->setHelp('This command will download data from xml.buienradar.nl and store it in the database')
-        ;
+            ->addOption('force', 'f', InputOption::VALUE_NONE, 'Force import disregarding last import job time');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $output->writeln('Starting Buienradar import');
+        if ($input->getOption('force') === false) {
+            $lastImportJob = $this->importJobEntityRepository->findLastSuccessfulImport();
+            if ($lastImportJob !== null) {
+                $lastImportDate = Carbon::instance($lastImportJob->created);
+                $diffInMinutes = $lastImportDate->diffInMinutes('now');
+
+                if ($diffInMinutes < self::IMPORT_INTERVAL_IN_MINUTES) {
+                    $output->writeln([
+                        'Skipping current import, because previous job was too recent',
+                        sprintf(
+                            'Last run was %s minutes ago, waiting %s minutes till next run',
+                            $diffInMinutes,
+                            self::IMPORT_INTERVAL_IN_MINUTES - $diffInMinutes
+                        )
+                    ]);
+                    return;
+                }
+            }
+        }
+
         $importJobEntity = $this->importJobEntityFactory->createPendingImportJobEntity();
         $this->importJobEntityRepository->save($importJobEntity);
 
