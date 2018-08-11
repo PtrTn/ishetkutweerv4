@@ -43,8 +43,8 @@ services:
     App\Application\Factory\WeatherDtoFactory:
         class: App\Application\Factory\WeatherDtoFactory
 
-    App\Application\Assembler\WeatherDtoRatingAssembler:
-      class: App\Application\Assembler\WeatherDtoRatingAssembler
+    App\Application\Assembler\WeatherRatingsDtoAssembler:
+      class: App\Application\Assembler\WeatherRatingsDtoAssembler
       tags: ['weather_dto_assembler']
 
     App\Application\Assembler\WeatherDtoBackgroundAssembler:
@@ -53,4 +53,20 @@ services:
 
     App\Application\Assembler\WeatherDtoAssemblerInterface:
       class: App\Application\Assembler\WeatherDtoAssemblerManager
-      arguments: [!tagged weather_dto_assembler]
+      arguments: [!tagged 'weather_dto_assembler']
+
+    App\Domain\Rule\Temperature\TooHotOrColdRule:
+      class: App\Domain\Rule\Temperature\TooHotOrColdRule
+      tags: ['temperature_rule']
+
+    App\Domain\Rule\Temperature\HotOrColdRule:
+      class: App\Domain\Rule\Temperature\HotOrColdRule
+      tags: ['temperature_rule']
+
+    App\Domain\Rule\Temperature\MildRule:
+      class: App\Domain\Rule\Temperature\MildRule
+      tags: ['temperature_rule']
+
+    App\Domain\Service\TemperatureRatingService:
+      class: App\Domain\Service\TemperatureRatingService
+      arguments: [!tagged 'temperature_rule']
