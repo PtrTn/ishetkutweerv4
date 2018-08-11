@@ -43,7 +43,21 @@ class WeatherQueryHandler
         $this->assembler = $assembler;
     }
 
-    public function getWeatherData(WeatherDataQuery $query): WeatherDto
+    /**
+     * @return WeatherDto[]
+     */
+    public function getWeatherData(): array
+    {
+        $data = $this->apiClient->getData();
+        $dtos = [];
+        foreach ($data->weergegevens->actueel_weer->weerstations as $weerstationDto) {
+            $dto = $this->factory->createFromWeerstationDto($weerstationDto);
+            $dtos[] = $this->assembler->assemble($dto);
+        }
+        return $dtos;
+    }
+
+    public function getWeatherDataByQuery(WeatherDataQuery $query): WeatherDto
     {
         $data = $this->apiClient->getData();
         $station = $this->distanceService->getClosestWeerstation($query->lat, $query->lon, $data);
