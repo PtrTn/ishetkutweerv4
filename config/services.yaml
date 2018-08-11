@@ -57,39 +57,48 @@ services:
 
     App\Domain\Rule\Temperature\TooHotOrColdRule:
       class: App\Domain\Rule\Temperature\TooHotOrColdRule
-      tags: ['temperature_rule']
+      tags:
+      - { name: 'temperature_rule', priority: 30 }
 
     App\Domain\Rule\Temperature\HotOrColdRule:
       class: App\Domain\Rule\Temperature\HotOrColdRule
-      tags: ['temperature_rule']
+      tags:
+      - { name: 'temperature_rule', priority: 20 }
 
     App\Domain\Rule\Temperature\MildRule:
       class: App\Domain\Rule\Temperature\MildRule
-      tags: ['temperature_rule']
+      tags:
+      - { name: 'temperature_rule', priority: 10 }
 
     App\Domain\Rule\Rain\TooMuchRainRule:
       class: App\Domain\Rule\Rain\TooMuchRainRule
-      tags: ['rain_rule']
-
-    App\Domain\Rule\Rain\SomeRainRule:
-      class: App\Domain\Rule\Rain\SomeRainRule
-      tags: ['rain_rule']
+      tags:
+      - { name: 'rain_rule', priority: 30 }
 
     App\Domain\Rule\Rain\AlotRainRule:
       class: App\Domain\Rule\Rain\AlotRainRule
-      tags: ['rain_rule']
+      tags:
+      - { name: 'rain_rule', priority: 20 }
 
-    App\Domain\Rule\Wind\AlotWindRule:
-      class: App\Domain\Rule\Wind\AlotWindRule
-      tags: ['wind_rule']
-
-    App\Domain\Rule\Wind\SomeWindRule:
-      class: App\Domain\Rule\Wind\SomeWindRule
-      tags: ['wind_rule']
+    App\Domain\Rule\Rain\SomeRainRule:
+      class: App\Domain\Rule\Rain\SomeRainRule
+      tags:
+      - { name: 'rain_rule', priority: 10 }
 
     App\Domain\Rule\Wind\TooMuchWindRule:
       class: App\Domain\Rule\Wind\TooMuchWindRule
-      tags: ['wind_rule']
+      tags:
+      - { name: 'wind_rule', priority: 30 }
+
+    App\Domain\Rule\Wind\AlotWindRule:
+      class: App\Domain\Rule\Wind\AlotWindRule
+      tags:
+      - { name: 'wind_rule', priority: 20 }
+
+    App\Domain\Rule\Wind\SomeWindRule:
+      class: App\Domain\Rule\Wind\SomeWindRule
+      tags:
+      - { name: 'wind_rule', priority: 10 }
 
     TemperatureRatingService:
       class: App\Domain\Service\RatingService
