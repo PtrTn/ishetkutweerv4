@@ -2,7 +2,6 @@
 
 namespace App\Application\Service;
 
-
 use App\Application\Dto\Buienradar\BuienradarnlDto;
 use App\Application\Dto\Buienradar\WeerstationDto;
 use Geokit\LatLng;
