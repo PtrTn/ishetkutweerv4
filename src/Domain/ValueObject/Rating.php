@@ -33,4 +33,8 @@ class Rating
     {
         return new self(1);
     }
+
+    public function getRating(): int {
+        return $this->rating;
+    }
 }

@@ -18,4 +18,13 @@ class WeatherEntityRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, WeatherEntity::class);
     }
+
+    public function saveEntities(array $entities)
+    {
+        $entityManager = $this->getEntityManager();
+        foreach ($entities as $entity) {
+            $entityManager->persist($entity);
+        }
+        $entityManager->flush();
+    }
 }

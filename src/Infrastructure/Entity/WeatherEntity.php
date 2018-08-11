@@ -2,13 +2,15 @@
 
 namespace App\Infrastructure\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Column;
+use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Id;
+use Doctrine\ORM\Mapping\Table;
 
 /**
- * @ORM\Entity(repositoryClass="App\Infrastructure\Repository\WeatherEntityRepository")
+ * @Entity(repositoryClass="App\Infrastructure\Repository\WeatherEntityRepository")
+ * @Table("Weather")
  */
 class WeatherEntity
 {
@@ -60,7 +62,19 @@ class WeatherEntity
      * @var int
      * @Column(type="integer")
      */
-    public $rating;
+    public $temperatureRating;
+
+    /**
+     * @var int
+     * @Column(type="integer")
+     */
+    public $rainRating;
+
+    /**
+     * @var int
+     * @Column(type="integer")
+     */
+    public $windRating;
 
     /**
      * @var string
