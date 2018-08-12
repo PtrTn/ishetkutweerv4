@@ -5,6 +5,7 @@ namespace App\Infrastructure\Repository;
 use App\Application\Repository\WeatherEntityRepositoryInterface;
 use App\Infrastructure\Entity\WeatherEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -27,5 +28,20 @@ class WeatherEntityRepository extends ServiceEntityRepository implements Weather
             $entityManager->persist($entity);
         }
         $entityManager->flush();
+    }
+
+    /**
+     * @return WeatherEntity[]
+     */
+    public function getLatestWeatherEntites(): array
+    {
+        $qb = $this->createQueryBuilder('w1');
+        $qb
+            ->select('w1')
+            ->leftJoin(WeatherEntity::class, 'w2', Join::WITH, 'w1.location = w2.location AND w1.date < w2.date')
+            ->where('w2.location IS NULL')
+            ->orderBy('w1.date', 'DESC')
+            ->orderBy('w1.location');
+        return $qb->getQuery()->execute();
     }
 }

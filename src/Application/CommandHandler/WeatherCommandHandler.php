@@ -5,7 +5,7 @@ namespace App\Application\CommandHandler;
 use App\Application\ApiClient\BuienradarApiClientInterface;
 use App\Application\Assembler\WeatherDtoAssemblerInterface;
 use App\Application\Factory\WeatherDtoFactoryInterface;
-use App\Application\Factory\WeatherEntityFactoryInterface;
+use App\Application\Mapper\WeatherEntityMapperInterface;
 use App\Application\Repository\WeatherEntityRepositoryInterface;
 
 class WeatherCommandHandler
@@ -26,7 +26,7 @@ class WeatherCommandHandler
     private $assembler;
 
     /**
-     * @var WeatherEntityFactoryInterface
+     * @var WeatherEntityMapperInterface
      */
     private $entityFactory;
 
@@ -39,7 +39,7 @@ class WeatherCommandHandler
         BuienradarApiClientInterface $apiClient,
         WeatherDtoFactoryInterface $dtoFactory,
         WeatherDtoAssemblerInterface $assembler,
-        WeatherEntityFactoryInterface $entityFactory,
+        WeatherEntityMapperInterface $entityFactory,
         WeatherEntityRepositoryInterface $entityRepository
     ) {
         $this->apiClient = $apiClient;
@@ -51,22 +51,14 @@ class WeatherCommandHandler
 
     public function storeWeatherData()
     {
-        $dtos = $this->getWeatherData();
-        $entities = [];
-        foreach ($dtos as $dto) {
-            $entities[] = $this->entityFactory->createFromWeatherDto($dto);
-        }
-        $this->entityRepository->saveEntities($entities);
-    }
-
-    private function getWeatherData()
-    {
         $data = $this->apiClient->getData();
-        $dtos = [];
+
+        $entities = [];
         foreach ($data->weergegevens->actueel_weer->weerstations as $weerstationDto) {
             $dto = $this->dtoFactory->createFromWeerstationDto($weerstationDto);
-            $dtos[] = $this->assembler->assemble($dto);
+            $dto = $this->assembler->assemble($dto);
+            $entities[] = $this->entityFactory->createEntityFromDto($dto);
         }
-        return $dtos;
+        $this->entityRepository->saveEntities($entities);
     }
 }
