@@ -2,11 +2,9 @@
 
 namespace App\Infrastructure\Command;
 
-use App\Application\QueryHandler\WeatherQueryHandler;
+use App\Application\CommandHandler\WeatherCommandHandler;
 use App\Infrastructure\Factory\ImportJobEntityFactory;
-use App\Infrastructure\Factory\WeatherEntityFactory;
 use App\Infrastructure\Repository\ImportJobEntityRepository;
-use App\Infrastructure\Repository\WeatherEntityRepository;
 use Carbon\Carbon;
 use Exception;
 use Symfony\Component\Console\Command\Command;
@@ -19,21 +17,6 @@ class ImportBuienradarCommand extends Command
     private const IMPORT_INTERVAL_IN_MINUTES = 10;
 
     /**
-     * @var WeatherQueryHandler
-     */
-    private $queryHandler;
-
-    /**
-     * @var WeatherEntityFactory
-     */
-    private $factory;
-
-    /**
-     * @var WeatherEntityRepository
-     */
-    private $repository;
-
-    /**
      * @var ImportJobEntityFactory
      */
     private $importJobEntityFactory;
@@ -43,19 +26,20 @@ class ImportBuienradarCommand extends Command
      */
     private $importJobEntityRepository;
 
+    /**
+     * @var WeatherCommandHandler
+     */
+    private $commandHandler;
+
     public function __construct(
         ImportJobEntityFactory $importJobEntityFactory,
         ImportJobEntityRepository $importJobEntityRepository,
-        WeatherQueryHandler $queryHandler,
-        WeatherEntityFactory $factory,
-        WeatherEntityRepository $repository
+        WeatherCommandHandler $commandHandler
     ) {
         parent::__construct();
         $this->importJobEntityFactory = $importJobEntityFactory;
         $this->importJobEntityRepository = $importJobEntityRepository;
-        $this->queryHandler = $queryHandler;
-        $this->factory = $factory;
-        $this->repository = $repository;
+        $this->commandHandler = $commandHandler;
     }
 
     protected function configure()
@@ -79,16 +63,8 @@ class ImportBuienradarCommand extends Command
         $this->importJobEntityRepository->save($importJobEntity);
 
         try {
-            $output->writeln('Loading and processing API data');
-            $dtos = $this->queryHandler->getWeatherData();
-            $output->writeln(sprintf('Processed data for %s weerstations', count($dtos)));
-
-            $output->writeln('Storing processed data in the database');
-            $entities = [];
-            foreach ($dtos as $dto) {
-                $entities[] = $this->factory->createFromWeatherDto($dto);
-            }
-            $this->repository->saveEntities($entities);
+            $output->writeln('Importing and storing Buienradar data');
+            $this->commandHandler->storeWeatherData();
         } catch (Exception $e) {
             $importJobEntity->setStatusFailedWithMessage($e->getMessage());
             $this->importJobEntityRepository->save($importJobEntity);

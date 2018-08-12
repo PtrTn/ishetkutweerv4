@@ -2,10 +2,11 @@
 
 namespace App\Infrastructure\Factory;
 
+use App\Application\Factory\WeatherEntityFactoryInterface;
 use App\Domain\Dto\WeatherDto;
 use App\Infrastructure\Entity\WeatherEntity;
 
-class WeatherEntityFactory
+class WeatherEntityFactory implements WeatherEntityFactoryInterface
 {
     public function createFromWeatherDto(WeatherDto $dto): WeatherEntity
     {
