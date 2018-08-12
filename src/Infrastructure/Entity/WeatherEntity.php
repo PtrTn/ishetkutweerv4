@@ -26,7 +26,25 @@ class WeatherEntity
      * @var string
      * @Column(type="string", length=255)
      */
-    public $location;
+    public $region;
+
+    /**
+     * @var string
+     * @Column(type="string", length=255)
+     */
+    public $stationName;
+
+    /**
+     * @var string
+     * @Column(type="float")
+     */
+    public $lat;
+
+    /**
+     * @var float
+     * @Column(type="float")
+     */
+    public $lon;
 
     /**
      * @var \DateTimeImmutable

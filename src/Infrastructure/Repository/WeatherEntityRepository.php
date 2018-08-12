@@ -38,10 +38,10 @@ class WeatherEntityRepository extends ServiceEntityRepository implements Weather
         $qb = $this->createQueryBuilder('w1');
         $qb
             ->select('w1')
-            ->leftJoin(WeatherEntity::class, 'w2', Join::WITH, 'w1.location = w2.location AND w1.date < w2.date')
-            ->where('w2.location IS NULL')
+            ->leftJoin(WeatherEntity::class, 'w2', Join::WITH, 'w1.region = w2.region AND w1.date < w2.date')
+            ->where('w2.region IS NULL')
             ->orderBy('w1.date', 'DESC')
-            ->orderBy('w1.location');
+            ->orderBy('w1.region');
         return $qb->getQuery()->execute();
     }
 }

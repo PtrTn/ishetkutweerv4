@@ -5,7 +5,7 @@ namespace App\Domain\Dto;
 class WeatherDto
 {
     /**
-     * @var string
+     * @var LocationDto
      */
     public $location;
 
