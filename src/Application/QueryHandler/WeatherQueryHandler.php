@@ -37,7 +37,7 @@ class WeatherQueryHandler
 
     public function getWeatherDataByQuery(WeatherDataQuery $query): WeatherDto
     {
-        $entities = $this->entityRepository->getLatestWeatherEntites();
+        $entities = $this->entityRepository->getLatestEntites();
         $dtos = [];
         foreach ($entities as $entity) {
             $dtos[] = $this->entityMapper->createDtoFromEntity($entity);

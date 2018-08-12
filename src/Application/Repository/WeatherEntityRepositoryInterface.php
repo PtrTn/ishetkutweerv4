@@ -6,5 +6,5 @@ interface WeatherEntityRepositoryInterface
 {
     public function saveEntities(array $entities): void;
 
-    public function getLatestWeatherEntites(): array;
+    public function getLatestEntites(): array;
 }

@@ -33,7 +33,7 @@ class WeatherEntityRepository extends ServiceEntityRepository implements Weather
     /**
      * @return WeatherEntity[]
      */
-    public function getLatestWeatherEntites(): array
+    public function getLatestEntites(): array
     {
         $qb = $this->createQueryBuilder('w1');
         $qb
