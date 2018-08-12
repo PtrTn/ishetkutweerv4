@@ -30,18 +30,44 @@ class WeatherEntityRepository extends ServiceEntityRepository implements Weather
         $entityManager->flush();
     }
 
+    public function deleteEntities(array $entities): void
+    {
+        $entityManager = $this->getEntityManager();
+        foreach ($entities as $entity) {
+            $entityManager->remove($entity);
+        }
+        $entityManager->flush();
+    }
+
     /**
      * @return WeatherEntity[]
      */
     public function getLatestEntites(): array
     {
         $qb = $this->createQueryBuilder('w1');
-        $qb
+        return $qb
             ->select('w1')
             ->leftJoin(WeatherEntity::class, 'w2', Join::WITH, 'w1.region = w2.region AND w1.date < w2.date')
             ->where('w2.region IS NULL')
             ->orderBy('w1.date', 'DESC')
-            ->orderBy('w1.region');
-        return $qb->getQuery()->execute();
+            ->orderBy('w1.region')
+            ->groupBy('w1.region')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getOutdatedEntities(): array
+    {
+        $latestEntities = $this->getLatestEntites();
+        $entityIds = array_map(function (WeatherEntity $entity) {
+            return $entity->id;
+        }, $latestEntities);
+
+        $qb = $this->createQueryBuilder('w');
+        return $qb
+            ->select('w')
+            ->where($qb->expr()->notIn('w.id', $entityIds))
+            ->getQuery()
+            ->getResult();
     }
 }
