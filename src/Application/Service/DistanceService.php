@@ -2,12 +2,11 @@
 
 namespace App\Application\Service;
 
-use App\Application\Dto\Buienradar\BuienradarnlDto;
-use App\Application\Dto\Buienradar\WeerstationDto;
+use App\Domain\Dto\WeatherDto;
 use Geokit\LatLng;
 use Geokit\Math;
 
-class BuienradarDistanceService
+class DistanceService
 {
     /**
      * @var Math
@@ -19,20 +18,26 @@ class BuienradarDistanceService
         $this->math = $math;
     }
 
-    public function getClosestWeerstation(float $latA, float $lonA, BuienradarnlDto $data): ?WeerstationDto
+    /**
+     * @param float $latA
+     * @param float $lonA
+     * @param WeatherDto[] $weatherDtos
+     * @return WeatherDto|null
+     */
+    public function getClosestWeerstation(array $weatherDtos, float $latA, float $lonA): ?WeatherDto
     {
         $closestStation = null;
         $closestDistance = null;
-        foreach ($data->weergegevens->actueel_weer->weerstations as $weerstation) {
+        foreach ($weatherDtos as $dto) {
             $distance = $this->getDistance(
                 $latA,
                 $lonA,
-                floatval($weerstation->lat),
-                floatval($weerstation->lon)
+                floatval($dto->location->lat),
+                floatval($dto->location->lon)
             );
             if (!isset($closestDistance) || $distance < $closestDistance) {
                 $closestDistance = $distance;
-                $closestStation = $weerstation;
+                $closestStation = $dto;
             }
         }
         return $closestStation;

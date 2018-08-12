@@ -5,7 +5,7 @@ namespace App\Application\QueryHandler;
 use App\Application\Mapper\WeatherEntityMapperInterface;
 use App\Application\Query\WeatherDataQuery;
 use App\Application\Repository\WeatherEntityRepositoryInterface;
-use App\Application\Service\BuienradarDistanceService;
+use App\Application\Service\DistanceService;
 use App\Domain\Dto\WeatherDto;
 
 class WeatherQueryHandler
@@ -21,14 +21,14 @@ class WeatherQueryHandler
     private $entityMapper;
 
     /**
-     * @var BuienradarDistanceService
+     * @var DistanceService
      */
     private $distanceService;
 
     public function __construct(
         WeatherEntityRepositoryInterface $entityRepository,
         WeatherEntityMapperInterface $entityMapper,
-        BuienradarDistanceService $distanceService
+        DistanceService $distanceService
     ) {
         $this->entityRepository = $entityRepository;
         $this->entityMapper = $entityMapper;
@@ -42,7 +42,6 @@ class WeatherQueryHandler
         foreach ($entities as $entity) {
             $dtos[] = $this->entityMapper->createDtoFromEntity($entity);
         }
-        return reset($dtos);
-        // todo: return $this->distanceService->getClosestWeerstation($query->lat, $query->lon, $dtos);
+         return $this->distanceService->getClosestWeerstation($dtos, $query->lat, $query->lon);
     }
 }
