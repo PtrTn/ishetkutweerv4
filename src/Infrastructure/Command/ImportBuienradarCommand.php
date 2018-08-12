@@ -70,24 +70,9 @@ class ImportBuienradarCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $output->writeln('Starting Buienradar import');
-        if ($input->getOption('force') === false) {
-            $lastImportJob = $this->importJobEntityRepository->findLastSuccessfulImport();
-            if ($lastImportJob !== null) {
-                $lastImportDate = Carbon::instance($lastImportJob->created);
-                $diffInMinutes = $lastImportDate->diffInMinutes('now');
 
-                if ($diffInMinutes < self::IMPORT_INTERVAL_IN_MINUTES) {
-                    $output->writeln([
-                        'Skipping current import, because previous job was too recent',
-                        sprintf(
-                            'Last run was %s minutes ago, waiting %s minutes till next run',
-                            $diffInMinutes,
-                            self::IMPORT_INTERVAL_IN_MINUTES - $diffInMinutes
-                        )
-                    ]);
-                    return;
-                }
-            }
+        if ($this->shouldSkip($input, $output)) {
+            return;
         }
 
         $importJobEntity = $this->importJobEntityFactory->createPendingImportJobEntity();
@@ -114,5 +99,38 @@ class ImportBuienradarCommand extends Command
         $importJobEntity->setStatusSuccess();
         $this->importJobEntityRepository->save($importJobEntity);
         $output->writeln('Successfully finished Buienradar import');
+    }
+
+    private function shouldSkip(InputInterface $input, OutputInterface $output): bool
+    {
+        if ($input->getOption('force') === true) {
+            $output->writeln('Forcing import disregarding last job run');
+            return false;
+        }
+
+        $lastImportJob = $this->importJobEntityRepository->findLastSuccessfulImport();
+        if ($lastImportJob === null) {
+            $output->writeln('Importing since no last job run could be found');
+            return false;
+        }
+
+        $lastImportDate = Carbon::instance($lastImportJob->created);
+        $diffInMinutes = $lastImportDate->diffInMinutes('now');
+
+        if ($diffInMinutes > self::IMPORT_INTERVAL_IN_MINUTES) {
+            $output->writeln(sprintf('Importing since last import was %s minutes ago', $diffInMinutes));
+            return false;
+        }
+
+        $output->writeln([
+            'Skipping current import, because previous job was too recent',
+            sprintf(
+                'Last run was %s minutes ago, waiting %s minutes till next run',
+                $diffInMinutes,
+                self::IMPORT_INTERVAL_IN_MINUTES - $diffInMinutes
+            )
+        ]);
+
+        return true;
     }
 }
