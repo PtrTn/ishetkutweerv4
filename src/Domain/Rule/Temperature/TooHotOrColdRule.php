@@ -10,6 +10,9 @@ class TooHotOrColdRule implements WeatherRule
 {
     public function matches(WeatherDto $dto): bool
     {
+        if (!isset($dto->temperature)) {
+            return false;
+        }
         return $dto->temperature > 30 || $dto->temperature < 0;
     }
 

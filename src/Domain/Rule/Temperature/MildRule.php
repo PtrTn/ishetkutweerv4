@@ -10,7 +10,7 @@ class MildRule implements WeatherRule
 {
     public function matches(WeatherDto $dto): bool
     {
-        return $dto->temperature < 10;
+        return isset($dto->temperature) && $dto->temperature < 10;
     }
 
     public function getRating(WeatherDto $dto): Rating

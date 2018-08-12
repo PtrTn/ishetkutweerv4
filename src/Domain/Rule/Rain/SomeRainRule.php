@@ -10,7 +10,7 @@ class SomeRainRule implements WeatherRule
 {
     public function matches(WeatherDto $dto): bool
     {
-        return $dto->rain > 0;
+        return isset($dto->rain) && $dto->rain > 0;
     }
 
     public function getRating(WeatherDto $dto): Rating

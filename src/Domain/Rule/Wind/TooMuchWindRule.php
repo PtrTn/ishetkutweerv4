@@ -10,7 +10,7 @@ class TooMuchWindRule implements WeatherRule
 {
     public function matches(WeatherDto $dto): bool
     {
-        return $dto->windSpeed > 9;
+        return isset($dto->windSpeed) && $dto->windSpeed > 9;
     }
 
     public function getRating(WeatherDto $dto): Rating

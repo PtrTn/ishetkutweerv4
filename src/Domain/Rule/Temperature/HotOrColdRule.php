@@ -10,7 +10,10 @@ class HotOrColdRule implements WeatherRule
 {
     public function matches(WeatherDto $dto): bool
     {
-        return $dto->temperature > 30 || $dto->temperature < -10;
+        if (!isset($dto->temperature)) {
+            return false;
+        }
+        return ($dto->temperature > 30 || $dto->temperature < -10);
     }
 
     public function getRating(WeatherDto $dto): Rating

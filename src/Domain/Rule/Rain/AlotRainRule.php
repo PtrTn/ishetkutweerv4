@@ -10,7 +10,7 @@ class AlotRainRule implements WeatherRule
 {
     public function matches(WeatherDto $dto): bool
     {
-        return $dto->rain > 10;
+        return isset($dto->rain) && $dto->rain > 10;
     }
 
     public function getRating(WeatherDto $dto): Rating
