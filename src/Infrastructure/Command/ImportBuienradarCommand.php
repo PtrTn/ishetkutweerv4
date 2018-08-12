@@ -54,13 +54,14 @@ class ImportBuienradarCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $output->writeln('Starting Buienradar import');
-
-        if ($this->shouldSkip($input, $output)) {
-            return;
-        }
-
         $importJobEntity = $this->importJobEntityFactory->createPendingImportJobEntity();
         $this->importJobEntityRepository->save($importJobEntity);
+
+        if ($this->shouldSkip($input, $output)) {
+            $importJobEntity->setStatusSkipped();
+            $this->importJobEntityRepository->save($importJobEntity);
+            return;
+        }
 
         try {
             $output->writeln('Importing and storing Buienradar data');

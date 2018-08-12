@@ -20,6 +20,8 @@ class ImportJobEntity
 
     public const STATUS_SUCCESS = 'success';
 
+    public const STATUS_SKIPPED = 'skipped';
+
     /**
      * @var int
      * @Id
@@ -36,7 +38,7 @@ class ImportJobEntity
 
     /**
      * @var bool
-     * @Column(type="string", columnDefinition="ENUM('pending', 'failed', 'success')")
+     * @Column(type="string", columnDefinition="ENUM('pending', 'failed', 'success', 'skipped')")
      */
     public $status;
 
@@ -49,6 +51,11 @@ class ImportJobEntity
     public function setStatusSuccess(): void
     {
         $this->status = self::STATUS_SUCCESS;
+    }
+
+    public function setStatusSkipped(): void
+    {
+        $this->status = self::STATUS_SKIPPED;
     }
 
     public function setStatusFailedWithMessage(string $message): void
