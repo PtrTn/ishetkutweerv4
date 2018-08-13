@@ -127,3 +127,8 @@ services:
        - '@filesystem'
        - '%kernel.project_dir%/var/download'
        - '%kernel.project_dir%/var/data'
+
+    GeoIp2\Database\Reader:
+      class: GeoIp2\Database\Reader
+      arguments:
+      - '%kernel.project_dir%/var/data/GeoLite2-City.mmdb'
