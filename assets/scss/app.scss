@@ -1,1 +1,5 @@
-@import 'general';
+@import '~materialize-css/sass/materialize';
+@import '~weathericons/sass/weather-icons.scss';
+@import 'variables';
+@import 'helper/background-color';
+@import 'components/weather-card';

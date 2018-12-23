@@ -31,12 +31,12 @@ class HomeController extends Abstractcontroller
 
     public function index(Request $request)
     {
+        return $this->render('home.html.twig');
         $ip = $request->getClientIp();
         $location = $this->ipLocator->getLocationForIp($ip);
         $data = $this->queryHandler->getWeatherDataByQuery(
             new WeatherDataQuery($location->lat, $location->lon)
         );
         var_dump($data);
-        return $this->render('home.html.twig');
     }
 }
