@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Domain\Rule\Rain;
+namespace App\Tests\Unit\Domain\Rule\Rain;
 
 use App\Domain\Dto\WeatherDto;
 use App\Domain\Rule\Temperature\HotOrColdRule;

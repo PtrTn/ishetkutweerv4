@@ -1,32 +1,36 @@
 <?php
 
-namespace App\Tests\Domain\Rule\Rain;
+namespace App\Tests\Unit\Domain\Rule\Rain;
 
 use App\Domain\Dto\WeatherDto;
-use App\Domain\Rule\Rain\SomeRainRule;
+use App\Domain\Rule\Rain\AlotRainRule;
 use App\Domain\ValueObject\Rating;
 use PHPUnit\Framework\TestCase;
 
-class SomeRainRuleTest extends TestCase
+class AlotRainRuleTest extends TestCase
 {
     /**
-     * @var SomeRainRule
+     * @var AlotRainRule
      */
     private $rule;
 
     public function setUp()
     {
-        $this->rule = new SomeRainRule();
+        $this->rule = new AlotRainRule();
     }
 
     /**
      * @test
      */
-    public function shouldReturnBeetjeKutRating()
+    public function shouldReturnKutRating()
     {
         $rating = $this->rule->getRating(new WeatherDto());
 
-        $this->assertEquals(Rating::beetjeKut(), $rating, 'Expected a some rain to return a beetje kut rating');
+        $this->assertEquals(
+            Rating::kut(),
+            $rating,
+            'Expected a lot of rain to return a kut rating'
+        );
     }
 
     /**
@@ -39,20 +43,26 @@ class SomeRainRuleTest extends TestCase
 
         $matched = $this->rule->matches($dto);
 
-        $this->assertTrue($matched, 'Some rain rule should match for 15mm rain');
+        $this->assertTrue(
+            $matched,
+            'Alot of rain rule should match for 15mm rain'
+        );
     }
 
     /**
      * @test
      */
-    public function shouldMatchForALittleRain()
+    public function shouldNotMatchForALittleRain()
     {
         $dto = new WeatherDto();
         $dto->rain = 5.0;
 
         $matched = $this->rule->matches($dto);
 
-        $this->assertTrue($matched, 'Some rain rule should match for 5mm rain');
+        $this->assertFalse(
+            $matched,
+            'Alot of rain rule should not match for 5mm rain'
+        );
     }
 
     /**
@@ -65,7 +75,10 @@ class SomeRainRuleTest extends TestCase
 
         $matched = $this->rule->matches($dto);
 
-        $this->assertFalse($matched, 'Some rain rule should not match for 0mm rain');
+        $this->assertFalse(
+            $matched,
+            'Alot of rain rule should not match for 0mm rain'
+        );
     }
 
     /**
@@ -74,10 +87,13 @@ class SomeRainRuleTest extends TestCase
     public function shouldNotMatchForUnknownRain()
     {
         $dto = new WeatherDto();
-        $dto->rain = NULL;
+        $dto->rain = null;
 
         $matched = $this->rule->matches($dto);
 
-        $this->assertFalse($matched, 'Some rain rule should not match for an unknown amount rain');
+        $this->assertFalse(
+            $matched,
+            'Alot of rain rule should not match for an unknown amount rain'
+        );
     }
 }
