@@ -5,9 +5,9 @@ namespace App\Tests\Integration\Domain\Service;
 use App\Domain\Dto\WeatherDto;
 use App\Domain\Service\RatingService;
 use App\Domain\ValueObject\Rating;
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
-class WindRatingServiceTest extends WebTestCase
+class WindRatingServiceTest extends KernelTestCase
 {
     /**
      * @var RatingService
