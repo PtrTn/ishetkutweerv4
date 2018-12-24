@@ -13,11 +13,11 @@ class HotOrColdRule implements WeatherRule
         if (!isset($dto->temperature)) {
             return false;
         }
-        return ($dto->temperature > 30 || $dto->temperature < -10);
+        return ($dto->temperature > 30 || $dto->temperature < 0);
     }
 
     public function getRating(WeatherDto $dto): Rating
     {
-        return Rating::megaKut();
+        return Rating::kut();
     }
 }

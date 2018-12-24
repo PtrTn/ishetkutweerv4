@@ -3,20 +3,20 @@
 namespace App\Tests\Domain\Rule\Rain;
 
 use App\Domain\Dto\WeatherDto;
-use App\Domain\Rule\Rain\AlotRainRule;
+use App\Domain\Rule\Temperature\HotOrColdRule;
 use App\Domain\ValueObject\Rating;
 use PHPUnit\Framework\TestCase;
 
-class AlotRainRuleTest extends TestCase
+class HotOrColdRuleTest extends TestCase
 {
     /**
-     * @var AlotRainRule
+     * @var HotOrColdRule
      */
     private $rule;
 
     public function setUp()
     {
-        $this->rule = new AlotRainRule();
+        $this->rule = new HotOrColdRule();
     }
 
     /**
@@ -29,71 +29,71 @@ class AlotRainRuleTest extends TestCase
         $this->assertEquals(
             Rating::kut(),
             $rating,
-            'Expected a lot of rain to return a kut rating'
+            'Expected hot or cold rule to return a kut rating'
         );
     }
 
     /**
      * @test
      */
-    public function shouldMatchForAlotRain()
+    public function shouldMatchForHotTemperature()
     {
         $dto = new WeatherDto();
-        $dto->rain = 15.0;
+        $dto->temperature = 35.0;
 
         $matched = $this->rule->matches($dto);
 
         $this->assertTrue(
             $matched,
-            'Alot of rain rule should match for 15mm rain'
+            'Hot or cold rule should match for 35 degrees'
         );
     }
 
     /**
      * @test
      */
-    public function shouldNotMatchForALittleRain()
+    public function shouldMatchForColdTemperature()
     {
         $dto = new WeatherDto();
-        $dto->rain = 5.0;
+        $dto->temperature = -15.0;
 
         $matched = $this->rule->matches($dto);
 
-        $this->assertFalse(
+        $this->assertTrue(
             $matched,
-            'Alot of rain rule should not match for 5mm rain'
+            'Hot or cold rule should match for minus 15 degrees'
         );
     }
 
     /**
      * @test
      */
-    public function shouldNotMatchForNoRain()
+    public function shouldNotMatchForMildTemperatures()
     {
         $dto = new WeatherDto();
-        $dto->rain = 0;
+        $dto->temperature = 15.0;
 
         $matched = $this->rule->matches($dto);
 
         $this->assertFalse(
             $matched,
-            'Alot of rain rule should not match for 0mm rain'
+            'Hot or cold rule should not match for 15 degrees'
         );
     }
 
     /**
      * @test
      */
-    public function shouldNotMatchForUnknownRain()
+    public function shouldNotMatchForUnknownTemperatures()
     {
         $dto = new WeatherDto();
-        $dto->rain = null;
+        $dto->temperature = NULL;
 
         $matched = $this->rule->matches($dto);
 
         $this->assertFalse(
             $matched,
-            'Alot of rain rule should not match for an unknown amount rain'
+            'Hot or cold rule should not match for an unknown temperatures'
         );
     }
 }
