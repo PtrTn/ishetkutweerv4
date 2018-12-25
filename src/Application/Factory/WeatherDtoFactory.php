@@ -19,7 +19,7 @@ class WeatherDtoFactory implements WeatherDtoFactoryInterface
 
         $locationDto = new LocationDto();
         $locationDto->region = $weerstationDto->stationnaam->regio;
-        $locationDto->stationName = $weerstationDto->stationnaam->regio;
+        $locationDto->stationName = $weerstationDto->stationnaam->stationnaam;
         $locationDto->lat = $weerstationDto->lat;
         $locationDto->lon = $weerstationDto->lon;
         $dto->location = $locationDto;
