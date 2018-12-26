@@ -19,19 +19,19 @@ class DistanceService
     }
 
     /**
-     * @param float $latA
-     * @param float $lonA
+     * @param float $targetLat
+     * @param float $targetLon
      * @param WeatherDto[] $weatherDtos
      * @return WeatherDto|null
      */
-    public function getClosestWeerstation(array $weatherDtos, float $latA, float $lonA): ?WeatherDto
+    public function getClosestWeerstation(array $weatherDtos, float $targetLat, float $targetLon): ?WeatherDto
     {
         $closestStation = null;
         $closestDistance = null;
         foreach ($weatherDtos as $dto) {
             $distance = $this->getDistance(
-                $latA,
-                $lonA,
+                $targetLat,
+                $targetLon,
                 floatval($dto->location->lat),
                 floatval($dto->location->lon)
             );
