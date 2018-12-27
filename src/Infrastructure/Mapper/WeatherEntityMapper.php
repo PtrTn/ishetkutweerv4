@@ -6,6 +6,7 @@ use App\Application\Mapper\WeatherEntityMapperInterface;
 use App\Domain\Dto\LocationDto;
 use App\Domain\Dto\WeatherDto;
 use App\Domain\Dto\WeatherRatingDto;
+use App\Domain\ValueObject\Rating;
 use App\Infrastructure\Entity\WeatherEntity;
 
 class WeatherEntityMapper implements WeatherEntityMapperInterface
@@ -47,9 +48,9 @@ class WeatherEntityMapper implements WeatherEntityMapperInterface
         $dto->location = $locationDto;
 
         $ratingDto = new WeatherRatingDto();
-        $ratingDto->temperatureRating = $entity->temperatureRating;
-        $ratingDto->rainRating = $entity->rainRating;
-        $ratingDto->windRating = $entity->windRating;
+        $ratingDto->temperatureRating = new Rating($entity->temperatureRating);
+        $ratingDto->rainRating = new Rating($entity->rainRating);
+        $ratingDto->windRating = new Rating($entity->windRating);
         $dto->rating = $ratingDto;
 
         return $dto;
