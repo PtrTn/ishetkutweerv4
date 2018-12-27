@@ -7,18 +7,12 @@ use App\Infrastructure\ApiClient\BuienradarApiClient;
 use GuzzleHttp\Client;
 use JMS\Serializer\SerializerInterface;
 use Mockery;
-use PHPUnit\Framework\TestCase;
+use Mockery\Adapter\Phpunit\MockeryTestCase;
 use Psr\Http\Message\ResponseInterface;
 use RuntimeException;
 
-class BuienradarApiClientTest extends TestCase
+class BuienradarApiClientTest extends MockeryTestCase
 {
-
-    public function tearDown()
-    {
-        Mockery::close();
-    }
-
     /**
      * @test
      */

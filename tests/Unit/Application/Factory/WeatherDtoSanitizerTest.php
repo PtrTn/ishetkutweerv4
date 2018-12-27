@@ -8,15 +8,10 @@ use App\Application\Factory\WeatherDtoFactory;
 use App\Application\Factory\WeatherDtoSanitizer;
 use DateTimeImmutable;
 use Mockery;
-use PHPUnit\Framework\TestCase;
+use Mockery\Adapter\Phpunit\MockeryTestCase;
 
-class WeatherDtoSanitizerTest extends TestCase
+class WeatherDtoSanitizerTest extends MockeryTestCase
 {
-    public function tearDown()
-    {
-        Mockery::close();
-    }
-
     /**
      * @test
      */
