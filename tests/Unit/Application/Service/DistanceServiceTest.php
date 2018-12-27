@@ -2,9 +2,6 @@
 
 namespace App\Tests\Unit\Application\Service;
 
-use App\Application\Dto\Buienradar\StationnaamDto;
-use App\Application\Dto\Buienradar\WeerstationDto;
-use App\Application\Factory\WeatherDtoFactory;
 use App\Application\Service\DistanceService;
 use App\Domain\Dto\LocationDto;
 use App\Domain\Dto\WeatherDto;
