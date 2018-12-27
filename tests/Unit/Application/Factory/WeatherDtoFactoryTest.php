@@ -33,6 +33,10 @@ class WeatherDtoFactoryTest extends TestCase
         $lat = '51.50';
         $lon = '6.20';
 
+        $stationnaamDto = new StationnaamDto();
+        $stationnaamDto->regio = $region;
+        $stationnaamDto->stationnaam = $station;
+
         $weerstationDto = new WeerstationDto();
         $weerstationDto->datum = new \DateTimeImmutable();
         $weerstationDto->temperatuur10cm = $temperature;
@@ -41,10 +45,6 @@ class WeatherDtoFactoryTest extends TestCase
         $weerstationDto->regenMMPU = $rain;
         $weerstationDto->lat = $lat;
         $weerstationDto->lon = $lon;
-
-        $stationnaamDto = new StationnaamDto();
-        $stationnaamDto->regio = $region;
-        $stationnaamDto->stationnaam = $station;
         $weerstationDto->stationnaam = $stationnaamDto;
 
         $weatherDto = $this->factory->createFromWeerstationDto($weerstationDto);
