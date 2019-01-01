@@ -2,7 +2,7 @@
 
 namespace App\Infrastructure\Command;
 
-use App\Infrastructure\Downloader\GeoLiteDownloader;
+use App\Infrastructure\Downloader\GeoLite2Downloader;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -10,11 +10,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 class DownloadIpDataCommand extends Command
 {
     /**
-     * @var GeoLiteDownloader
+     * @var GeoLite2Downloader
      */
     private $downloader;
 
-    public function __construct(GeoLiteDownloader $downloader)
+    public function __construct(GeoLite2Downloader $downloader)
     {
         parent::__construct();
         $this->downloader = $downloader;

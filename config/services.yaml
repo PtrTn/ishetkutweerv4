@@ -125,7 +125,14 @@ services:
       arguments:
        - '@GuzzleHttp\Client'
        - '@filesystem'
-       - '%kernel.project_dir%/var/download'
+       - '%kernel.project_dir%/var/tmp'
+       - '%kernel.project_dir%/var/data'
+
+    App\Infrastructure\FileStorage\FileStorage:
+      class: App\Infrastructure\FileStorage\FileStorage
+      arguments:
+       - '@filesystem'
+       - '%kernel.project_dir%/var/tmp'
        - '%kernel.project_dir%/var/data'
 
     GeoIp2\Database\Reader:
