@@ -149,6 +149,9 @@
     "psr/simple-cache": {
         "version": "1.0.1"
     },
+    "ralouphie/getallheaders": {
+        "version": "2.0.5"
+    },
     "symfony/cache": {
         "version": "v4.1.2"
     },
@@ -163,6 +166,9 @@
             "version": "3.3",
             "ref": "e3868d2f4a5104f19f844fe551099a00c6562527"
         }
+    },
+    "symfony/contracts": {
+        "version": "v1.0.2"
     },
     "symfony/debug": {
         "version": "v4.1.2"
@@ -248,6 +254,9 @@
             "ref": "cda8b550123383d25827705d05a42acf6819fe4e"
         }
     },
+    "symfony/stopwatch": {
+        "version": "v4.2.2"
+    },
     "symfony/translation": {
         "version": "3.3",
         "recipe": {
@@ -256,6 +265,9 @@
             "version": "3.3",
             "ref": "6bcd6c570c017ea6ae5a7a6a027c929fd3542cd8"
         }
+    },
+    "symfony/var-exporter": {
+        "version": "v4.2.2"
     },
     "symfony/web-server-bundle": {
         "version": "3.3",
