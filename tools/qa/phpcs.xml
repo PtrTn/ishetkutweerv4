@@ -19,6 +19,10 @@
     <file>../../src</file>
     <file>../../tests</file>
 
+    <rule ref="Generic.Files.LineLength.TooLong">
+        <exclude-pattern>Version*.php</exclude-pattern>
+    </rule>
+
     <!-- function foo(): int -->
     <rule ref="SlevomatCodingStandard.TypeHints.ReturnTypeHintSpacing">
         <properties>
@@ -29,5 +33,10 @@
     <!-- Don't force a space: ! false -->
     <rule ref="Generic.Formatting.SpaceAfterNot">
         <exclude name="Generic.Formatting.SpaceAfterNot.Incorrect"/>
+    </rule>
+
+    <!-- Allow for interfaces to be suffixed with 'interface' -->
+    <rule ref="SlevomatCodingStandard.Classes.SuperfluousInterfaceNaming.SuperfluousSuffix">
+        <exclude name="SlevomatCodingStandard.Classes.SuperfluousInterfaceNaming.SuperfluousSuffix"/>
     </rule>
 </ruleset>
