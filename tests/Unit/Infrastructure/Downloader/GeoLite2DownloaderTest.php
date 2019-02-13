@@ -3,7 +3,6 @@
 namespace App\Tests\Unit\Infrastructure\ApiClient;
 
 use App\Infrastructure\Downloader\GeoLite2Downloader;
-use App\Infrastructure\Downloader\GeoLiteDownloader;
 use App\Infrastructure\Downloader\GuzzleDownloader;
 use App\Infrastructure\FileStorage\FileStorage;
 use App\Infrastructure\Unpacker\GeoLite2Unpacker;

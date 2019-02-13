@@ -120,14 +120,6 @@ services:
         - '@RainRatingService'
         - '@WindRatingService'
 
-    App\Infrastructure\Downloader\GeoLiteDownloader:
-      class: App\Infrastructure\Downloader\GeoLiteDownloader
-      arguments:
-       - '@GuzzleHttp\Client'
-       - '@filesystem'
-       - '%kernel.project_dir%/var/tmp'
-       - '%kernel.project_dir%/var/data'
-
     App\Infrastructure\FileStorage\FileStorage:
       class: App\Infrastructure\FileStorage\FileStorage
       arguments:
