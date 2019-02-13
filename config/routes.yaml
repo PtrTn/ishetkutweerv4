@@ -1,3 +1,11 @@
 index:
     path: /
     controller: App\Infrastructure\Controller\HomeController::index
+
+rss_feed:
+    path: /rss
+    controller: App\Infrastructure\Controller\FeedController::rssFeed
+
+atom_feed:
+    path: /atom
+    controller: App\Infrastructure\Controller\FeedController::atomFeed

@@ -1,0 +1,8 @@
+eko_feed:
+    feeds:
+        weather:
+            title:       'Het weer in een makkelijk formaat'
+            description: 'Het weer in duidelijke taal'
+            link:        'http://www.ishetkutweer.nl'
+            encoding:    'utf-8'
+            author:      'Ishetkutweer.nl'
