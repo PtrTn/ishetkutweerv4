@@ -34,7 +34,7 @@
             <div class="row bg-white w-100 p-4 no-gutters">
                 <div class="col-6 col-md-2 d-flex flex-column text-center justify-content-around">
                     <h1>{{ data.temperature }}&deg;</h1>
-                    <p>{{ data.date|date('l j F') }}</p>
+                    <p>{{ data.date|localizeddate('full', 'none', 'nl', null, 'EEEE dd MMMM')|capitalize }}</p>
                 </div>
                 <div class="col-6 col-md-2 d-flex flex-column text-center justify-content-around">
                     <p>*Wolkje hier*</p>
@@ -43,27 +43,27 @@
                 </div>
                 <div class="col-12 col-md-8 d-flex flex-column flex-sm-row justify-content-between pl-0 pl-md-3">
                     <div class="d-flex flex-row flex-sm-column pt-3 pt-sm-0 justify-content-between">
-                        <h3>{{ forecast.day1.day }}</h3>
+                        <h3>{{ forecast.day1.day|capitalize }}</h3>
                         <p>Wolkje</p>
                         <h4>{{ forecast.day1.temperature }}</h4>
                     </div>
                     <div class="d-flex flex-row flex-sm-column pt-3 pt-sm-0 justify-content-between">
-                        <h3>{{ forecast.day2.day }}</h3>
+                        <h3>{{ forecast.day2.day|capitalize }}</h3>
                         <p>Wolkje</p>
                         <h4>{{ forecast.day2.temperature }}</h4>
                     </div>
                     <div class="d-flex flex-row flex-sm-column pt-3 pt-sm-0 justify-content-between">
-                        <h3>{{ forecast.day3.day }}</h3>
+                        <h3>{{ forecast.day3.day|capitalize }}</h3>
                         <p>Wolkje</p>
                         <h4>{{ forecast.day3.temperature }}</h4>
                     </div>
                     <div class="d-flex flex-row flex-sm-column pt-3 pt-sm-0 justify-content-between">
-                        <h3>{{ forecast.day4.day }}</h3>
+                        <h3>{{ forecast.day4.day|capitalize }}</h3>
                         <p>Wolkje</p>
                         <h4>{{ forecast.day4.temperature }}</h4>
                     </div>
                     <div class="d-flex flex-row flex-sm-column pt-3 pt-sm-0 justify-content-between">
-                        <h3>{{ forecast.day5.day }}</h3>
+                        <h3>{{ forecast.day5.day|capitalize }}</h3>
                         <p>Wolkje</p>
                         <h4>{{ forecast.day5.temperature }}</h4>
                     </div>
