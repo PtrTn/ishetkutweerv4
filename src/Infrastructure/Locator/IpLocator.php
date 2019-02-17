@@ -36,7 +36,6 @@ class IpLocator
 
     /**
      * Use Amsterdam as default location
-     * @return LocationDto
      */
     private function getDefaultLocation(): LocationDto
     {

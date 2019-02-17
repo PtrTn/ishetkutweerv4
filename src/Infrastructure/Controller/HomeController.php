@@ -36,6 +36,11 @@ class HomeController extends Abstractcontroller
         $data = $this->queryHandler->getWeatherDataByQuery(
             new WeatherDataQuery($location->lat, $location->lon)
         );
-        return $this->render('home.html.twig', ['data' => $data]);
+
+        return $this->render('home.html.twig', [
+            'data' => $data,
+            'location' => $data->location,
+            'forecast' => $data->forecast,
+        ]);
     }
 }
