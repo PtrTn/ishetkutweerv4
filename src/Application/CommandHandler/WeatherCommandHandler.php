@@ -55,7 +55,11 @@ class WeatherCommandHandler
 
         $entities = [];
         foreach ($data->weergegevens->actueel_weer->weerstations as $weerstationDto) {
-            $dto = $this->dtoFactory->createFromWeerstationDto($weerstationDto);
+            $dto = $this->dtoFactory->create(
+                $data->weergegevens->verwachting_vandaag,
+                $data->weergegevens->verwachting_meerdaags,
+                $weerstationDto
+            );
             $dto = $this->assembler->assemble($dto);
             $entities[] = $this->entityFactory->createEntityFromDto($dto);
         }

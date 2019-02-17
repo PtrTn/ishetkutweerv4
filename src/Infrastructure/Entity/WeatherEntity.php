@@ -99,4 +99,70 @@ class WeatherEntity
      * @Column(type="string", length=255)
      */
     public $background;
+
+    /**
+     * @var string
+     * @Column(type="string", length=255)
+     */
+    public $summary;
+
+    /**
+     * @var string
+     * @Column(type="string", length=255)
+     */
+    public $day1Day;
+
+    /**
+     * @var float
+     * @Column(type="float")
+     */
+    public $day1Temp;
+
+    /**
+     * @var string
+     * @Column(type="string", length=255)
+     */
+    public $day2Day;
+
+    /**
+     * @var float
+     * @Column(type="float")
+     */
+    public $day2Temp;
+
+    /**
+     * @var string
+     * @Column(type="string", length=255)
+     */
+    public $day3Day;
+
+    /**
+     * @var float
+     * @Column(type="float")
+     */
+    public $day3Temp;
+
+    /**
+     * @var string
+     * @Column(type="string", length=255)
+     */
+    public $day4Day;
+
+    /**
+     * @var float
+     * @Column(type="float")
+     */
+    public $day4Temp;
+
+    /**
+     * @var string
+     * @Column(type="string", length=255)
+     */
+    public $day5Day;
+
+    /**
+     * @var float
+     * @Column(type="float")
+     */
+    public $day5Temp;
 }
