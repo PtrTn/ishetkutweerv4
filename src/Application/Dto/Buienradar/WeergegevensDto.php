@@ -55,12 +55,15 @@ class WeergegevensDto
     public $actueel_weer;
 
     /**
-     * @Exclude
+     * @var VerwachtingMeerdaags
+     * @Type("App\Application\Dto\Buienradar\VerwachtingMeerdaags")
      */
     public $verwachting_meerdaags;
 
+
     /**
-     * @Exclude
+     * @var VerwachtingVandaag
+     * @Type("App\Application\Dto\Buienradar\VerwachtingVandaag")
      */
     public $verwachting_vandaag;
 }
