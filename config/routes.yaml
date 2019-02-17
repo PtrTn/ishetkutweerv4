@@ -1,6 +1,10 @@
-index:
+weather_by_ip:
     path: /
-    controller: App\Infrastructure\Controller\HomeController::index
+    controller: App\Infrastructure\Controller\HomeController::weatherByIp
+
+weather_by_location:
+    path: /{location}
+    controller: App\Infrastructure\Controller\HomeController::weatherByLocation
 
 rss_feed:
     path: /rss

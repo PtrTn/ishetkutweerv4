@@ -2,12 +2,12 @@
 
 namespace App\Infrastructure\Controller;
 
-use App\Application\Query\WeatherDataQuery;
+use App\Application\Query\WeatherByLatLonQuery;
+use App\Application\Query\WeatherByLocationQuery;
 use App\Application\QueryHandler\WeatherQueryHandler;
 use App\Infrastructure\Locator\IpLocator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 class HomeController extends Abstractcontroller
 {
@@ -29,12 +29,25 @@ class HomeController extends Abstractcontroller
         $this->queryHandler = $queryHandler;
     }
 
-    public function index(Request $request)
+    public function weatherByIp(Request $request)
     {
         $ip = $request->getClientIp();
         $location = $this->ipLocator->getLocationForIp($ip);
-        $data = $this->queryHandler->getWeatherDataByQuery(
-            new WeatherDataQuery($location->lat, $location->lon)
+        $data = $this->queryHandler->getWeatherDataByLatLonQuery(
+            new WeatherByLatLonQuery($location->lat, $location->lon)
+        );
+
+        return $this->render('home.html.twig', [
+            'data' => $data,
+            'location' => $data->location,
+            'forecast' => $data->forecast,
+        ]);
+    }
+
+    public function weatherByLocation(string $location)
+    {
+        $data = $this->queryHandler->getWeatherDataByLocationQuery(
+            new WeatherByLocationQuery($location)
         );
 
         return $this->render('home.html.twig', [

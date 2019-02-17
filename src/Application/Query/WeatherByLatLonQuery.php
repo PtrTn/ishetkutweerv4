@@ -2,7 +2,7 @@
 
 namespace App\Application\Query;
 
-class WeatherDataQuery
+class WeatherByLatLonQuery
 {
     /**
      * @var float
