@@ -12,6 +12,8 @@ coding_style:
             around_operators:
                 concatenation: true
 build:
+    environment:
+        node: v9.11.1
     tests:
         override:
             -   command: 'chmod +x bin/phpunit'
