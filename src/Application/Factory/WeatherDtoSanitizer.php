@@ -2,6 +2,8 @@
 
 namespace App\Application\Factory;
 
+use App\Application\Dto\Buienradar\VerwachtingMeerdaags;
+use App\Application\Dto\Buienradar\VerwachtingVandaag;
 use App\Application\Dto\Buienradar\WeerstationDto;
 use App\Domain\Dto\WeatherDto;
 
@@ -17,10 +19,18 @@ class WeatherDtoSanitizer implements WeatherDtoFactoryInterface
         $this->factory = $factory;
     }
 
-    public function createFromWeerstationDto(WeerstationDto $dto): WeatherDto
-    {
-        $dto = $this->sanitizeWeerstationDto($dto);
-        return $this->factory->createFromWeerstationDto($dto);
+    public function create(
+        VerwachtingVandaag $verwachtingVandaag,
+        VerwachtingMeerdaags $verwachtingMeerdaags,
+        WeerstationDto $weerstationDto
+    ): WeatherDto {
+        $weerstationDto = $this->sanitizeWeerstationDto($weerstationDto);
+
+        return $this->factory->create(
+            $verwachtingVandaag,
+            $verwachtingMeerdaags,
+            $weerstationDto
+        );
     }
 
     private function sanitizeWeerstationDto(WeerstationDto $dto)

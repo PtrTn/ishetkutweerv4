@@ -2,6 +2,8 @@
 
 namespace App\Domain\Dto;
 
+use DateTimeImmutable;
+
 class WeatherDto
 {
     /**
@@ -10,7 +12,7 @@ class WeatherDto
     public $location;
 
     /**
-     * @var \DateTimeImmutable
+     * @var DateTimeImmutable
      */
     public $date;
 
@@ -38,6 +40,16 @@ class WeatherDto
      * @var WeatherRatingDto
      */
     public $rating;
+
+    /**
+     * @var string
+     */
+    public $summary;
+
+    /**
+     * @var ForecastDto
+     */
+    public $forecast;
 
     /**
      * @var string

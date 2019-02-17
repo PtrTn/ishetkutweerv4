@@ -47,7 +47,7 @@ class WeatherDtoFactoryTest extends TestCase
         $weerstationDto->lon = $lon;
         $weerstationDto->stationnaam = $stationnaamDto;
 
-        $weatherDto = $this->factory->createFromWeerstationDto($weerstationDto);
+        $weatherDto = $this->factory->create($weerstationDto);
 
         $this->assertEquals($temperature, $weatherDto->temperature);
         $this->assertEquals($windspeed, $weatherDto->windSpeed);

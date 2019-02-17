@@ -70,6 +70,6 @@ class WeatherDtoSanitizerTest extends MockeryTestCase
             ->once();
 
         $sanitizer = new WeatherDtoSanitizer($factory);
-        $sanitizer->createFromWeerstationDto($weerstationDto);
+        $sanitizer->create($weerstationDto);
     }
 }
