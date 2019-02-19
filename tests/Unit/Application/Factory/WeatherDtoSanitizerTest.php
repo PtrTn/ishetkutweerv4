@@ -3,6 +3,8 @@
 namespace App\Tests\Unit\Application\Factory;
 
 use App\Application\Dto\Buienradar\StationnaamDto;
+use App\Application\Dto\Buienradar\VerwachtingMeerdaags;
+use App\Application\Dto\Buienradar\VerwachtingVandaag;
 use App\Application\Dto\Buienradar\WeerstationDto;
 use App\Application\Factory\WeatherDtoFactory;
 use App\Application\Factory\WeatherDtoSanitizer;
@@ -46,8 +48,12 @@ class WeatherDtoSanitizerTest extends MockeryTestCase
 
         $factory = Mockery::mock(WeatherDtoFactory::class);
         $factory
-            ->shouldReceive('createFromWeerstationDto')
-            ->with(Mockery::on(function (WeerstationDto $sanitizedDto) {
+            ->shouldReceive('create')
+            ->withArgs(function (
+                VerwachtingVandaag $verwachtingVandaag,
+                VerwachtingMeerdaags $verwachtingMeerdaags,
+                WeerstationDto $sanitizedDto
+            ) {
                 $this->assertSame(6391, $sanitizedDto->stationcode);
                 $this->assertSame(51.50, $sanitizedDto->lat);
                 $this->assertSame(6.20, $sanitizedDto->lon);
@@ -66,10 +72,14 @@ class WeatherDtoSanitizerTest extends MockeryTestCase
                 $this->assertSame(6.33, $sanitizedDto->lonGraden);
                 
                 return TRUE;
-            }))
+            })
             ->once();
 
         $sanitizer = new WeatherDtoSanitizer($factory);
-        $sanitizer->create($weerstationDto);
+        $sanitizer->create(
+            new VerwachtingVandaag(),
+            new VerwachtingMeerdaags(),
+            $weerstationDto
+        );
     }
 }

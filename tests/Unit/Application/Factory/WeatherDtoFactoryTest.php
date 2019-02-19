@@ -3,7 +3,11 @@
 namespace App\Tests\Unit\Application\Factory;
 
 use App\Application\Dto\Buienradar\StationnaamDto;
+use App\Application\Dto\Buienradar\VerwachtingDag;
+use App\Application\Dto\Buienradar\VerwachtingMeerdaags;
+use App\Application\Dto\Buienradar\VerwachtingVandaag;
 use App\Application\Dto\Buienradar\WeerstationDto;
+use App\Application\Factory\ForecastDtoFactory;
 use App\Application\Factory\WeatherDtoFactory;
 use PHPUnit\Framework\TestCase;
 
@@ -16,13 +20,13 @@ class WeatherDtoFactoryTest extends TestCase
 
     public function setUp()
     {
-        $this->factory = new WeatherDtoFactory();
+        $this->factory = new WeatherDtoFactory(new ForecastDtoFactory());
     }
 
     /**
      * @test
      */
-    public function shouldCreateWeatherDtoFromWeerstationDto()
+    public function shouldCreateWeatherDtoFromDtos()
     {
         $region = 'Venlo';
         $station = 'Meetstation Arcen';
@@ -47,7 +51,20 @@ class WeatherDtoFactoryTest extends TestCase
         $weerstationDto->lon = $lon;
         $weerstationDto->stationnaam = $stationnaamDto;
 
-        $weatherDto = $this->factory->create($weerstationDto);
+        $verwachtingMeerdaags = new VerwachtingMeerdaags();
+        $verwachtingMeerdaags->dagPlus1 = new VerwachtingDag();
+        $verwachtingMeerdaags->dagPlus2 = new VerwachtingDag();
+        $verwachtingMeerdaags->dagPlus3 = new VerwachtingDag();
+        $verwachtingMeerdaags->dagPlus4 = new VerwachtingDag();
+        $verwachtingMeerdaags->dagPlus5 = new VerwachtingDag();
+
+        $verwachtingVandaag = new VerwachtingVandaag();
+
+        $weatherDto = $this->factory->create(
+            $verwachtingVandaag,
+            $verwachtingMeerdaags,
+            $weerstationDto
+        );
 
         $this->assertEquals($temperature, $weatherDto->temperature);
         $this->assertEquals($windspeed, $weatherDto->windSpeed);

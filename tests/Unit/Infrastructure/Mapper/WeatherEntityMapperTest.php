@@ -2,6 +2,8 @@
 
 namespace App\Tests\Unit\Infrastructure\ApiClient;
 
+use App\Domain\Dto\ForecastDayDto;
+use App\Domain\Dto\ForecastDto;
 use App\Domain\Dto\LocationDto;
 use App\Domain\Dto\WeatherDto;
 use App\Domain\Dto\WeatherRatingDto;
@@ -51,6 +53,33 @@ class WeatherEntityMapperTest extends MockeryTestCase
         $ratingDto->rainRating = $kutRating;
         $ratingDto->windRating = $kutRating;
 
+        $day1Dto = new ForecastDayDto();
+        $day1Dto->temperature = 12;
+        $day1Dto->day = 'Ma';
+
+        $day2Dto = new ForecastDayDto();
+        $day2Dto->temperature = 12;
+        $day2Dto->day = 'Di';
+
+        $day3Dto = new ForecastDayDto();
+        $day3Dto->temperature = 12;
+        $day3Dto->day = 'Wo';
+
+        $day4Dto = new ForecastDayDto();
+        $day4Dto->temperature = 12;
+        $day4Dto->day = 'Do';
+
+        $day5Dto = new ForecastDayDto();
+        $day5Dto->temperature = 12;
+        $day5Dto->day = 'Vr';
+
+        $forecastDto = new ForecastDto();
+        $forecastDto->day1 = $day1Dto;
+        $forecastDto->day2 = $day2Dto;
+        $forecastDto->day3 = $day3Dto;
+        $forecastDto->day4 = $day4Dto;
+        $forecastDto->day5 = $day5Dto;
+
         $dto = new WeatherDto();
         $dto->location = $locationDto;
         $dto->date = $date;
@@ -60,6 +89,7 @@ class WeatherEntityMapperTest extends MockeryTestCase
         $dto->windDirection = $windDirection;
         $dto->rating = $ratingDto;
         $dto->background = $background;
+        $dto->forecast = $forecastDto;
 
         $entity = $this->mapper->createEntityFromDto($dto);
 
