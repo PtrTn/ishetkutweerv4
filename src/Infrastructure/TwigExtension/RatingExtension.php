@@ -26,20 +26,13 @@ class RatingExtension extends AbstractExtension
 
     public function formatRating(WeatherRatingDto $ratingDto)
     {
-        $ratings = [
-            $ratingDto->temperatureRating->getRating(),
-            $ratingDto->rainRating->getRating(),
-            $ratingDto->windRating->getRating(),
-        ];
-        $rating = round(array_sum($ratings) / count($ratings));
-
-        if ($rating <= Rating::NIET_KUT) {
+        if ($ratingDto->averageRating <= Rating::NIET_KUT) {
             return self::NIET_KUT;
         }
-        if ($rating <= Rating::BEETJE_KUT) {
+        if ($ratingDto->averageRating <= Rating::BEETJE_KUT) {
             return self::BEETJE_KUT;
         }
-        if ($rating <= Rating::KUT) {
+        if ($ratingDto->averageRating <= Rating::KUT) {
             return self::KUT;
         }
 

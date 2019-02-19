@@ -20,4 +20,9 @@ class WeatherRatingDto
      * @var Rating
      */
     public $windRating;
+
+    /**
+     * @var Rating
+     */
+    public $averageRating;
 }
