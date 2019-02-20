@@ -9,6 +9,9 @@ use App\Application\Dto\Buienradar\VerwachtingVandaag;
 use App\Application\Dto\Buienradar\WeerstationDto;
 use App\Application\Factory\ForecastDtoFactory;
 use App\Application\Factory\WeatherDtoFactory;
+use App\Application\Service\DateTimeImmutableFactory;
+use App\Domain\Dto\ForecastDto;
+use Mockery;
 use PHPUnit\Framework\TestCase;
 
 class WeatherDtoFactoryTest extends TestCase
@@ -20,7 +23,10 @@ class WeatherDtoFactoryTest extends TestCase
 
     public function setUp()
     {
-        $this->factory = new WeatherDtoFactory(new ForecastDtoFactory());
+        $forecastDtoFactory = Mockery::mock(ForecastDtoFactory::class, [
+            'create' => new ForecastDto()
+        ]);
+        $this->factory = new WeatherDtoFactory($forecastDtoFactory);
     }
 
     /**

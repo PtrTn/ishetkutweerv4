@@ -69,7 +69,7 @@ class ImportBuienradarCommand extends Command
         } catch (Exception $e) {
             $importJobEntity->setStatusFailedWithMessage($e->getMessage());
             $this->importJobEntityRepository->save($importJobEntity);
-            $output->writeln('Failed Buienradar import');
+            $output->writeln(sprintf('Failed Buienradar import, because "%s"', $e->getMessage()));
             return;
         }
 

@@ -30,15 +30,15 @@ class WeatherEntityMapper implements WeatherEntityMapperInterface
         $entity->windRating = $dto->rating->windRating->getRating();
         $entity->background = $dto->background;
         $entity->summary = $dto->summary;
-        $entity->day1Day = $dto->forecast->day1->day;
+        $entity->day1Date = $dto->forecast->day1->date;
         $entity->day1Temp = $dto->forecast->day1->temperature;
-        $entity->day2Day = $dto->forecast->day2->day;
+        $entity->day2Date = $dto->forecast->day2->date;
         $entity->day2Temp = $dto->forecast->day2->temperature;
-        $entity->day3Day = $dto->forecast->day3->day;
+        $entity->day3Date = $dto->forecast->day3->date;
         $entity->day3Temp = $dto->forecast->day3->temperature;
-        $entity->day4Day = $dto->forecast->day4->day;
+        $entity->day4Date = $dto->forecast->day4->date;
         $entity->day4Temp = $dto->forecast->day4->temperature;
-        $entity->day5Day = $dto->forecast->day5->day;
+        $entity->day5Date = $dto->forecast->day5->date;
         $entity->day5Temp = $dto->forecast->day5->temperature;
         return $entity;
     }
@@ -57,23 +57,23 @@ class WeatherEntityMapper implements WeatherEntityMapperInterface
         $ratingDto->windRating = new Rating($entity->windRating);
         
         $day1 = new ForecastDayDto();
-        $day1->day = $entity->day1Day;
+        $day1->date = $entity->day1Date;
         $day1->temperature = $entity->day1Temp;
         
         $day2 = new ForecastDayDto();
-        $day2->day = $entity->day2Day;
+        $day2->date = $entity->day2Date;
         $day2->temperature = $entity->day2Temp;
         
         $day3 = new ForecastDayDto();
-        $day3->day = $entity->day3Day;
+        $day3->date = $entity->day3Date;
         $day3->temperature = $entity->day3Temp;
         
         $day4 = new ForecastDayDto();
-        $day4->day = $entity->day4Day;
+        $day4->date = $entity->day4Date;
         $day4->temperature = $entity->day4Temp;
         
         $day5 = new ForecastDayDto();
-        $day5->day = $entity->day5Day;
+        $day5->date = $entity->day5Date;
         $day5->temperature = $entity->day5Temp;
         
         $forecastDto = new ForecastDto();

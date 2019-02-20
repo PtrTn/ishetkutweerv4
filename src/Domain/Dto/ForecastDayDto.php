@@ -2,12 +2,14 @@
 
 namespace App\Domain\Dto;
 
+use DateTimeImmutable;
+
 class ForecastDayDto
 {
     /**
-     * @var string
+     * @var DateTimeImmutable
      */
-    public $day;
+    public $date;
 
     /**
      * @var float

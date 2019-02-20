@@ -55,23 +55,23 @@ class WeatherEntityMapperTest extends MockeryTestCase
 
         $day1Dto = new ForecastDayDto();
         $day1Dto->temperature = 12;
-        $day1Dto->day = 'Ma';
+        $day1Dto->date = 'Ma';
 
         $day2Dto = new ForecastDayDto();
         $day2Dto->temperature = 12;
-        $day2Dto->day = 'Di';
+        $day2Dto->date = 'Di';
 
         $day3Dto = new ForecastDayDto();
         $day3Dto->temperature = 12;
-        $day3Dto->day = 'Wo';
+        $day3Dto->date = 'Wo';
 
         $day4Dto = new ForecastDayDto();
         $day4Dto->temperature = 12;
-        $day4Dto->day = 'Do';
+        $day4Dto->date = 'Do';
 
         $day5Dto = new ForecastDayDto();
         $day5Dto->temperature = 12;
-        $day5Dto->day = 'Vr';
+        $day5Dto->date = 'Vr';
 
         $forecastDto = new ForecastDto();
         $forecastDto->day1 = $day1Dto;

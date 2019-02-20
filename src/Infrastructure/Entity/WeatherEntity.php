@@ -107,10 +107,10 @@ class WeatherEntity
     public $summary;
 
     /**
-     * @var string
-     * @Column(type="string", length=255)
+     * @var \DateTimeImmutable
+     * @Column(type="datetime")
      */
-    public $day1Day;
+    public $day1Date;
 
     /**
      * @var float
@@ -119,10 +119,10 @@ class WeatherEntity
     public $day1Temp;
 
     /**
-     * @var string
-     * @Column(type="string", length=255)
+     * @var \DateTimeImmutable
+     * @Column(type="datetime")
      */
-    public $day2Day;
+    public $day2Date;
 
     /**
      * @var float
@@ -131,10 +131,10 @@ class WeatherEntity
     public $day2Temp;
 
     /**
-     * @var string
-     * @Column(type="string", length=255)
+     * @var \DateTimeImmutable
+     * @Column(type="datetime")
      */
-    public $day3Day;
+    public $day3Date;
 
     /**
      * @var float
@@ -143,10 +143,10 @@ class WeatherEntity
     public $day3Temp;
 
     /**
-     * @var string
-     * @Column(type="string", length=255)
+     * @var \DateTimeImmutable
+     * @Column(type="datetime")
      */
-    public $day4Day;
+    public $day4Date;
 
     /**
      * @var float
@@ -155,10 +155,10 @@ class WeatherEntity
     public $day4Temp;
 
     /**
-     * @var string
-     * @Column(type="string", length=255)
+     * @var \DateTimeImmutable
+     * @Column(type="datetime")
      */
-    public $day5Day;
+    public $day5Date;
 
     /**
      * @var float
