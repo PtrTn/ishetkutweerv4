@@ -55,4 +55,35 @@ class WeatherDto
      * @var string
      */
     public $background;
+
+
+    public function isFreezing(): bool
+    {
+        return $this->temperature !== null && $this->temperature < 0;
+    }
+
+    public function hasShowers(): bool
+    {
+        return $this->rain !== NULL && $this->rain > 0;
+    }
+
+    public function hasRain(): bool
+    {
+        return $this->rain !== NULL && $this->rain > 5;
+    }
+
+    public function hasSnow(): bool
+    {
+        return $this->hasShowers() && $this->isFreezing();
+    }
+
+    public function hasBreeze(): bool
+    {
+        return $this->windSpeed > 3;
+    }
+
+    public function hasWind(): bool
+    {
+        return $this->windSpeed > 7;
+    }
 }

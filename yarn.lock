@@ -5818,6 +5818,10 @@ wbuf@^1.1.0, wbuf@^1.7.3:
   dependencies:
     minimalistic-assert "^1.0.0"
 
+weather-icons-npm@^10.0.0:
+  version "10.0.0"
+  resolved "https://registry.yarnpkg.com/weather-icons-npm/-/weather-icons-npm-10.0.0.tgz#b36f0402c877efec09c4bfd5d52fc087576e5042"
+
 webpack-chunk-hash@^0.6.0:
   version "0.6.0"
   resolved "https://registry.yarnpkg.com/webpack-chunk-hash/-/webpack-chunk-hash-0.6.0.tgz#eca36aff76e327d08a18a3e7990eb46e68376818"
