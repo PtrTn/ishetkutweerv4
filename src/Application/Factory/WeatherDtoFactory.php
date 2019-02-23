@@ -27,7 +27,7 @@ class WeatherDtoFactory implements WeatherDtoFactoryInterface
     ): WeatherDto {
         $dto = new WeatherDto();
         $dto->date = $weerstationDto->datum;
-        $dto->temperature = $weerstationDto->temperatuur10cm;
+        $dto->temperature = $weerstationDto->temperatuur10cm ?? $weerstationDto->temperatuurGC;
         $dto->windSpeed = $weerstationDto->windsnelheidBF;
         $dto->windDirection = $weerstationDto->windrichting;
         $dto->rain = $weerstationDto->regenMMPU;
