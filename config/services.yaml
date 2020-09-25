@@ -11,15 +11,16 @@ services:
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
-        public: false       # Allows optimizing the container by removing unused services; this also means
-                            # fetching services directly from the container via $container->get() won't work.
-                            # The best practice is to be explicit about your dependencies anyway.
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
     App\:
-        resource: '../src/*'
-        exclude: '../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
+        resource: '../src/'
+        exclude:
+            - '../src/DependencyInjection/'
+            - '../src/Entity/'
+            - '../src/Kernel.php'
+            - '../src/Tests/'
 
     # controllers are imported separately to make sure services can be injected
     # as action arguments even if you don't extend any base controller class
@@ -39,102 +40,100 @@ services:
     App\Application\Factory\WeatherDtoFactoryInterface:
         class: App\Application\Factory\WeatherDtoSanitizer
         arguments:
-          - '@App\Application\Factory\WeatherDtoFactory'
+            - '@App\Application\Factory\WeatherDtoFactory'
 
     App\Application\Factory\WeatherDtoFactory:
         class: App\Application\Factory\WeatherDtoFactory
 
     App\Application\Assembler\WeatherRatingsDtoAssembler:
-      class: App\Application\Assembler\WeatherRatingsDtoAssembler
-      tags: ['weather_dto_assembler']
+        class: App\Application\Assembler\WeatherRatingsDtoAssembler
+        tags: ['weather_dto_assembler']
 
     App\Application\Assembler\WeatherDtoBackgroundAssembler:
-      class: App\Application\Assembler\WeatherDtoBackgroundAssembler
-      tags: ['weather_dto_assembler']
+        class: App\Application\Assembler\WeatherDtoBackgroundAssembler
+        tags: ['weather_dto_assembler']
 
     App\Application\Assembler\WeatherDtoAssemblerInterface:
-      class: App\Application\Assembler\WeatherDtoAssemblerManager
-      arguments: [!tagged 'weather_dto_assembler']
+        class: App\Application\Assembler\WeatherDtoAssemblerManager
+        arguments: [!tagged 'weather_dto_assembler']
 
     App\Domain\Rule\Temperature\TooHotOrColdRule:
-      class: App\Domain\Rule\Temperature\TooHotOrColdRule
-      tags:
-      - { name: 'temperature_rule', priority: 30 }
+        class: App\Domain\Rule\Temperature\TooHotOrColdRule
+        tags:
+            - { name: 'temperature_rule', priority: 30 }
 
     App\Domain\Rule\Temperature\HotOrColdRule:
-      class: App\Domain\Rule\Temperature\HotOrColdRule
-      tags:
-      - { name: 'temperature_rule', priority: 20 }
+        class: App\Domain\Rule\Temperature\HotOrColdRule
+        tags:
+            - { name: 'temperature_rule', priority: 20 }
 
     App\Domain\Rule\Temperature\MildRule:
-      class: App\Domain\Rule\Temperature\MildRule
-      tags:
-      - { name: 'temperature_rule', priority: 10 }
+        class: App\Domain\Rule\Temperature\MildRule
+        tags:
+            - { name: 'temperature_rule', priority: 10 }
 
     App\Domain\Rule\Rain\TooMuchRainRule:
-      class: App\Domain\Rule\Rain\TooMuchRainRule
-      tags:
-      - { name: 'rain_rule', priority: 30 }
+        class: App\Domain\Rule\Rain\TooMuchRainRule
+        tags:
+            - { name: 'rain_rule', priority: 30 }
 
     App\Domain\Rule\Rain\AlotRainRule:
-      class: App\Domain\Rule\Rain\AlotRainRule
-      tags:
-      - { name: 'rain_rule', priority: 20 }
+        class: App\Domain\Rule\Rain\AlotRainRule
+        tags:
+            - { name: 'rain_rule', priority: 20 }
 
     App\Domain\Rule\Rain\SomeRainRule:
-      class: App\Domain\Rule\Rain\SomeRainRule
-      tags:
-      - { name: 'rain_rule', priority: 10 }
+        class: App\Domain\Rule\Rain\SomeRainRule
+        tags:
+            - { name: 'rain_rule', priority: 10 }
 
     App\Domain\Rule\Wind\TooMuchWindRule:
-      class: App\Domain\Rule\Wind\TooMuchWindRule
-      tags:
-      - { name: 'wind_rule', priority: 30 }
+        class: App\Domain\Rule\Wind\TooMuchWindRule
+        tags:
+            - { name: 'wind_rule', priority: 30 }
 
     App\Domain\Rule\Wind\AlotWindRule:
-      class: App\Domain\Rule\Wind\AlotWindRule
-      tags:
-      - { name: 'wind_rule', priority: 20 }
+        class: App\Domain\Rule\Wind\AlotWindRule
+        tags:
+            - { name: 'wind_rule', priority: 20 }
 
     App\Domain\Rule\Wind\SomeWindRule:
-      class: App\Domain\Rule\Wind\SomeWindRule
-      tags:
-      - { name: 'wind_rule', priority: 10 }
+        class: App\Domain\Rule\Wind\SomeWindRule
+        tags:
+            - { name: 'wind_rule', priority: 10 }
 
     TemperatureRatingService:
-      class: App\Domain\Service\RatingService
-      arguments: [!tagged 'temperature_rule']
+        class: App\Domain\Service\RatingService
+        arguments: [!tagged 'temperature_rule']
 
     RainRatingService:
-      class: App\Domain\Service\RatingService
-      arguments: [!tagged 'rain_rule']
+        class: App\Domain\Service\RatingService
+        arguments: [!tagged 'rain_rule']
 
     WindRatingService:
-      class: App\Domain\Service\RatingService
-      arguments: [!tagged 'wind_rule']
+        class: App\Domain\Service\RatingService
+        arguments: [!tagged 'wind_rule']
 
     App\Application\Factory\WeatherRatingDtoFactory:
-      class: App\Application\Factory\WeatherRatingDtoFactory
-      arguments:
-        - '@TemperatureRatingService'
-        - '@RainRatingService'
-        - '@WindRatingService'
+        class: App\Application\Factory\WeatherRatingDtoFactory
+        arguments:
+            - '@TemperatureRatingService'
+            - '@RainRatingService'
+            - '@WindRatingService'
 
     App\Infrastructure\FileStorage\FileStorage:
-      class: App\Infrastructure\FileStorage\FileStorage
-      arguments:
-       - '@filesystem'
-       - '%kernel.project_dir%/var/tmp'
-       - '%kernel.project_dir%/var/data'
+        class: App\Infrastructure\FileStorage\FileStorage
+        arguments:
+            - '@filesystem'
+            - '%kernel.project_dir%/var/tmp'
+            - '%kernel.project_dir%/var/data'
 
     App\Infrastructure\Downloader\GeoLite2Downloader:
-      class: App\Infrastructure\Downloader\GeoLite2Downloader
-      arguments:
-        $licenseKey: '%env(string:MAXMIND_LICENSE_KEY)%'
+        class: App\Infrastructure\Downloader\GeoLite2Downloader
+        arguments:
+            $licenseKey: '%env(string:MAXMIND_LICENSE_KEY)%'
 
     GeoIp2\Database\Reader:
-      class: GeoIp2\Database\Reader
-      arguments:
-      - '%kernel.project_dir%/var/data/GeoLite2-City.mmdb'
-
-    Eko\FeedBundle\Feed\FeedManager: '@eko_feed.feed.manager'
+        class: GeoIp2\Database\Reader
+        arguments:
+            - '%kernel.project_dir%/var/data/GeoLite2-City.mmdb'
