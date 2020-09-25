@@ -6,7 +6,7 @@ use App\Application\Repository\WeatherEntityRepositoryInterface;
 use App\Infrastructure\Entity\WeatherEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
-use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @method WeatherEntity|null find($id, $lockMode = null, $lockVersion = null)
@@ -16,7 +16,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  */
 class WeatherEntityRepository extends ServiceEntityRepository implements WeatherEntityRepositoryInterface
 {
-    public function __construct(RegistryInterface $registry)
+    public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, WeatherEntity::class);
     }

@@ -2,6 +2,15 @@
     "composer/ca-bundle": {
         "version": "1.1.2"
     },
+    "composer/composer": {
+        "version": "1.10.13"
+    },
+    "composer/semver": {
+        "version": "1.7.0"
+    },
+    "composer/spdx-licenses": {
+        "version": "1.5.4"
+    },
     "composer/xdebug-handler": {
         "version": "1.3.1"
     },
@@ -44,9 +53,6 @@
             "ref": "ae205d5114e719deb64d2110f56ef910787d1e04"
         }
     },
-    "doctrine/doctrine-cache-bundle": {
-        "version": "1.3.3"
-    },
     "doctrine/doctrine-migrations-bundle": {
         "version": "1.2",
         "recipe": {
@@ -80,6 +86,9 @@
     "doctrine/reflection": {
         "version": "v1.0.0"
     },
+    "doctrine/sql-formatter": {
+        "version": "1.1.1"
+    },
     "eko/feedbundle": {
         "version": "1.2",
         "recipe": {
@@ -88,9 +97,6 @@
             "version": "1.2",
             "ref": "18200f71f86a12023fcd952546dad61850806c22"
         }
-    },
-    "facebook/webdriver": {
-        "version": "1.6.0"
     },
     "geoip2/geoip2": {
         "version": "v2.9.0"
@@ -119,12 +125,6 @@
             "ref": "be45f73c444bc911fb454818d950c22223c340a1"
         }
     },
-    "jdorn/sql-formatter": {
-        "version": "v1.2.17"
-    },
-    "jean85/pretty-package-versions": {
-        "version": "1.2"
-    },
     "jms/metadata": {
         "version": "1.6.0"
     },
@@ -143,6 +143,15 @@
             "ref": "fe60ce509ef04a3f40da96e3979bc8d9b13b2372"
         }
     },
+    "justinrainbow/json-schema": {
+        "version": "5.2.10"
+    },
+    "kylekatarnls/update-helper": {
+        "version": "1.2.1"
+    },
+    "laminas/laminas-zendframework-bridge": {
+        "version": "1.1.1"
+    },
     "maxmind-db/reader": {
         "version": "v1.3.0"
     },
@@ -152,29 +161,11 @@
     "mockery/mockery": {
         "version": "1.2.0"
     },
+    "n98/junit-xml": {
+        "version": "1.0.0"
+    },
     "nesbot/carbon": {
         "version": "1.33.0"
-    },
-    "nette/bootstrap": {
-        "version": "v2.4.6"
-    },
-    "nette/di": {
-        "version": "v2.4.14"
-    },
-    "nette/finder": {
-        "version": "v2.4.2"
-    },
-    "nette/neon": {
-        "version": "v2.4.3"
-    },
-    "nette/php-generator": {
-        "version": "v3.0.5"
-    },
-    "nette/robot-loader": {
-        "version": "v3.1.0"
-    },
-    "nette/utils": {
-        "version": "v2.5.3"
     },
     "nikic/php-parser": {
         "version": "v4.0.3"
@@ -191,6 +182,9 @@
     "pdepend/pdepend": {
         "version": "2.5.2"
     },
+    "php": {
+        "version": "7.4"
+    },
     "phpcollection/phpcollection": {
         "version": "0.5.0"
     },
@@ -205,6 +199,9 @@
     },
     "phpstan/phpstan": {
         "version": "0.11.1"
+    },
+    "phpstan/phpstan-strict-rules": {
+        "version": "0.12.5"
     },
     "phpstan/phpstan-symfony": {
         "version": "0.11"
@@ -224,9 +221,6 @@
     "psr/log": {
         "version": "1.0.2"
     },
-    "psr/simple-cache": {
-        "version": "1.0.1"
-    },
     "ralouphie/getallheaders": {
         "version": "2.0.5"
     },
@@ -238,6 +232,12 @@
     },
     "sebastian/version": {
         "version": "2.0.1"
+    },
+    "seld/jsonlint": {
+        "version": "1.8.2"
+    },
+    "seld/phar-utils": {
+        "version": "1.1.1"
     },
     "sensiolabs-de/deptrac-shim": {
         "version": "0.4.0"
@@ -272,6 +272,9 @@
     "symfony/cache": {
         "version": "v4.1.2"
     },
+    "symfony/cache-contracts": {
+        "version": "v2.2.0"
+    },
     "symfony/config": {
         "version": "v4.1.2"
     },
@@ -283,9 +286,6 @@
             "version": "3.3",
             "ref": "e3868d2f4a5104f19f844fe551099a00c6562527"
         }
-    },
-    "symfony/contracts": {
-        "version": "v1.0.2"
     },
     "symfony/css-selector": {
         "version": "v4.2.2"
@@ -305,8 +305,14 @@
     "symfony/dotenv": {
         "version": "v4.1.2"
     },
+    "symfony/error-handler": {
+        "version": "v4.4.13"
+    },
     "symfony/event-dispatcher": {
         "version": "v4.1.2"
+    },
+    "symfony/event-dispatcher-contracts": {
+        "version": "v1.1.9"
     },
     "symfony/filesystem": {
         "version": "v4.1.2"
@@ -332,6 +338,12 @@
             "ref": "87c585d24de9f43bca80ebcfd5cf5cb39445d95f"
         }
     },
+    "symfony/http-client": {
+        "version": "v5.1.5"
+    },
+    "symfony/http-client-contracts": {
+        "version": "v2.2.0"
+    },
     "symfony/http-foundation": {
         "version": "v4.1.2"
     },
@@ -350,11 +362,11 @@
             "ref": "fadbfe33303a76e25cb63401050439aa9b1a9c7f"
         }
     },
+    "symfony/mime": {
+        "version": "v5.1.5"
+    },
     "symfony/orm-pack": {
         "version": "v1.0.5"
-    },
-    "symfony/panther": {
-        "version": "v0.2.0"
     },
     "symfony/phpunit-bridge": {
         "version": "4.1",
@@ -365,11 +377,23 @@
             "ref": "0e548dd90adba18fabd4ef419b14d361fe4d6c74"
         }
     },
+    "symfony/polyfill-intl-idn": {
+        "version": "v1.18.1"
+    },
+    "symfony/polyfill-intl-normalizer": {
+        "version": "v1.18.1"
+    },
     "symfony/polyfill-mbstring": {
         "version": "v1.8.0"
     },
     "symfony/polyfill-php72": {
         "version": "v1.10.0"
+    },
+    "symfony/polyfill-php73": {
+        "version": "v1.18.1"
+    },
+    "symfony/polyfill-php80": {
+        "version": "v1.18.1"
     },
     "symfony/process": {
         "version": "v4.1.3"
@@ -382,6 +406,9 @@
             "version": "4.0",
             "ref": "cda8b550123383d25827705d05a42acf6819fe4e"
         }
+    },
+    "symfony/service-contracts": {
+        "version": "v2.2.0"
     },
     "symfony/stopwatch": {
         "version": "v4.2.2"
@@ -398,6 +425,9 @@
             "ref": "6bcd6c570c017ea6ae5a7a6a027c929fd3542cd8"
         }
     },
+    "symfony/translation-contracts": {
+        "version": "v2.2.0"
+    },
     "symfony/twig-bridge": {
         "version": "v4.2.3"
     },
@@ -409,6 +439,9 @@
             "version": "3.3",
             "ref": "369b5b29dc52b2c190002825ae7ec24ab6f962dd"
         }
+    },
+    "symfony/var-dumper": {
+        "version": "v4.4.13"
     },
     "symfony/var-exporter": {
         "version": "v4.2.2"
@@ -448,6 +481,9 @@
     },
     "twig/twig": {
         "version": "v2.6.2"
+    },
+    "webimpress/safe-writer": {
+        "version": "2.1.0"
     },
     "zendframework/zend-code": {
         "version": "3.3.0"
