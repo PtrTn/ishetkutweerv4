@@ -1,20 +1,17 @@
 {
     "devDependencies": {
-        "@symfony/webpack-encore": "^0.22.0",
-        "node-sass": "^4.11.0",
         "webpack-notifier": "^1.6.0"
     },
     "license": "UNLICENSED",
     "private": true,
     "scripts": {
-        "dev-server": "encore dev-server",
-        "dev": "encore dev",
-        "watch": "encore dev --watch",
-        "build": "encore production --progress"
+        "dev": "sass assets/scss/app.scss public/build/css/styles.css --style=expanded --no-source-map --load-path=node_modules/bootstrap/scss/ --load-path=node_modules/weather-icons-npm/sass/",
+        "watch": "sass assets/scss/app.scss public/build/css/styles.css --style=expanded --watch --no-source-map --load-path=node_modules/bootstrap/scss/ --load-path=node_modules/weather-icons-npm/sass/",
+        "build": "sass assets/scss/app.scss public/build/css/styles.css --style=compressed --no-source-map --load-path=node_modules/bootstrap/scss/ --load-path=node_modules/weather-icons-npm/sass/"
     },
     "dependencies": {
         "bootstrap": "^4.3.1",
-        "sass-loader": "^7.1.0",
+        "sass": "^1.26.11",
         "weather-icons-npm": "^10.0.0"
     }
 }

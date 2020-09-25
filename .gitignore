@@ -20,9 +20,10 @@
 /phpcs.xml
 ###< squizlabs/php_codesniffer ###
 
-###> symfony/webpack-encore-bundle ###
+### Frontend
 /node_modules/
-/public/build/
 npm-debug.log
 yarn-error.log
-###< symfony/webpack-encore-bundle ###
+/public/build/css/
+
+.idea
