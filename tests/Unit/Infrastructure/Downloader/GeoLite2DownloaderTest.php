@@ -26,7 +26,7 @@ class GeoLite2DownloaderTest extends MockeryTestCase
         $unpacker->shouldReceive('unpack');
 
 
-        $geoLite2Downloader = new GeoLite2Downloader($fileStorage, $downloader, $unpacker);
+        $geoLite2Downloader = new GeoLite2Downloader($fileStorage, $downloader, $unpacker, '123');
 
         $geoLite2Downloader->download();
     }

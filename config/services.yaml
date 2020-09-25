@@ -127,6 +127,11 @@ services:
        - '%kernel.project_dir%/var/tmp'
        - '%kernel.project_dir%/var/data'
 
+    App\Infrastructure\Downloader\GeoLite2Downloader:
+      class: App\Infrastructure\Downloader\GeoLite2Downloader
+      arguments:
+        $licenseKey: '%env(string:MAXMIND_LICENSE_KEY)%'
+
     GeoIp2\Database\Reader:
       class: GeoIp2\Database\Reader
       arguments:
