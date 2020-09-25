@@ -14,7 +14,7 @@ class RainRatingServiceTest extends KernelTestCase
      */
     private $ratingService;
 
-    public function setUp()
+    public function setUp(): void
     {
         self::bootKernel();
         $this->ratingService = self::$container->get('RainRatingService');

@@ -15,7 +15,7 @@ class DistanceServiceTest extends TestCase
      */
     private $distanceService;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->distanceService = new DistanceService(new Math());
     }

@@ -29,7 +29,7 @@ class GeoLite2UnpackerTest extends KernelTestCase
      */
     private $fileSystem;
 
-    public function setUp()
+    public function setUp(): void
     {
         self::bootKernel();
         $this->temporaryFolder = __DIR__ . '/tmp';
@@ -55,7 +55,7 @@ class GeoLite2UnpackerTest extends KernelTestCase
         );
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         $this->fileSystem->remove($this->temporaryFolder);
         $this->fileSystem->remove($this->dataFolder);

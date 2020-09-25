@@ -14,7 +14,7 @@ class HotOrColdRuleTest extends TestCase
      */
     private $rule;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->rule = new HotOrColdRule();
     }

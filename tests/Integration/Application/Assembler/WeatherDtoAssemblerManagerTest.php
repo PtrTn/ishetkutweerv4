@@ -15,7 +15,7 @@ class WeatherDtoAssemblerManagerTest extends KernelTestCase
      */
     private $assembler;
 
-    public function setUp()
+    public function setUp(): void
     {
         self::bootKernel();
         $this->assembler = self::$container->get(WeatherDtoAssemblerInterface::class);

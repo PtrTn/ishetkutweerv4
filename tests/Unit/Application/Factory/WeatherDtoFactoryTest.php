@@ -21,7 +21,7 @@ class WeatherDtoFactoryTest extends TestCase
      */
     private $factory;
 
-    public function setUp()
+    public function setUp(): void
     {
         $forecastDtoFactory = Mockery::mock(ForecastDtoFactory::class, [
             'create' => new ForecastDto()
