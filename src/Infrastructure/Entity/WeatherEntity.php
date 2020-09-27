@@ -13,6 +13,7 @@ use Doctrine\ORM\Mapping\Table;
  * @Entity(repositoryClass="App\Infrastructure\Repository\WeatherEntityRepository")
  * @Table("Weather")
  * @SuppressWarnings(PHPMD.TooManyFields)
+ * @SuppressWarnings(PHPMD.ExcessivePublicCount)
  */
 class WeatherEntity implements WeatherEntityInterface
 {
@@ -37,7 +38,7 @@ class WeatherEntity implements WeatherEntityInterface
     public $stationName;
 
     /**
-     * @var string
+     * @var float
      * @Column(type="float")
      */
     public $lat;
@@ -189,7 +190,7 @@ class WeatherEntity implements WeatherEntityInterface
         return $this->stationName;
     }
 
-    public function getLat(): string
+    public function getLat(): float
     {
         return $this->lat;
     }

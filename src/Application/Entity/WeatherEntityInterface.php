@@ -15,7 +15,7 @@ interface WeatherEntityInterface
 
     public function getStationName(): string;
 
-    public function getLat(): string;
+    public function getLat(): float;
 
     public function getLon(): float;
 
