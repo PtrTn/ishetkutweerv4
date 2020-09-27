@@ -67,5 +67,4 @@ class FileStorage
             $this->filesystem->mkdir($directory);
         }
     }
-
 }

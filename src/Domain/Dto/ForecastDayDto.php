@@ -15,5 +15,4 @@ class ForecastDayDto
      * @var float
      */
     public $temperature;
-
 }

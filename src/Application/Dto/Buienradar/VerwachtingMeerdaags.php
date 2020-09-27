@@ -53,5 +53,4 @@ class VerwachtingMeerdaags
      * @SerializedName("dag-plus5")
      */
     public $dagPlus5;
-
 }

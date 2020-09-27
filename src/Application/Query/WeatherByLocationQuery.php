@@ -9,7 +9,8 @@ class WeatherByLocationQuery
      */
     public $location;
 
-    public function __construct(string $location) {
+    public function __construct(string $location)
+    {
         $this->location = $location;
     }
 }

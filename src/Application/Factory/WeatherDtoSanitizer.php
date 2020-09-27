@@ -54,14 +54,16 @@ class WeatherDtoSanitizer implements WeatherDtoFactoryInterface
         return $dto;
     }
 
-    private function stringToInt(string $string): ?int {
+    private function stringToInt(string $string): ?int
+    {
         if ($string === '-') {
             return null;
         }
         return intval($string);
     }
 
-    private function stringToFloat(string $string): ?float {
+    private function stringToFloat(string $string): ?float
+    {
         if ($string === '-') {
             return null;
         }

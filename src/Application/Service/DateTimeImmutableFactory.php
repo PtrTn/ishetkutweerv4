@@ -1,9 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Application\Service;
 
 use DateTimeImmutable;
 use IntlDateFormatter;
+use InvalidArgumentException;
+
+use function sprintf;
 
 class DateTimeImmutableFactory
 {
@@ -16,8 +21,8 @@ class DateTimeImmutableFactory
             $locale,
             IntlDateFormatter::NONE,
             IntlDateFormatter::NONE,
-            NULL,
-            NULL,
+            null,
+            null,
             $pattern
         );
         $timestamp = $formatter->parse($datetime);
@@ -27,7 +32,7 @@ class DateTimeImmutableFactory
             return $dateTimeImmutable;
         }
 
-        throw new \InvalidArgumentException(sprintf(
+        throw new InvalidArgumentException(sprintf(
             'Unable to format date "%s" for format "%s" in locale "%s"',
             $datetime,
             $pattern,

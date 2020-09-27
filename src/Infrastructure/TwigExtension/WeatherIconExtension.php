@@ -56,7 +56,7 @@ class WeatherIconExtension extends AbstractExtension
 
     public function getWindIconForWeatherDto(WeatherDto $dto)
     {
-        if ($dto->windSpeed === NULL) {
+        if ($dto->windSpeed === null) {
             return '';
         }
         if ($dto->windSpeed > 0 && $dto->windSpeed <= 12) {

@@ -15,7 +15,8 @@ class FeedController
      */
     private $feedManager;
 
-    public function __construct(FeedManager $feedManager) {
+    public function __construct(FeedManager $feedManager)
+    {
         $this->feedManager = $feedManager;
     }
 
@@ -25,7 +26,9 @@ class FeedController
         $feed = $this->feedManager->get('weather');
         $feed->add(new FeedItem(
             'Vandaag is het kutweer',
-            'Het lijkt de komende dagen wel lente in Nederland. Storingen blijven uit de buurt en de zon heeft ruim baan. Met een zuidenwind komt in Limburg de 16 graden misschien zelfs op de thermometer.',
+            'Het lijkt de komende dagen wel lente in Nederland. ' .
+            'Storingen blijven uit de buurt en de zon heeft ruim baan. ' .
+            'Met een zuidenwind komt in Limburg de 16 graden misschien zelfs op de thermometer.',
             'http://www.ishetkutweer.nl',
             new DateTime('now')
         ));
@@ -39,7 +42,9 @@ class FeedController
         $feed = $this->feedManager->get('weather');
         $feed->add(new FeedItem(
             'Vandaag is het kutweer',
-            'Het lijkt de komende dagen wel lente in Nederland. Storingen blijven uit de buurt en de zon heeft ruim baan. Met een zuidenwind komt in Limburg de 16 graden misschien zelfs op de thermometer.',
+            'Het lijkt de komende dagen wel lente in Nederland. ' .
+            'Storingen blijven uit de buurt en de zon heeft ruim baan. ' .
+            'Met een zuidenwind komt in Limburg de 16 graden misschien zelfs op de thermometer.',
             'http://www.ishetkutweer.nl',
             new DateTime('now')
         ));

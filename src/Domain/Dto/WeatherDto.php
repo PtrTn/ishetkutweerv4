@@ -64,12 +64,12 @@ class WeatherDto
 
     public function hasShowers(): bool
     {
-        return $this->rain !== NULL && $this->rain > 0;
+        return $this->rain !== null && $this->rain > 0;
     }
 
     public function hasRain(): bool
     {
-        return $this->rain !== NULL && $this->rain > 5;
+        return $this->rain !== null && $this->rain > 5;
     }
 
     public function hasSnow(): bool

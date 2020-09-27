@@ -14,7 +14,8 @@ class WeatherByLatLonQuery
      */
     public $lon;
 
-    public function __construct(float $lat, float $lon) {
+    public function __construct(float $lat, float $lon)
+    {
         $this->lat = $lat;
         $this->lon = $lon;
     }

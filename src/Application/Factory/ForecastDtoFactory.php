@@ -21,7 +21,8 @@ class ForecastDtoFactory
         $this->dateTimeImmutableFactory = $dateTimeImmutableFactory;
     }
 
-    public function create(VerwachtingMeerdaags $verwachtingMeerdaags): ForecastDto {
+    public function create(VerwachtingMeerdaags $verwachtingMeerdaags): ForecastDto
+    {
         $dto = new ForecastDto();
         $dto->day1 = $this->createDay($verwachtingMeerdaags->dagPlus1);
         $dto->day2 = $this->createDay($verwachtingMeerdaags->dagPlus2);
@@ -32,7 +33,8 @@ class ForecastDtoFactory
         return $dto;
     }
 
-    private function createDay(VerwachtingDag $dag): ForecastDayDto {
+    private function createDay(VerwachtingDag $dag): ForecastDayDto
+    {
         $dto = new ForecastDayDto;
         $dto->temperature = floor(((float) $dag->maxtemp + (float) $dag->maxtempmax) / 2);
         $dto->date = $this->dateTimeImmutableFactory->createForLocale($dag->datum, 'EEEE d MMM yyyy');

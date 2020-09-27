@@ -34,5 +34,4 @@ class DownloadIpDataCommand extends Command
         $this->downloader->download();
         $output->writeln('Finished downloading ip data');
     }
-
 }

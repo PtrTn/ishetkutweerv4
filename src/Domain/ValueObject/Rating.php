@@ -42,7 +42,8 @@ class Rating
         return new self(self::NIET_KUT);
     }
 
-    public function getRating(): int {
+    public function getRating(): int
+    {
         return $this->rating;
     }
 }

@@ -7,7 +7,8 @@ use App\Infrastructure\Unpacker\GeoLite2Unpacker;
 
 class GeoLite2Downloader
 {
-    private const DATA_URL = 'https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-City&license_key=YOUR_LICENSE_KEY&suffix=tar.gz';
+    private const DATA_URL = 'https://download.maxmind.com/app/geoip_download' .
+    '?edition_id=GeoLite2-City&license_key=YOUR_LICENSE_KEY&suffix=tar.gz';
 
     /**
      * @var FileStorage
@@ -50,5 +51,4 @@ class GeoLite2Downloader
 
         $this->fileStorage->remove($downloadFile);
     }
-
 }
