@@ -74,6 +74,17 @@
         "post-update-cmd": [
             "@auto-scripts"
         ],
+        "check": [
+            "@phpunit",
+            "@phpstan",
+            "@phpmd",
+            "@phpcs",
+            "@phpcbf",
+            "@phplint",
+            "@phpcpd",
+            "@deptrac",
+            "@security-checker"
+        ],
         "phpunit": "simple-phpunit",
         "phpstan": "phpstan analyse src --level=2",
         "phpmd": "phpmd src ansi ./ruleset.xml",
