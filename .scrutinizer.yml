@@ -14,6 +14,8 @@ coding_style:
 build:
     environment:
         node: v9.11.1
+        php:
+            version: '7.4'
     tests:
         override:
             -   command: 'chmod +x bin/phpunit'
