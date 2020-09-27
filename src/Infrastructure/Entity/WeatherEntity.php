@@ -3,6 +3,7 @@
 namespace App\Infrastructure\Entity;
 
 use App\Application\Entity\WeatherEntityInterface;
+use DateTimeImmutable;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\GeneratedValue;
@@ -50,8 +51,8 @@ class WeatherEntity implements WeatherEntityInterface
     public $lon;
 
     /**
-     * @var \DateTimeImmutable
-     * @Column(type="datetime")
+     * @var DateTimeImmutable
+     * @Column(type="datetime_immutable")
      */
     public $date;
 
@@ -116,8 +117,8 @@ class WeatherEntity implements WeatherEntityInterface
     public $summary;
 
     /**
-     * @var \DateTimeImmutable
-     * @Column(type="datetime")
+     * @var DateTimeImmutable
+     * @Column(type="datetime_immutable")
      */
     public $day1Date;
 
@@ -128,8 +129,8 @@ class WeatherEntity implements WeatherEntityInterface
     public $day1Temp;
 
     /**
-     * @var \DateTimeImmutable
-     * @Column(type="datetime")
+     * @var DateTimeImmutable
+     * @Column(type="datetime_immutable")
      */
     public $day2Date;
 
@@ -140,8 +141,8 @@ class WeatherEntity implements WeatherEntityInterface
     public $day2Temp;
 
     /**
-     * @var \DateTimeImmutable
-     * @Column(type="datetime")
+     * @var DateTimeImmutable
+     * @Column(type="datetime_immutable")
      */
     public $day3Date;
 
@@ -152,8 +153,8 @@ class WeatherEntity implements WeatherEntityInterface
     public $day3Temp;
 
     /**
-     * @var \DateTimeImmutable
-     * @Column(type="datetime")
+     * @var DateTimeImmutable
+     * @Column(type="datetime_immutable")
      */
     public $day4Date;
 
@@ -164,8 +165,8 @@ class WeatherEntity implements WeatherEntityInterface
     public $day4Temp;
 
     /**
-     * @var \DateTimeImmutable
-     * @Column(type="datetime")
+     * @var DateTimeImmutable
+     * @Column(type="datetime_immutable")
      */
     public $day5Date;
 
@@ -200,7 +201,7 @@ class WeatherEntity implements WeatherEntityInterface
         return $this->lon;
     }
 
-    public function getDate(): \DateTimeImmutable
+    public function getDate(): DateTimeImmutable
     {
         return $this->date;
     }
@@ -255,7 +256,7 @@ class WeatherEntity implements WeatherEntityInterface
         return $this->summary;
     }
 
-    public function getDay1Date(): \DateTimeImmutable
+    public function getDay1Date(): DateTimeImmutable
     {
         return $this->day1Date;
     }
@@ -265,7 +266,7 @@ class WeatherEntity implements WeatherEntityInterface
         return $this->day1Temp;
     }
 
-    public function getDay2Date(): \DateTimeImmutable
+    public function getDay2Date(): DateTimeImmutable
     {
         return $this->day2Date;
     }
@@ -275,7 +276,7 @@ class WeatherEntity implements WeatherEntityInterface
         return $this->day2Temp;
     }
 
-    public function getDay3Date(): \DateTimeImmutable
+    public function getDay3Date(): DateTimeImmutable
     {
         return $this->day3Date;
     }
@@ -285,7 +286,7 @@ class WeatherEntity implements WeatherEntityInterface
         return $this->day3Temp;
     }
 
-    public function getDay4Date(): \DateTimeImmutable
+    public function getDay4Date(): DateTimeImmutable
     {
         return $this->day4Date;
     }
@@ -295,7 +296,7 @@ class WeatherEntity implements WeatherEntityInterface
         return $this->day4Temp;
     }
 
-    public function getDay5Date(): \DateTimeImmutable
+    public function getDay5Date(): DateTimeImmutable
     {
         return $this->day5Date;
     }
