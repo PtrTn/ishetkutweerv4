@@ -15,7 +15,7 @@ build:
     environment:
         node: v9.11.1
         php:
-            version: '7.4'
+            version: '7.4.10'
     tests:
         override:
             -   command: 'chmod +x bin/phpunit'
