@@ -34,6 +34,8 @@ yarn-error.log
 .env.local
 .idea
 
+.phplint-cache
+
 ###> sensiolabs-de/deptrac-shim ###
 /.deptrac.cache
 ###< sensiolabs-de/deptrac-shim ###
