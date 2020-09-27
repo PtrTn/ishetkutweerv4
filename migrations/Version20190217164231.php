@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-// phpcs:disable
 namespace App\Infrastructure\Migrations;
 
 use Doctrine\DBAL\Schema\Schema;
