@@ -2,6 +2,7 @@
 
 namespace App\Infrastructure\Repository;
 
+use App\Application\Entity\WeatherEntityInterface;
 use App\Application\Repository\WeatherEntityRepositoryInterface;
 use App\Infrastructure\Entity\WeatherEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -40,7 +41,7 @@ class WeatherEntityRepository extends ServiceEntityRepository implements Weather
     }
 
     /**
-     * @return WeatherEntity[]
+     * @return WeatherEntityInterface[]
      */
     public function getLatestEntites(): array
     {

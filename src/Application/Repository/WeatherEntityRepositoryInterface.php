@@ -2,28 +2,27 @@
 
 namespace App\Application\Repository;
 
-use App\Infrastructure\Entity\WeatherEntity;
+use App\Application\Entity\WeatherEntityInterface;
 
 interface WeatherEntityRepositoryInterface
 {
-
     /**
-     * @param WeatherEntity[] $entities
+     * @param WeatherEntityInterface[] $entities
      */
     public function saveEntities(array $entities): void;
 
     /**
-     * @param WeatherEntity[] $entities
+     * @param WeatherEntityInterface[] $entities
      */
     public function deleteEntities(array $entities): void;
 
     /**
-     * @return WeatherEntity[]
+     * @return WeatherEntityInterface[]
      */
     public function getLatestEntites(): array;
 
     /**
-     * @return WeatherEntity[]
+     * @return WeatherEntityInterface[]
      */
     public function getOutdatedEntities(): array;
 }

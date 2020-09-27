@@ -2,6 +2,7 @@
 
 namespace App\Infrastructure\Entity;
 
+use App\Application\Entity\WeatherEntityInterface;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\GeneratedValue;
@@ -13,7 +14,7 @@ use Doctrine\ORM\Mapping\Table;
  * @Table("Weather")
  * @SuppressWarnings(PHPMD.TooManyFields)
  */
-class WeatherEntity
+class WeatherEntity implements WeatherEntityInterface
 {
     /**
      * @var int

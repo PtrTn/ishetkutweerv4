@@ -2,6 +2,7 @@
 
 namespace App\Infrastructure\Mapper;
 
+use App\Application\Entity\WeatherEntityInterface;
 use App\Application\Mapper\WeatherEntityMapperInterface;
 use App\Domain\Dto\ForecastDayDto;
 use App\Domain\Dto\ForecastDto;
@@ -45,7 +46,7 @@ class WeatherEntityMapper implements WeatherEntityMapperInterface
         return $entity;
     }
 
-    public function createDtoFromEntity(WeatherEntity $entity): WeatherDto
+    public function createDtoFromEntity(WeatherEntityInterface $entity): WeatherDto
     {
         $locationDto = new LocationDto();
         $locationDto->stationName = $entity->stationName;

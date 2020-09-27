@@ -2,12 +2,12 @@
 
 namespace App\Application\Mapper;
 
+use App\Application\Entity\WeatherEntityInterface;
 use App\Domain\Dto\WeatherDto;
-use App\Infrastructure\Entity\WeatherEntity;
 
 interface WeatherEntityMapperInterface
 {
-    public function createEntityFromDto(WeatherDto $dto): WeatherEntity;
+    public function createEntityFromDto(WeatherDto $dto): WeatherEntityInterface;
     
-    public function createDtoFromEntity(WeatherEntity $entity): WeatherDto;
+    public function createDtoFromEntity(WeatherEntityInterface $entity): WeatherDto;
 }

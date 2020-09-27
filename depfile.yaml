@@ -1,29 +1,24 @@
 paths:
-    - ./src
+  - ./src
 exclude_files:
-    - .*test.*
+  - .*test.*
 layers:
-    -
-        name: Controller
-        collectors:
-            -
-                type: className
-                regex: .*Controller.*
-    -
-        name: Repository
-        collectors:
-            -
-                type: className
-                regex: .*Repository.*
-    -
-        name: Service
-        collectors:
-            -
-                type: className
-                regex: .*Service.*
+  - name: Domain
+    collectors:
+      - type: className
+        regex: .*Domain.*
+  - name: Application
+    collectors:
+      - type: className
+        regex: .*Application.*
+  - name: Infrastructure
+    collectors:
+      - type: className
+        regex: .*Infrastructure.*
 ruleset:
-    Controller:
-        - Service
-    Service:
-        - Repository
-    Repository:
+  Domain: ~
+  Application:
+    - Domain
+  Infrastructure:
+    - Application
+    - Domain
