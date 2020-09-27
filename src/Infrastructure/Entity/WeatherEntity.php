@@ -96,6 +96,12 @@ class WeatherEntity
     public $windRating;
 
     /**
+     * @var int
+     * @Column(type="integer")
+     */
+    public $averageRating;
+
+    /**
      * @var string
      * @Column(type="string", length=255)
      */

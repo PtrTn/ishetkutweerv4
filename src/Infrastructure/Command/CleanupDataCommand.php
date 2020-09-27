@@ -28,11 +28,13 @@ class CleanupDataCommand extends Command
             ->setHelp('This command will remove any outdated weather data from the database');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $output->writeln('Starting data cleanup');
         $entities = $this->repository->getOutdatedEntities();
         $this->repository->deleteEntities($entities);
         $output->writeln(sprintf('Cleaned up %s records', count($entities)));
+
+        return 0;
     }
 }

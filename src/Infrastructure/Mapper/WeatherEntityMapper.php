@@ -28,6 +28,7 @@ class WeatherEntityMapper implements WeatherEntityMapperInterface
         $entity->temperatureRating = $dto->rating->temperatureRating->getRating();
         $entity->rainRating = $dto->rating->rainRating->getRating();
         $entity->windRating = $dto->rating->windRating->getRating();
+        $entity->averageRating = $dto->rating->averageRating->getRating();
         $entity->background = $dto->background;
         $entity->summary = $dto->summary;
         $entity->day1Date = $dto->forecast->day1->date;
@@ -55,7 +56,8 @@ class WeatherEntityMapper implements WeatherEntityMapperInterface
         $ratingDto->temperatureRating = new Rating($entity->temperatureRating);
         $ratingDto->rainRating = new Rating($entity->rainRating);
         $ratingDto->windRating = new Rating($entity->windRating);
-        
+        $ratingDto->averageRating = new Rating($entity->averageRating);
+
         $day1 = new ForecastDayDto();
         $day1->date = $entity->day1Date;
         $day1->temperature = $entity->day1Temp;

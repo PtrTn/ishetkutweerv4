@@ -51,7 +51,7 @@ class ImportBuienradarCommand extends Command
             ->addOption('force', 'f', InputOption::VALUE_NONE, 'Force import disregarding last import job time');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $output->writeln('Starting Buienradar import');
         $importJobEntity = $this->importJobEntityFactory->createPendingImportJobEntity();
@@ -60,7 +60,7 @@ class ImportBuienradarCommand extends Command
         if ($this->shouldSkip($input, $output)) {
             $importJobEntity->setStatusSkipped();
             $this->importJobEntityRepository->save($importJobEntity);
-            return;
+            return 0;
         }
 
         try {
@@ -70,12 +70,14 @@ class ImportBuienradarCommand extends Command
             $importJobEntity->setStatusFailedWithMessage($e->getMessage());
             $this->importJobEntityRepository->save($importJobEntity);
             $output->writeln(sprintf('Failed Buienradar import, because "%s"', $e->getMessage()));
-            return;
+            return 1;
         }
 
         $importJobEntity->setStatusSuccess();
         $this->importJobEntityRepository->save($importJobEntity);
         $output->writeln('Successfully finished Buienradar import');
+
+        return 0;
     }
 
     private function shouldSkip(InputInterface $input, OutputInterface $output): bool

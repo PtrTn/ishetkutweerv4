@@ -26,13 +26,13 @@ class ColorExtension extends AbstractExtension
 
     public function getBackgroundColorForRatingDto(WeatherRatingDto $ratingDto)
     {
-        if ($ratingDto->averageRating <= Rating::NIET_KUT) {
+        if ($ratingDto->averageRating->getRating() <= Rating::NIET_KUT) {
             return self::GOOD;
         }
-        if ($ratingDto->averageRating <= Rating::BEETJE_KUT) {
+        if ($ratingDto->averageRating->getRating() <= Rating::BEETJE_KUT) {
             return self::MEDIUM;
         }
-        if ($ratingDto->averageRating <= Rating::KUT) {
+        if ($ratingDto->averageRating->getRating() <= Rating::KUT) {
             return self::BAD;
         }
 

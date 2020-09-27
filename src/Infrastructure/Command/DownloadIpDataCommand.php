@@ -28,10 +28,12 @@ class DownloadIpDataCommand extends Command
             ->setHelp('This command will download GeoLite2 database, used for doing IP based location lookups');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $output->writeln('Starting ip data download');
         $this->downloader->download();
         $output->writeln('Finished downloading ip data');
+
+        return 0;
     }
 }

@@ -75,7 +75,7 @@
             "@auto-scripts"
         ],
         "phpunit": "simple-phpunit",
-        "phpstan": "phpstan analyse src --level=1",
+        "phpstan": "phpstan analyse src --level=2",
         "phpmd": "phpmd src ansi ./ruleset.xml",
         "phpcs": "phpcs src",
         "phpcbf": "phpcbf src",

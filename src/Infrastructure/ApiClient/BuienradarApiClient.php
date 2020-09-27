@@ -35,7 +35,7 @@ class BuienradarApiClient implements BuienradarApiClientInterface
             throw new RuntimeException('Unable to contact buienradar API');
         }
         $data = $response->getBody()->getContents();
-        /** @var $data BuienradarnlDto */
+        /** @var BuienradarnlDto $data */
         $data = $this->serializer->deserialize($data, BuienradarnlDto::class, 'xml');
         return $data;
     }

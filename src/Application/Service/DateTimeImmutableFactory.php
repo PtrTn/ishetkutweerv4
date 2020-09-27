@@ -27,7 +27,7 @@ class DateTimeImmutableFactory
         );
         $timestamp = $formatter->parse($datetime);
 
-        $dateTimeImmutable = DateTimeImmutable::createFromFormat('U', $timestamp);
+        $dateTimeImmutable = DateTimeImmutable::createFromFormat('U', (string) $timestamp);
         if ($dateTimeImmutable instanceof DateTimeImmutable) {
             return $dateTimeImmutable;
         }
