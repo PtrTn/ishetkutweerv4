@@ -52,6 +52,7 @@ class WeatherEntityMapperTest extends MockeryTestCase
         $ratingDto->temperatureRating = $kutRating;
         $ratingDto->rainRating = $kutRating;
         $ratingDto->windRating = $kutRating;
+        $ratingDto->averageRating = $kutRating;
 
         $day1Dto = new ForecastDayDto();
         $day1Dto->temperature = 12;
@@ -106,6 +107,7 @@ class WeatherEntityMapperTest extends MockeryTestCase
         $this->assertSame($kutRating->getRating(), $entity->temperatureRating);
         $this->assertSame($kutRating->getRating(), $entity->rainRating);
         $this->assertSame($kutRating->getRating(), $entity->windRating);
+        $this->assertSame($kutRating->getRating(), $entity->averageRating);
     }
 
     /**
@@ -139,6 +141,7 @@ class WeatherEntityMapperTest extends MockeryTestCase
         $entity->temperatureRating = $kutRating;
         $entity->rainRating = $kutRating;
         $entity->windRating = $kutRating;
+        $entity->averageRating = $kutRating;
         $entity->background = $background;
         
         $dto = $this->mapper->createDtoFromEntity($entity);
@@ -156,6 +159,7 @@ class WeatherEntityMapperTest extends MockeryTestCase
         $this->assertEquals(new Rating($kutRating), $dto->rating->temperatureRating);
         $this->assertEquals(new Rating($kutRating), $dto->rating->rainRating);
         $this->assertEquals(new Rating($kutRating), $dto->rating->windRating);
+        $this->assertEquals(new Rating($kutRating), $dto->rating->averageRating);
     }
 
 }

@@ -41,6 +41,7 @@ class WeatherEntityMapper implements WeatherEntityMapperInterface
         $entity->day4Temp = $dto->forecast->day4->temperature;
         $entity->day5Date = $dto->forecast->day5->date;
         $entity->day5Temp = $dto->forecast->day5->temperature;
+
         return $entity;
     }
 
