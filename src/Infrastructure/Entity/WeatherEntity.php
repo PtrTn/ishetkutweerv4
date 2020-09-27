@@ -173,4 +173,134 @@ class WeatherEntity implements WeatherEntityInterface
      * @Column(type="float")
      */
     public $day5Temp;
+
+    public function getIdentifier(): int
+    {
+        return $this->identifier;
+    }
+
+    public function getRegion(): string
+    {
+        return $this->region;
+    }
+
+    public function getStationName(): string
+    {
+        return $this->stationName;
+    }
+
+    public function getLat(): string
+    {
+        return $this->lat;
+    }
+
+    public function getLon(): float
+    {
+        return $this->lon;
+    }
+
+    public function getDate(): \DateTimeImmutable
+    {
+        return $this->date;
+    }
+
+    public function getTemperature(): ?float
+    {
+        return $this->temperature;
+    }
+
+    public function getRain(): ?float
+    {
+        return $this->rain;
+    }
+
+    public function getWindSpeed(): ?float
+    {
+        return $this->windSpeed;
+    }
+
+    public function getWindDirection(): string
+    {
+        return $this->windDirection;
+    }
+
+    public function getTemperatureRating(): int
+    {
+        return $this->temperatureRating;
+    }
+
+    public function getRainRating(): int
+    {
+        return $this->rainRating;
+    }
+
+    public function getWindRating(): int
+    {
+        return $this->windRating;
+    }
+
+    public function getAverageRating(): int
+    {
+        return $this->averageRating;
+    }
+
+    public function getBackground(): string
+    {
+        return $this->background;
+    }
+
+    public function getSummary(): string
+    {
+        return $this->summary;
+    }
+
+    public function getDay1Date(): \DateTimeImmutable
+    {
+        return $this->day1Date;
+    }
+
+    public function getDay1Temp(): float
+    {
+        return $this->day1Temp;
+    }
+
+    public function getDay2Date(): \DateTimeImmutable
+    {
+        return $this->day2Date;
+    }
+
+    public function getDay2Temp(): float
+    {
+        return $this->day2Temp;
+    }
+
+    public function getDay3Date(): \DateTimeImmutable
+    {
+        return $this->day3Date;
+    }
+
+    public function getDay3Temp(): float
+    {
+        return $this->day3Temp;
+    }
+
+    public function getDay4Date(): \DateTimeImmutable
+    {
+        return $this->day4Date;
+    }
+
+    public function getDay4Temp(): float
+    {
+        return $this->day4Temp;
+    }
+
+    public function getDay5Date(): \DateTimeImmutable
+    {
+        return $this->day5Date;
+    }
+
+    public function getDay5Temp(): float
+    {
+        return $this->day5Temp;
+    }
 }

@@ -49,36 +49,36 @@ class WeatherEntityMapper implements WeatherEntityMapperInterface
     public function createDtoFromEntity(WeatherEntityInterface $entity): WeatherDto
     {
         $locationDto = new LocationDto();
-        $locationDto->stationName = $entity->stationName;
-        $locationDto->region = $entity->region;
-        $locationDto->lat = $entity->lat;
-        $locationDto->lon = $entity->lon;
+        $locationDto->stationName = $entity->getStationName();
+        $locationDto->region = $entity->getRegion();
+        $locationDto->lat = $entity->getLat();
+        $locationDto->lon = $entity->getLon();
 
         $ratingDto = new WeatherRatingDto();
-        $ratingDto->temperatureRating = new Rating($entity->temperatureRating);
-        $ratingDto->rainRating = new Rating($entity->rainRating);
-        $ratingDto->windRating = new Rating($entity->windRating);
-        $ratingDto->averageRating = new Rating($entity->averageRating);
+        $ratingDto->temperatureRating = new Rating($entity->getTemperatureRating());
+        $ratingDto->rainRating = new Rating($entity->getRainRating());
+        $ratingDto->windRating = new Rating($entity->getWindRating());
+        $ratingDto->averageRating = new Rating($entity->getAverageRating());
 
         $day1 = new ForecastDayDto();
-        $day1->date = $entity->day1Date;
-        $day1->temperature = $entity->day1Temp;
+        $day1->date = $entity->getDay1Date();
+        $day1->temperature = $entity->getDay1Temp();
         
         $day2 = new ForecastDayDto();
-        $day2->date = $entity->day2Date;
-        $day2->temperature = $entity->day2Temp;
+        $day2->date = $entity->getDay2Date();
+        $day2->temperature = $entity->getDay2Temp();
         
         $day3 = new ForecastDayDto();
-        $day3->date = $entity->day3Date;
-        $day3->temperature = $entity->day3Temp;
+        $day3->date = $entity->getDay3Date();
+        $day3->temperature = $entity->getDay3Temp();
         
         $day4 = new ForecastDayDto();
-        $day4->date = $entity->day4Date;
-        $day4->temperature = $entity->day4Temp;
+        $day4->date = $entity->getDay4Date();
+        $day4->temperature = $entity->getDay4Temp();
         
         $day5 = new ForecastDayDto();
-        $day5->date = $entity->day5Date;
-        $day5->temperature = $entity->day5Temp;
+        $day5->date = $entity->getDay5Date();
+        $day5->temperature = $entity->getDay5Temp();
         
         $forecastDto = new ForecastDto();
         $forecastDto->day1 = $day1;
@@ -88,13 +88,13 @@ class WeatherEntityMapper implements WeatherEntityMapperInterface
         $forecastDto->day5 = $day5;
 
         $dto = new WeatherDto();
-        $dto->date = $entity->date;
-        $dto->temperature = $entity->temperature;
-        $dto->windSpeed = $entity->windSpeed;
-        $dto->windDirection = $entity->windDirection;
-        $dto->rain = $entity->rain;
-        $dto->background = $entity->background;
-        $dto->summary = $entity->summary;
+        $dto->date = $entity->getDate();
+        $dto->temperature = $entity->getTemperature();
+        $dto->windSpeed = $entity->getWindSpeed();
+        $dto->windDirection = $entity->getWindDirection();
+        $dto->rain = $entity->getRain();
+        $dto->background = $entity->getBackground();
+        $dto->summary = $entity->getSummary();
         $dto->location = $locationDto;
         $dto->rating = $ratingDto;
         $dto->forecast = $forecastDto;

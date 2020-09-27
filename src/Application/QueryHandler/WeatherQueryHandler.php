@@ -51,7 +51,7 @@ class WeatherQueryHandler
     {
         $entities = $this->entityRepository->getLatestEntites();
         foreach ($entities as $entity) {
-            if ($entity->region === $query->location) {
+            if ($entity->getRegion() === $query->location) {
                 return $this->entityMapper->createDtoFromEntity($entity);
             }
         }
