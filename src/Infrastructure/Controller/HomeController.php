@@ -31,8 +31,8 @@ class HomeController extends Abstractcontroller
 
     public function weatherByIp(Request $request)
     {
-        $ip = $request->getClientIp();
-        $location = $this->ipLocator->getLocationForIp($ip);
+        $ipAddress = $request->getClientIp();
+        $location = $this->ipLocator->getLocationForIp($ipAddress);
         $data = $this->queryHandler->getWeatherDataByLatLonQuery(
             new WeatherByLatLonQuery($location->lat, $location->lon)
         );

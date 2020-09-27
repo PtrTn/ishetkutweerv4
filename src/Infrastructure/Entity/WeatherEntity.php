@@ -11,6 +11,7 @@ use Doctrine\ORM\Mapping\Table;
 /**
  * @Entity(repositoryClass="App\Infrastructure\Repository\WeatherEntityRepository")
  * @Table("Weather")
+ * @SuppressWarnings(PHPMD.TooManyFields)
  */
 class WeatherEntity
 {
@@ -18,9 +19,9 @@ class WeatherEntity
      * @var int
      * @Id
      * @GeneratedValue
-     * @Column(type="integer")
+     * @Column(type="integer", name="id")
      */
-    public $id;
+    public $identifier;
 
     /**
      * @var string

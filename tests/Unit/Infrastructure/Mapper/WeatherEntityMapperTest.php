@@ -126,7 +126,7 @@ class WeatherEntityMapperTest extends MockeryTestCase
         $kutRating = 3;
 
         $entity = new WeatherEntity();
-        $entity->id = 123;
+        $entity->identifier = 123;
         $entity->region = $region;
         $entity->stationName = $stationName;
         $entity->lat = $lat;

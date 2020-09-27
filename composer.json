@@ -76,7 +76,7 @@
         ],
         "phpunit": "simple-phpunit",
         "phpstan": "phpstan analyse src --level=1",
-        "phpmd": "phpmd src ansi cleancode,codesize,controversial,design,naming,unusedcode",
+        "phpmd": "phpmd src ansi ./ruleset.xml",
         "phpcs": "phpcs src",
         "phpcbf": "phpcbf src",
         "phplint": "phplint",

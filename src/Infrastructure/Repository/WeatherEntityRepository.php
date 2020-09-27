@@ -44,8 +44,8 @@ class WeatherEntityRepository extends ServiceEntityRepository implements Weather
      */
     public function getLatestEntites(): array
     {
-        $qb = $this->createQueryBuilder('w1');
-        return $qb
+        $queryBuilder = $this->createQueryBuilder('w1');
+        return $queryBuilder
             ->select('w1')
             ->leftJoin(WeatherEntity::class, 'w2', Join::WITH, 'w1.region = w2.region AND w1.date < w2.date')
             ->where('w2.region IS NULL')
@@ -60,13 +60,13 @@ class WeatherEntityRepository extends ServiceEntityRepository implements Weather
     {
         $latestEntities = $this->getLatestEntites();
         $entityIds = array_map(function (WeatherEntity $entity) {
-            return $entity->id;
+            return $entity->identifier;
         }, $latestEntities);
 
-        $qb = $this->createQueryBuilder('w');
-        return $qb
+        $queryBuilder = $this->createQueryBuilder('w');
+        return $queryBuilder
             ->select('w')
-            ->where($qb->expr()->notIn('w.id', $entityIds))
+            ->where($queryBuilder->expr()->notIn('w.id', $entityIds))
             ->getQuery()
             ->getResult();
     }

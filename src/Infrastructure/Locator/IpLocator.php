@@ -19,10 +19,10 @@ class IpLocator
         $this->reader = $reader;
     }
 
-    public function getLocationForIp(string $ip): LocationDto
+    public function getLocationForIp(string $ipAddress): LocationDto
     {
         try {
-            $city = $this->reader->city($ip);
+            $city = $this->reader->city($ipAddress);
         } catch (AddressNotFoundException $e) {
             return $this->getDefaultLocation();
         } catch (InvalidDatabaseException $e) {

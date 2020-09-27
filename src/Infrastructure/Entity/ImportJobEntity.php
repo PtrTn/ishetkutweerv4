@@ -26,9 +26,9 @@ class ImportJobEntity
      * @var int
      * @Id
      * @GeneratedValue
-     * @Column(type="integer")
+     * @Column(type="integer", name="id")
      */
-    public $id;
+    public $identifier;
 
     /**
      * @var \DateTimeImmutable
