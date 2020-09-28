@@ -1,17 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Domain\Service;
 
 use App\Domain\Dto\WeatherDto;
-use App\Domain\ValueObject\Rating;
 use App\Domain\Rule\WeatherRule;
+use App\Domain\ValueObject\Rating;
 
 class RatingService
 {
-    /**
-     * @var WeatherRule[]|iterable
-     */
-    private $rules;
+    /** @var WeatherRule[]|iterable */
+    private iterable $rules;
 
     /**
      * @param WeatherRule[]|iterable $rules

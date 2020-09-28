@@ -71,7 +71,7 @@ class WeatherDtoSanitizerTest extends MockeryTestCase
                 $this->assertSame(51.83, $sanitizedDto->latGraden);
                 $this->assertSame(6.33, $sanitizedDto->lonGraden);
                 
-                return TRUE;
+                return true;
             })
             ->once();
 

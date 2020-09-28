@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Infrastructure\Command;
 
 use App\Infrastructure\Downloader\GeoLite2Downloader;
@@ -12,10 +14,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class DownloadIpDataCommand extends Command
 {
-    /**
-     * @var GeoLite2Downloader
-     */
-    private $downloader;
+    private GeoLite2Downloader $downloader;
 
     public function __construct(GeoLite2Downloader $downloader)
     {
@@ -23,7 +22,7 @@ class DownloadIpDataCommand extends Command
         $this->downloader = $downloader;
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setName('download:ipdata')

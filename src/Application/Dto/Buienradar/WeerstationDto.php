@@ -9,7 +9,7 @@ use JMS\Serializer\Annotation\Type;
 class WeerstationDto
 {
     /**
-     * @var string
+     * @var string|int
      * @Type("string")
      */
     public $stationcode;
@@ -21,13 +21,13 @@ class WeerstationDto
     public $stationnaam;
 
     /**
-     * @var string
+     * @var string|float
      * @Type("string")
      */
     public $lat;
 
     /**
-     * @var string
+     * @var string|float
      * @Type("string")
      */
     public $lon;
@@ -39,34 +39,34 @@ class WeerstationDto
     public $datum;
 
     /**
-     * @var string
+     * @var string|int
      * @Type("string")
      */
     public $luchtvochtigheid;
 
     /**
-     * @var string
+     * @var string|float
      * @Type("string")
      * @Serializer\SerializedName("temperatuurGC")
      */
     public $temperatuurGC;
 
     /**
-     * @var string
+     * @var string|float
      * @Type("string")
      * @Serializer\SerializedName("windsnelheidMS")
      */
     public $windsnelheidMS;
 
     /**
-     * @var string
+     * @var string|float
      * @Type("string")
      * @Serializer\SerializedName("windsnelheidBF")
      */
     public $windsnelheidBF;
 
     /**
-     * @var string
+     * @var string|int
      * @Type("string")
      * @Serializer\SerializedName("windrichtingGR")
      */
@@ -79,33 +79,33 @@ class WeerstationDto
     public $windrichting;
 
     /**
-     * @var string
+     * @var string|float
      * @Type("string")
      */
     public $luchtdruk;
 
     /**
-     * @var string
+     * @var string|int
      * @Type("string")
      */
     public $zichtmeters;
 
     /**
-     * @var string
+     * @var string|float
      * @Type("string")
      * @Serializer\SerializedName("windstotenMS")
      */
     public $windstotenMS;
 
     /**
-     * @var string
+     * @var string|float
      * @Type("string")
      * @Serializer\SerializedName("regenMMPU")
      */
     public $regenMMPU;
 
     /**
-     * @var string
+     * @var string|int
      * @Type("string")
      * @Serializer\SerializedName("zonintensiteitWM2")
      */
@@ -118,7 +118,7 @@ class WeerstationDto
     public $icoonactueel;
 
     /**
-     * @var string
+     * @var string|float
      * @Type("string")
      */
     public $temperatuur10cm;
@@ -130,14 +130,14 @@ class WeerstationDto
     public $url;
 
     /**
-     * @var string
+     * @var string|float
      * @Type("string")
      * @Serializer\SerializedName("latGraden")
      */
     public $latGraden;
 
     /**
-     * @var string
+     * @var string|float
      * @Type("string")
      * @Serializer\SerializedName("lonGraden")
      */

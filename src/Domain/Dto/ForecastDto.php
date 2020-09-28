@@ -1,31 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Domain\Dto;
 
 class ForecastDto
 {
-    /**
-     * @var ForecastDayDto
-     */
-    public $day1;
+    public ForecastDayDto $day1;
 
-    /**
-     * @var ForecastDayDto
-     */
-    public $day2;
+    public ForecastDayDto $day2;
 
-    /**
-     * @var ForecastDayDto
-     */
-    public $day3;
+    public ForecastDayDto $day3;
 
-    /**
-     * @var ForecastDayDto
-     */
-    public $day4;
+    public ForecastDayDto $day4;
 
-    /**
-     * @var ForecastDayDto
-     */
-    public $day5;
+    public ForecastDayDto $day5;
 }

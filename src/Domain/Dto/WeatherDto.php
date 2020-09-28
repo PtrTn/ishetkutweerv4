@@ -1,61 +1,32 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Domain\Dto;
 
 use DateTimeImmutable;
 
 class WeatherDto
 {
-    /**
-     * @var LocationDto
-     */
-    public $location;
+    public LocationDto $location;
 
-    /**
-     * @var DateTimeImmutable
-     */
-    public $date;
+    public DateTimeImmutable $date;
 
-    /**
-     * @var float|null
-     */
-    public $temperature;
+    public ?float $temperature = null;
 
-    /**
-     * @var float|null
-     */
-    public $rain;
+    public ?float $rain = null;
 
-    /**
-     * @var float|null
-     */
-    public $windSpeed;
+    public ?float $windSpeed = null;
 
-    /**
-     * @var string
-     */
-    public $windDirection;
+    public string $windDirection;
 
-    /**
-     * @var WeatherRatingDto
-     */
-    public $rating;
+    public WeatherRatingDto $rating;
 
-    /**
-     * @var string
-     */
-    public $summary;
+    public string $summary;
 
-    /**
-     * @var ForecastDto
-     */
-    public $forecast;
+    public ForecastDto $forecast;
 
-    /**
-     * @var string
-     */
-    public $background;
-
+    public string $background;
 
     public function isFreezing(): bool
     {

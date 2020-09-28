@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Infrastructure\Entity;
 
+use DateTimeImmutable;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\GeneratedValue;
@@ -23,30 +26,20 @@ class ImportJobEntity
     public const STATUS_SKIPPED = 'skipped';
 
     /**
-     * @var int
      * @Id
      * @GeneratedValue
      * @Column(type="integer", name="id")
      */
-    public $identifier;
+    public int $identifier;
 
-    /**
-     * @var \DateTimeImmutable
-     * @Column(type="datetime")
-     */
-    public $created;
+    /** @Column(type="datetime_immutable") */
+    public DateTimeImmutable $created;
 
-    /**
-     * @var bool
-     * @Column(type="string", columnDefinition="ENUM('pending', 'failed', 'success', 'skipped')")
-     */
-    public $status;
+    /** @Column(type="string", columnDefinition="ENUM('pending', 'failed', 'success', 'skipped')") */
+    public string $status;
 
-    /**
-     * @var string
-     * @Column(type="text", nullable=true)
-     */
-    public $message;
+    /** @Column(type="text", nullable=true) */
+    public ?string $message;
 
     public function setStatusSuccess(): void
     {

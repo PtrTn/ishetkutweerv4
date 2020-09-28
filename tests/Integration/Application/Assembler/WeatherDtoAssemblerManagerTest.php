@@ -28,9 +28,6 @@ class WeatherDtoAssemblerManagerTest extends KernelTestCase
     {
         $dto = new WeatherDto();
 
-        $this->assertNull($dto->rating);
-        $this->assertNull($dto->background);
-
         $assembledDto = $this->assembler->assemble($dto);
 
         $this->assertEquals('rain.jpg', $assembledDto->background);

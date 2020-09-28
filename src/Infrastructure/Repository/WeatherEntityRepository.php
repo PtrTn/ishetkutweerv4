@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Infrastructure\Repository;
 
 use App\Application\Entity\WeatherEntityInterface;
@@ -8,6 +10,8 @@ use App\Infrastructure\Entity\WeatherEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
+
+use function array_map;
 
 /**
  * @method WeatherEntity|null find($id, $lockMode = null, $lockVersion = null)
@@ -22,30 +26,33 @@ class WeatherEntityRepository extends ServiceEntityRepository implements Weather
         parent::__construct($registry, WeatherEntity::class);
     }
 
+    /** @param WeatherEntityInterface[] $entities */
     public function saveEntities(array $entities): void
     {
         $entityManager = $this->getEntityManager();
         foreach ($entities as $entity) {
             $entityManager->persist($entity);
         }
+
         $entityManager->flush();
     }
 
+    /** @param WeatherEntityInterface[] $entities */
     public function deleteEntities(array $entities): void
     {
         $entityManager = $this->getEntityManager();
         foreach ($entities as $entity) {
             $entityManager->remove($entity);
         }
+
         $entityManager->flush();
     }
 
-    /**
-     * @return WeatherEntityInterface[]
-     */
+    /** @return WeatherEntityInterface[] */
     public function getLatestEntites(): array
     {
         $queryBuilder = $this->createQueryBuilder('w1');
+
         return $queryBuilder
             ->select('w1')
             ->leftJoin(WeatherEntity::class, 'w2', Join::WITH, 'w1.region = w2.region AND w1.date < w2.date')
@@ -57,14 +64,16 @@ class WeatherEntityRepository extends ServiceEntityRepository implements Weather
             ->getResult();
     }
 
+    /** @return WeatherEntityInterface[] */
     public function getOutdatedEntities(): array
     {
         $latestEntities = $this->getLatestEntites();
-        $entityIds = array_map(function (WeatherEntity $entity) {
+        $entityIds = array_map(static function (WeatherEntity $entity) {
             return $entity->identifier;
         }, $latestEntities);
 
         $queryBuilder = $this->createQueryBuilder('w');
+
         return $queryBuilder
             ->select('w')
             ->where($queryBuilder->expr()->notIn('w.id', $entityIds))

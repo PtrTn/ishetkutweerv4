@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Infrastructure\Entity;
 
 use App\Application\Entity\WeatherEntityInterface;
@@ -19,162 +21,86 @@ use Doctrine\ORM\Mapping\Table;
 class WeatherEntity implements WeatherEntityInterface
 {
     /**
-     * @var int
      * @Id
      * @GeneratedValue
      * @Column(type="integer", name="id")
      */
-    public $identifier;
+    public int $identifier;
 
-    /**
-     * @var string
-     * @Column(type="string", length=255)
-     */
-    public $region;
+    /** @Column(type="string", length=255) */
+    public string $region;
 
-    /**
-     * @var string
-     * @Column(type="string", length=255)
-     */
-    public $stationName;
+    /** @Column(type="string", length=255) */
+    public string $stationName;
 
-    /**
-     * @var float
-     * @Column(type="float")
-     */
-    public $lat;
+    /** @Column(type="float") */
+    public float $lat;
 
-    /**
-     * @var float
-     * @Column(type="float")
-     */
-    public $lon;
+    /** @Column(type="float") */
+    public float $lon;
 
-    /**
-     * @var DateTimeImmutable
-     * @Column(type="datetime_immutable")
-     */
-    public $date;
+    /** @Column(type="datetime_immutable") */
+    public DateTimeImmutable $date;
 
-    /**
-     * @var float|null
-     * @Column(type="float", nullable=true)
-     */
-    public $temperature;
+    /** @Column(type="float", nullable=true) */
+    public ?float $temperature = null;
 
-    /**
-     * @var float|null
-     * @Column(type="float", nullable=true)
-     */
-    public $rain;
+    /** @Column(type="float", nullable=true) */
+    public ?float $rain = null;
 
-    /**
-     * @var float|null
-     * @Column(type="float", nullable=true)
-     */
-    public $windSpeed;
+    /** @Column(type="float", nullable=true) */
+    public ?float $windSpeed = null;
 
-    /**
-     * @var string
-     * @Column(type="string", length=255)
-     */
-    public $windDirection;
+    /** @Column(type="string", length=255) */
+    public string $windDirection;
 
-    /**
-     * @var int
-     * @Column(type="integer")
-     */
-    public $temperatureRating;
+    /** @Column(type="integer") */
+    public int $temperatureRating;
 
-    /**
-     * @var int
-     * @Column(type="integer")
-     */
-    public $rainRating;
+    /** @Column(type="integer") */
+    public int $rainRating;
 
-    /**
-     * @var int
-     * @Column(type="integer")
-     */
-    public $windRating;
+    /** @Column(type="integer") */
+    public int $windRating;
 
-    /**
-     * @var int
-     * @Column(type="integer")
-     */
-    public $averageRating;
+    /** @Column(type="integer") */
+    public int $averageRating;
 
-    /**
-     * @var string
-     * @Column(type="string", length=255)
-     */
-    public $background;
+    /** @Column(type="string", length=255) */
+    public string $background;
 
-    /**
-     * @var string
-     * @Column(type="string", length=255)
-     */
-    public $summary;
+    /** @Column(type="string", length=255) */
+    public string $summary;
 
-    /**
-     * @var DateTimeImmutable
-     * @Column(type="datetime_immutable")
-     */
-    public $day1Date;
+    /** @Column(type="datetime_immutable") */
+    public DateTimeImmutable $day1Date;
 
-    /**
-     * @var float
-     * @Column(type="float")
-     */
-    public $day1Temp;
+    /** @Column(type="float") */
+    public float $day1Temp;
 
-    /**
-     * @var DateTimeImmutable
-     * @Column(type="datetime_immutable")
-     */
-    public $day2Date;
+    /** @Column(type="datetime_immutable") */
+    public DateTimeImmutable $day2Date;
 
-    /**
-     * @var float
-     * @Column(type="float")
-     */
-    public $day2Temp;
+    /** @Column(type="float") */
+    public float $day2Temp;
 
-    /**
-     * @var DateTimeImmutable
-     * @Column(type="datetime_immutable")
-     */
-    public $day3Date;
+    /** @Column(type="datetime_immutable") */
+    public DateTimeImmutable $day3Date;
 
-    /**
-     * @var float
-     * @Column(type="float")
-     */
-    public $day3Temp;
+    /** @Column(type="float") */
+    public float $day3Temp;
 
-    /**
-     * @var DateTimeImmutable
-     * @Column(type="datetime_immutable")
-     */
-    public $day4Date;
+    /** @Column(type="datetime_immutable") */
+    public DateTimeImmutable $day4Date;
 
-    /**
-     * @var float
-     * @Column(type="float")
-     */
-    public $day4Temp;
+    /** @Column(type="float") */
+    public float $day4Temp;
 
-    /**
-     * @var DateTimeImmutable
-     * @Column(type="datetime_immutable")
-     */
-    public $day5Date;
+    /** @Column(type="datetime_immutable") */
+    public DateTimeImmutable $day5Date;
 
-    /**
-     * @var float
-     * @Column(type="float")
-     */
-    public $day5Temp;
+    /** @Column(type="float") */
+    public float $day5Temp;
 
     public function getIdentifier(): int
     {

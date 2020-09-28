@@ -1,35 +1,30 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Infrastructure\Command;
 
 use App\Application\CommandHandler\WeatherCommandHandler;
 use App\Infrastructure\Factory\ImportJobEntityFactory;
 use App\Infrastructure\Repository\ImportJobEntityRepository;
 use Carbon\Carbon;
-use Exception;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Throwable;
+
+use function sprintf;
 
 class ImportBuienradarCommand extends Command
 {
     private const IMPORT_INTERVAL_IN_MINUTES = 10;
 
-    /**
-     * @var ImportJobEntityFactory
-     */
-    private $importJobEntityFactory;
+    private ImportJobEntityFactory $importJobEntityFactory;
 
-    /**
-     * @var ImportJobEntityRepository
-     */
-    private $importJobEntityRepository;
+    private ImportJobEntityRepository $importJobEntityRepository;
 
-    /**
-     * @var WeatherCommandHandler
-     */
-    private $commandHandler;
+    private WeatherCommandHandler $commandHandler;
 
     public function __construct(
         ImportJobEntityFactory $importJobEntityFactory,
@@ -42,7 +37,7 @@ class ImportBuienradarCommand extends Command
         $this->commandHandler = $commandHandler;
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setName('import:buienradar')
@@ -60,16 +55,18 @@ class ImportBuienradarCommand extends Command
         if ($this->shouldSkip($input, $output)) {
             $importJobEntity->setStatusSkipped();
             $this->importJobEntityRepository->save($importJobEntity);
+
             return 0;
         }
 
         try {
             $output->writeln('Importing and storing Buienradar data');
             $this->commandHandler->storeWeatherData();
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $importJobEntity->setStatusFailedWithMessage($e->getMessage());
             $this->importJobEntityRepository->save($importJobEntity);
             $output->writeln(sprintf('Failed Buienradar import, because "%s"', $e->getMessage()));
+
             return 1;
         }
 
@@ -84,12 +81,14 @@ class ImportBuienradarCommand extends Command
     {
         if ($input->getOption('force') === true) {
             $output->writeln('Forcing import disregarding last job run');
+
             return false;
         }
 
         $lastImportJob = $this->importJobEntityRepository->findLastSuccessfulImport();
         if ($lastImportJob === null) {
             $output->writeln('Importing since no last job run could be found');
+
             return false;
         }
 
@@ -98,6 +97,7 @@ class ImportBuienradarCommand extends Command
 
         if ($diffInMinutes > self::IMPORT_INTERVAL_IN_MINUTES) {
             $output->writeln(sprintf('Importing since last import was %s minutes ago', $diffInMinutes));
+
             return false;
         }
 
@@ -107,7 +107,7 @@ class ImportBuienradarCommand extends Command
                 'Last run was %s minutes ago, waiting %s minutes till next run',
                 $diffInMinutes,
                 self::IMPORT_INTERVAL_IN_MINUTES - $diffInMinutes
-            )
+            ),
         ]);
 
         return true;

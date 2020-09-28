@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Application\Factory;
 
 use App\Application\Dto\Buienradar\VerwachtingDag;
@@ -8,13 +10,11 @@ use App\Application\Service\DateTimeImmutableFactory;
 use App\Domain\Dto\ForecastDayDto;
 use App\Domain\Dto\ForecastDto;
 
+use function floor;
+
 class ForecastDtoFactory
 {
-
-    /**
-     * @var \App\Application\Service\DateTimeImmutableFactory
-     */
-    private $dateTimeImmutableFactory;
+    private DateTimeImmutableFactory $dateTimeImmutableFactory;
 
     public function __construct(DateTimeImmutableFactory $dateTimeImmutableFactory)
     {
@@ -35,7 +35,7 @@ class ForecastDtoFactory
 
     private function createDay(VerwachtingDag $dag): ForecastDayDto
     {
-        $dto = new ForecastDayDto;
+        $dto = new ForecastDayDto();
         $dto->temperature = floor(((float) $dag->maxtemp + (float) $dag->maxtempmax) / 2);
         $dto->date = $this->dateTimeImmutableFactory->createForLocale($dag->datum, 'EEEE d MMM yyyy');
 

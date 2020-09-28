@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Infrastructure\Controller;
 
 use App\Application\Query\WeatherByLatLonQuery;
@@ -8,18 +10,13 @@ use App\Application\QueryHandler\WeatherQueryHandler;
 use App\Infrastructure\Locator\IpLocator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
-class HomeController extends Abstractcontroller
+class HomeController extends AbstractController
 {
-    /**
-     * @var IpLocator
-     */
-    private $ipLocator;
+    private IpLocator $ipLocator;
 
-    /**
-     * @var WeatherQueryHandler
-     */
-    private $queryHandler;
+    private WeatherQueryHandler $queryHandler;
 
     public function __construct(
         IpLocator $ipLocator,
@@ -29,7 +26,7 @@ class HomeController extends Abstractcontroller
         $this->queryHandler = $queryHandler;
     }
 
-    public function weatherByIp(Request $request)
+    public function weatherByIp(Request $request): Response
     {
         $ipAddress = $request->getClientIp();
         $location = $this->ipLocator->getLocationForIp($ipAddress);
@@ -44,7 +41,7 @@ class HomeController extends Abstractcontroller
         ]);
     }
 
-    public function weatherByLocation(string $location)
+    public function weatherByLocation(string $location): Response
     {
         $data = $this->queryHandler->getWeatherDataByLocationQuery(
             new WeatherByLocationQuery($location)

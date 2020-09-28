@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Infrastructure\TwigExtension;
 
 use App\Domain\Dto\WeatherRatingDto;
@@ -17,21 +19,24 @@ class ColorExtension extends AbstractExtension
 
     private const WORST = 'bg-danger';
 
-    public function getFilters()
+    /** @return TwigFilter[] */
+    public function getFilters(): array
     {
         return [
             new TwigFilter('backgroundColor', [$this, 'getBackgroundColorForRatingDto']),
         ];
     }
 
-    public function getBackgroundColorForRatingDto(WeatherRatingDto $ratingDto)
+    public function getBackgroundColorForRatingDto(WeatherRatingDto $ratingDto): string
     {
         if ($ratingDto->averageRating->getRating() <= Rating::NIET_KUT) {
             return self::GOOD;
         }
+
         if ($ratingDto->averageRating->getRating() <= Rating::BEETJE_KUT) {
             return self::MEDIUM;
         }
+
         if ($ratingDto->averageRating->getRating() <= Rating::KUT) {
             return self::BAD;
         }

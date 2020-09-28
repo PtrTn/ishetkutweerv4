@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Domain\Rule\Rain;
 
 use App\Domain\Dto\WeatherDto;
-use App\Domain\ValueObject\Rating;
 use App\Domain\Rule\WeatherRule;
+use App\Domain\ValueObject\Rating;
 
 class AlotRainRule implements WeatherRule
 {

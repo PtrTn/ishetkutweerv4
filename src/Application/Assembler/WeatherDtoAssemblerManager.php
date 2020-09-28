@@ -1,15 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Application\Assembler;
 
 use App\Domain\Dto\WeatherDto;
 
 class WeatherDtoAssemblerManager implements WeatherDtoAssemblerInterface
 {
-    /**
-     * @var WeatherDtoAssemblerInterface[]|iterable
-     */
-    private $assemblers;
+    /** @var WeatherDtoAssemblerInterface[]|iterable */
+    private iterable $assemblers;
 
     /**
      * @param WeatherDtoAssemblerInterface[]|iterable $assemblers

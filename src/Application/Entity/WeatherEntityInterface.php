@@ -8,7 +8,6 @@ use DateTimeImmutable;
 
 interface WeatherEntityInterface
 {
-
     public function getIdentifier(): int;
 
     public function getRegion(): string;

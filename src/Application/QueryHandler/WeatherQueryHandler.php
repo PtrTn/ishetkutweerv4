@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Application\QueryHandler;
 
 use App\Application\Mapper\WeatherEntityMapperInterface;
@@ -10,22 +12,15 @@ use App\Application\Service\DistanceService;
 use App\Domain\Dto\WeatherDto;
 use InvalidArgumentException;
 
+use function sprintf;
+
 class WeatherQueryHandler
 {
-    /**
-     * @var WeatherEntityRepositoryInterface
-     */
-    private $entityRepository;
+    private WeatherEntityRepositoryInterface $entityRepository;
 
-    /**
-     * @var WeatherEntityMapperInterface
-     */
-    private $entityMapper;
+    private WeatherEntityMapperInterface $entityMapper;
 
-    /**
-     * @var DistanceService
-     */
-    private $distanceService;
+    private DistanceService $distanceService;
 
     public function __construct(
         WeatherEntityRepositoryInterface $entityRepository,
@@ -44,6 +39,7 @@ class WeatherQueryHandler
         foreach ($entities as $entity) {
             $dtos[] = $this->entityMapper->createDtoFromEntity($entity);
         }
+
          return $this->distanceService->getClosestWeerstation($dtos, $query->lat, $query->lon);
     }
 
@@ -55,6 +51,7 @@ class WeatherQueryHandler
                 return $this->entityMapper->createDtoFromEntity($entity);
             }
         }
+
         throw new InvalidArgumentException(sprintf('Unknown location "%s"', $query->location));
     }
 }
