@@ -1,0 +1,37 @@
+version: 2.1
+orbs:
+  discord: teka23/discord@0.0.1
+jobs:
+  build:
+    docker:
+      - image: circleci/php:7.4-node-browsers
+
+    steps:
+      - checkout
+      - run: sudo apt update
+      - run: sudo docker-php-ext-install zip
+      - run: echo 'memory_limit = 512M' | sudo tee -a /usr/local/etc/php/conf.d/docker-php-memlimit.ini
+
+      # Download and cache dependencies
+      - restore_cache:
+          key: vendor-{{ checksum "composer.lock" }}
+      - run: composer install -n --prefer-dist
+      - save_cache:
+          key: vendor-{{ checksum "composer.lock" }}
+          paths:
+            - ./vendor
+
+      # Run QA checks
+      - run: ./vendor/bin/simple-phpunit
+      - run: ./vendor/bin/phpstan analyse src --level=2
+      - run: ./vendor/bin/phpmd src ansi ./ruleset.xml
+      - run: ./vendor/bin/phpcs src
+      - run: ./vendor/bin/phpcbf src
+      - run: ./vendor/bin/phpcbf src
+      - run: ./vendor/bin/phplint src
+      - run: ./vendor/bin/phpcpd src
+      - run: ./vendor/bin/security-checker security:check
+
+      # Send out notifications
+      - discord/status:
+          fail_only: true
