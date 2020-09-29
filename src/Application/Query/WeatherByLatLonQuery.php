@@ -1,18 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Application\Query;
 
 class WeatherByLatLonQuery
 {
-    /**
-     * @var float
-     */
-    public $lat;
+    public float $lat;
 
-    /**
-     * @var float
-     */
-    public $lon;
+    public float $lon;
 
     public function __construct(float $lat, float $lon)
     {

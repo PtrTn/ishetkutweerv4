@@ -1,16 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Infrastructure\Unpacker;
 
 use App\Infrastructure\FileStorage\FileStorage;
 use PharData;
+use PharFileInfo;
+
+use function assert;
+
+use const DIRECTORY_SEPARATOR;
 
 class GeoLite2Unpacker
 {
-    /**
-     * @var FileStorage
-     */
-    private $fileStorage;
+    private FileStorage $fileStorage;
 
     public function __construct(FileStorage $fileStorage)
     {
@@ -33,8 +37,9 @@ class GeoLite2Unpacker
 
     private function getPathContainingDatabaseFile(PharData $archive): string
     {
-        /** @var \PharFileInfo $folder */
         $folder = $archive->current();
+        assert($folder instanceof PharFileInfo);
+
         return $folder->getFilename();
     }
 }

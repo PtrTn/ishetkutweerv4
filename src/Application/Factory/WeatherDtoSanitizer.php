@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Application\Factory;
 
 use App\Application\Dto\Buienradar\VerwachtingMeerdaags;
@@ -7,12 +9,12 @@ use App\Application\Dto\Buienradar\VerwachtingVandaag;
 use App\Application\Dto\Buienradar\WeerstationDto;
 use App\Domain\Dto\WeatherDto;
 
+use function floatval;
+use function intval;
+
 class WeatherDtoSanitizer implements WeatherDtoFactoryInterface
 {
-    /**
-     * @var WeatherDtoFactoryInterface
-     */
-    private $factory;
+    private WeatherDtoFactoryInterface $factory;
 
     public function __construct(WeatherDtoFactoryInterface $factory)
     {
@@ -33,7 +35,7 @@ class WeatherDtoSanitizer implements WeatherDtoFactoryInterface
         );
     }
 
-    private function sanitizeWeerstationDto(WeerstationDto $dto)
+    private function sanitizeWeerstationDto(WeerstationDto $dto): WeerstationDto
     {
         $dto->stationcode = $this->stringToInt($dto->stationcode);
         $dto->lat = $this->stringToFloat($dto->lat);
@@ -51,6 +53,7 @@ class WeatherDtoSanitizer implements WeatherDtoFactoryInterface
         $dto->temperatuur10cm = $this->stringToFloat($dto->temperatuur10cm);
         $dto->latGraden = $this->stringToFloat($dto->latGraden);
         $dto->lonGraden = $this->stringToFloat($dto->lonGraden);
+
         return $dto;
     }
 
@@ -59,6 +62,7 @@ class WeatherDtoSanitizer implements WeatherDtoFactoryInterface
         if ($string === '-') {
             return null;
         }
+
         return intval($string);
     }
 
@@ -67,6 +71,7 @@ class WeatherDtoSanitizer implements WeatherDtoFactoryInterface
         if ($string === '-') {
             return null;
         }
+
         return floatval($string);
     }
 }

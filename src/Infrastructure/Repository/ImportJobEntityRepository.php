@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Infrastructure\Repository;
 
 use App\Infrastructure\Entity\ImportJobEntity;
@@ -19,7 +21,7 @@ class ImportJobEntityRepository extends ServiceEntityRepository
         parent::__construct($registry, ImportJobEntity::class);
     }
 
-    public function save(ImportJobEntity $entity)
+    public function save(ImportJobEntity $entity): void
     {
         $entityManager = $this->getEntityManager();
         $entityManager->persist($entity);

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Infrastructure\Mapper;
 
 use App\Application\Entity\WeatherEntityInterface;
@@ -63,23 +65,23 @@ class WeatherEntityMapper implements WeatherEntityMapperInterface
         $day1 = new ForecastDayDto();
         $day1->date = $entity->getDay1Date();
         $day1->temperature = $entity->getDay1Temp();
-        
+
         $day2 = new ForecastDayDto();
         $day2->date = $entity->getDay2Date();
         $day2->temperature = $entity->getDay2Temp();
-        
+
         $day3 = new ForecastDayDto();
         $day3->date = $entity->getDay3Date();
         $day3->temperature = $entity->getDay3Temp();
-        
+
         $day4 = new ForecastDayDto();
         $day4->date = $entity->getDay4Date();
         $day4->temperature = $entity->getDay4Temp();
-        
+
         $day5 = new ForecastDayDto();
         $day5->date = $entity->getDay5Date();
         $day5->temperature = $entity->getDay5Temp();
-        
+
         $forecastDto = new ForecastDto();
         $forecastDto->day1 = $day1;
         $forecastDto->day2 = $day2;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Tests\Unit\Application\Factory;
 
 use App\Application\Dto\Buienradar\StationnaamDto;
@@ -9,22 +11,19 @@ use App\Application\Dto\Buienradar\VerwachtingVandaag;
 use App\Application\Dto\Buienradar\WeerstationDto;
 use App\Application\Factory\ForecastDtoFactory;
 use App\Application\Factory\WeatherDtoFactory;
-use App\Application\Service\DateTimeImmutableFactory;
 use App\Domain\Dto\ForecastDto;
+use DateTimeImmutable;
 use Mockery;
 use PHPUnit\Framework\TestCase;
 
 class WeatherDtoFactoryTest extends TestCase
 {
-    /**
-     * @var WeatherDtoFactory
-     */
-    private $factory;
+    private WeatherDtoFactory $factory;
 
     public function setUp(): void
     {
         $forecastDtoFactory = Mockery::mock(ForecastDtoFactory::class, [
-            'create' => new ForecastDto()
+            'create' => new ForecastDto(),
         ]);
         $this->factory = new WeatherDtoFactory($forecastDtoFactory);
     }
@@ -32,23 +31,23 @@ class WeatherDtoFactoryTest extends TestCase
     /**
      * @test
      */
-    public function shouldCreateWeatherDtoFromDtos()
+    public function shouldCreateWeatherDtoFromDtos(): void
     {
         $region = 'Venlo';
         $station = 'Meetstation Arcen';
-        $temperature = '11.3';
-        $windspeed = '2';
+        $temperature = 11.3;
+        $windspeed = 2.0;
         $windDirection = 'NO';
-        $rain = '0.5';
-        $lat = '51.50';
-        $lon = '6.20';
+        $rain = 0.5;
+        $lat = 51.50;
+        $lon = 6.20;
 
         $stationnaamDto = new StationnaamDto();
         $stationnaamDto->regio = $region;
         $stationnaamDto->stationnaam = $station;
 
         $weerstationDto = new WeerstationDto();
-        $weerstationDto->datum = new \DateTimeImmutable();
+        $weerstationDto->datum = new DateTimeImmutable();
         $weerstationDto->temperatuur10cm = $temperature;
         $weerstationDto->windsnelheidBF = $windspeed;
         $weerstationDto->windrichting = $windDirection;
@@ -65,6 +64,7 @@ class WeatherDtoFactoryTest extends TestCase
         $verwachtingMeerdaags->dagPlus5 = new VerwachtingDag();
 
         $verwachtingVandaag = new VerwachtingVandaag();
+        $verwachtingVandaag->titel = 'Goed weer';
 
         $weatherDto = $this->factory->create(
             $verwachtingVandaag,

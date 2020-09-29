@@ -1,17 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Application\Service;
 
 use App\Domain\Dto\WeatherDto;
 use Geokit\LatLng;
 use Geokit\Math;
 
+use function floatval;
+
 class DistanceService
 {
-    /**
-     * @var Math
-     */
-    private $math;
+    private Math $math;
 
     public function __construct(Math $math)
     {
@@ -19,10 +20,7 @@ class DistanceService
     }
 
     /**
-     * @param float $targetLat
-     * @param float $targetLon
      * @param WeatherDto[] $weatherDtos
-     * @return WeatherDto|null
      */
     public function getClosestWeerstation(array $weatherDtos, float $targetLat, float $targetLon): ?WeatherDto
     {
@@ -35,11 +33,14 @@ class DistanceService
                 floatval($dto->location->lat),
                 floatval($dto->location->lon)
             );
-            if (!isset($closestDistance) || $distance < $closestDistance) {
-                $closestDistance = $distance;
-                $closestStation = $dto;
+            if (isset($closestDistance) && $distance >= $closestDistance) {
+                continue;
             }
+
+            $closestDistance = $distance;
+            $closestStation = $dto;
         }
+
         return $closestStation;
     }
 
@@ -49,6 +50,7 @@ class DistanceService
             new LatLng($latA, $lonA),
             new LatLng($latB, $lonB)
         );
+
         return $distance->kilometers();
     }
 }

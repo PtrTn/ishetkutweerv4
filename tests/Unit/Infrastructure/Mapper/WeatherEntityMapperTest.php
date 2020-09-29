@@ -41,6 +41,7 @@ class WeatherEntityMapperTest extends MockeryTestCase
         $windDirection = 'OZO';
         $background = 'rain.jpg';
         $kutRating = Rating::kut();
+        $summary = 'All is good';
 
         $locationDto = new LocationDto();
         $locationDto->lat = $lat;
@@ -91,6 +92,7 @@ class WeatherEntityMapperTest extends MockeryTestCase
         $dto->rating = $ratingDto;
         $dto->background = $background;
         $dto->forecast = $forecastDto;
+        $dto->summary = $summary;
 
         $entity = $this->mapper->createEntityFromDto($dto);
 
@@ -174,5 +176,4 @@ class WeatherEntityMapperTest extends MockeryTestCase
         $this->assertEquals(new Rating($kutRating), $dto->rating->windRating);
         $this->assertEquals(new Rating($kutRating), $dto->rating->averageRating);
     }
-
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Infrastructure\TwigExtension;
 
 use App\Domain\Dto\WeatherRatingDto;
@@ -17,21 +19,24 @@ class RatingExtension extends AbstractExtension
 
     private const MEGA_KUT = 'Het is mega kutweer';
 
-    public function getFilters()
+    /** @return TwigFilter[] */
+    public function getFilters(): array
     {
         return [
             new TwigFilter('formatRating', [$this, 'formatRating']),
         ];
     }
 
-    public function formatRating(WeatherRatingDto $ratingDto)
+    public function formatRating(WeatherRatingDto $ratingDto): string
     {
         if ($ratingDto->averageRating->getRating() <= Rating::NIET_KUT) {
             return self::NIET_KUT;
         }
+
         if ($ratingDto->averageRating->getRating() <= Rating::BEETJE_KUT) {
             return self::BEETJE_KUT;
         }
+
         if ($ratingDto->averageRating->getRating() <= Rating::KUT) {
             return self::KUT;
         }

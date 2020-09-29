@@ -1,32 +1,26 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Infrastructure\Downloader;
 
 use App\Infrastructure\FileStorage\FileStorage;
 use App\Infrastructure\Unpacker\GeoLite2Unpacker;
+
+use function str_replace;
 
 class GeoLite2Downloader
 {
     private const DATA_URL = 'https://download.maxmind.com/app/geoip_download' .
     '?edition_id=GeoLite2-City&license_key=YOUR_LICENSE_KEY&suffix=tar.gz';
 
-    /**
-     * @var FileStorage
-     */
-    private $fileStorage;
+    private FileStorage $fileStorage;
 
-    /**
-     * @var GuzzleDownloader
-     */
-    private $downloader;
+    private GuzzleDownloader $downloader;
 
-    /**
-     * @var GeoLite2Unpacker
-     */
-    private $unpacker;
+    private GeoLite2Unpacker $unpacker;
 
-    /** @var string */
-    private $licenseKey;
+    private string $licenseKey;
 
     public function __construct(
         FileStorage $fileStorage,
@@ -40,7 +34,7 @@ class GeoLite2Downloader
         $this->licenseKey = $licenseKey;
     }
 
-    public function download()
+    public function download(): void
     {
         $downloadFile = $this->fileStorage->getPathForTemporaryFile('GeoLite2-database.tar.gz');
         $unpackedFile = $this->fileStorage->getPathForDataFile('GeoLite2-City.mmdb');

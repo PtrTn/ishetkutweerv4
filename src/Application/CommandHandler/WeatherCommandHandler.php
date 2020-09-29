@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Application\CommandHandler;
 
 use App\Application\ApiClient\BuienradarApiClientInterface;
@@ -10,30 +12,15 @@ use App\Application\Repository\WeatherEntityRepositoryInterface;
 
 class WeatherCommandHandler
 {
-    /**
-     * @var BuienradarApiClientInterface
-     */
-    private $apiClient;
+    private BuienradarApiClientInterface $apiClient;
 
-    /**
-     * @var WeatherDtoFactoryInterface
-     */
-    private $dtoFactory;
+    private WeatherDtoFactoryInterface $dtoFactory;
 
-    /**
-     * @var WeatherDtoAssemblerInterface
-     */
-    private $assembler;
+    private WeatherDtoAssemblerInterface $assembler;
 
-    /**
-     * @var WeatherEntityMapperInterface
-     */
-    private $entityFactory;
+    private WeatherEntityMapperInterface $entityFactory;
 
-    /**
-     * @var WeatherEntityRepositoryInterface
-     */
-    private $entityRepository;
+    private WeatherEntityRepositoryInterface $entityRepository;
 
     public function __construct(
         BuienradarApiClientInterface $apiClient,
@@ -49,7 +36,7 @@ class WeatherCommandHandler
         $this->entityRepository = $entityRepository;
     }
 
-    public function storeWeatherData()
+    public function storeWeatherData(): void
     {
         $data = $this->apiClient->getData();
 
@@ -63,6 +50,7 @@ class WeatherCommandHandler
             $dto = $this->assembler->assemble($dto);
             $entities[] = $this->entityFactory->createEntityFromDto($dto);
         }
+
         $this->entityRepository->saveEntities($entities);
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Application\Factory;
 
 use App\Application\Dto\Buienradar\VerwachtingMeerdaags;
@@ -10,10 +12,7 @@ use App\Domain\Dto\WeatherDto;
 
 class WeatherDtoFactory implements WeatherDtoFactoryInterface
 {
-    /**
-     * @var ForecastDtoFactory
-     */
-    private $forecastDtoFactory;
+    private ForecastDtoFactory $forecastDtoFactory;
 
     public function __construct(ForecastDtoFactory $forecastDtoFactory)
     {

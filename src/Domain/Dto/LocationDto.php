@@ -1,26 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Domain\Dto;
 
 class LocationDto
 {
-    /**
-     * @var string
-     */
-    public $region;
+    public string $region;
 
-    /**
-     * @var string
-     */
-    public $stationName;
+    public string $stationName;
 
-    /**
-     * @var float
-     */
-    public $lat;
+    public float $lat;
 
-    /**
-     * @var float
-     */
-    public $lon;
+    public float $lon;
 }

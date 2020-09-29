@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Domain\ValueObject;
 
 class Rating
@@ -12,10 +14,7 @@ class Rating
 
     public const NIET_KUT = 1;
 
-    /**
-     * @var int
-     */
-    private $rating;
+    private int $rating;
 
     public function __construct(int $rating)
     {

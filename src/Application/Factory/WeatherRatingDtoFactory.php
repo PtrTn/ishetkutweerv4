@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Application\Factory;
 
 use App\Domain\Dto\WeatherDto;
@@ -7,20 +9,15 @@ use App\Domain\Dto\WeatherRatingDto;
 use App\Domain\Service\RatingService;
 use App\Domain\ValueObject\Rating;
 
+use function array_sum;
+use function count;
+use function round;
+
 class WeatherRatingDtoFactory
 {
-    /**
-     * @var RatingService
-     */
-    private $temperatureRatingService;
-    /**
-     * @var RatingService
-     */
-    private $rainRatingService;
-    /**
-     * @var RatingService
-     */
-    private $windRatingService;
+    private RatingService $temperatureRatingService;
+    private RatingService $rainRatingService;
+    private RatingService $windRatingService;
 
     public function __construct(
         RatingService $temperatureRatingService,
@@ -55,9 +52,11 @@ class WeatherRatingDtoFactory
         if ($rating <= Rating::NIET_KUT) {
             return Rating::nietKut();
         }
+
         if ($rating <= Rating::BEETJE_KUT) {
             return Rating::beetjeKut();
         }
+
         if ($rating <= Rating::KUT) {
             return Rating::kut();
         }

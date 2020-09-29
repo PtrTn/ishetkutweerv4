@@ -1,16 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Application\Dto;
 
 class LocationDto
 {
-    /**
-     * @var float
-     */
-    public $lat;
+    public ?float $lat;
 
-    /**
-     * @var float
-     */
-    public $lon;
+    public ?float $lon;
 }

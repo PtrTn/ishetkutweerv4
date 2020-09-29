@@ -1,18 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Domain\Dto;
 
 use DateTimeImmutable;
 
 class ForecastDayDto
 {
-    /**
-     * @var DateTimeImmutable
-     */
-    public $date;
+    public DateTimeImmutable $date;
 
-    /**
-     * @var float
-     */
-    public $temperature;
+    public float $temperature;
 }

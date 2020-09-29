@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Application\Assembler;
 
 use App\Application\Factory\WeatherRatingDtoFactory;
@@ -7,10 +9,7 @@ use App\Domain\Dto\WeatherDto;
 
 class WeatherRatingsDtoAssembler implements WeatherDtoAssemblerInterface
 {
-    /**
-     * @var WeatherRatingDtoFactory
-     */
-    private $ratingsDtoFactory;
+    private WeatherRatingDtoFactory $ratingsDtoFactory;
 
     public function __construct(WeatherRatingDtoFactory $ratingsDtoFactory)
     {
@@ -20,6 +19,7 @@ class WeatherRatingsDtoAssembler implements WeatherDtoAssemblerInterface
     public function assemble(WeatherDto $dto): WeatherDto
     {
         $dto->rating = $this->ratingsDtoFactory->create($dto);
+
         return $dto;
     }
 }

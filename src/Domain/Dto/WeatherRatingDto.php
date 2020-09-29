@@ -1,28 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Domain\Dto;
 
 use App\Domain\ValueObject\Rating;
 
 class WeatherRatingDto
 {
-    /**
-     * @var Rating
-     */
-    public $temperatureRating;
+    public Rating $temperatureRating;
 
-    /**
-     * @var Rating
-     */
-    public $rainRating;
+    public Rating $rainRating;
 
-    /**
-     * @var Rating
-     */
-    public $windRating;
+    public Rating $windRating;
 
-    /**
-     * @var Rating
-     */
-    public $averageRating;
+    public Rating $averageRating;
 }

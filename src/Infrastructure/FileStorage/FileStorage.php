@@ -1,25 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Infrastructure\FileStorage;
 
 use Symfony\Component\Filesystem\Filesystem;
 
+use const DIRECTORY_SEPARATOR;
+
 class FileStorage
 {
-    /**
-     * @var Filesystem
-     */
-    private $filesystem;
+    private Filesystem $filesystem;
 
-    /**
-     * @var string
-     */
-    private $temporaryFolder;
+    private string $temporaryFolder;
 
-    /**
-     * @var string
-     */
-    private $dataFolder;
+    private string $dataFolder;
 
     public function __construct(Filesystem $filesystem, string $temporaryFolder, string $dataFolder)
     {
@@ -61,10 +56,12 @@ class FileStorage
         $this->filesystem->remove($path);
     }
 
-    private function createDirectoryIfMissing(string $directory)
+    private function createDirectoryIfMissing(string $directory): void
     {
-        if (!$this->filesystem->exists($directory)) {
-            $this->filesystem->mkdir($directory);
+        if ($this->filesystem->exists($directory)) {
+            return;
         }
+
+        $this->filesystem->mkdir($directory);
     }
 }

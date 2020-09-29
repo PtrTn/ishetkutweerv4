@@ -1,10 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Infrastructure\TwigExtension;
 
 use App\Domain\Dto\WeatherDto;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
+
+use function sprintf;
 
 class WeatherIconExtension extends AbstractExtension
 {
@@ -22,7 +26,8 @@ class WeatherIconExtension extends AbstractExtension
 
     private const UNKNOWN = 'wi-na';
 
-    public function getFilters()
+    /** @return TwigFilter[] */
+    public function getFilters(): array
     {
         return [
             new TwigFilter('weatherIcon', [$this, 'getIconForWeatherDto']),
@@ -30,7 +35,7 @@ class WeatherIconExtension extends AbstractExtension
         ];
     }
 
-    public function getIconForWeatherDto(WeatherDto $dto)
+    public function getIconForWeatherDto(WeatherDto $dto): string
     {
         if ($dto->hasSnow()) {
             return self::SNOW;
@@ -39,6 +44,7 @@ class WeatherIconExtension extends AbstractExtension
         if ($dto->hasRain()) {
             return self::RAIN;
         }
+
         if ($dto->hasShowers()) {
             return self::SHOWERS;
         }
@@ -54,14 +60,16 @@ class WeatherIconExtension extends AbstractExtension
         return self::SUN;
     }
 
-    public function getWindIconForWeatherDto(WeatherDto $dto)
+    public function getWindIconForWeatherDto(WeatherDto $dto): string
     {
         if ($dto->windSpeed === null) {
             return '';
         }
+
         if ($dto->windSpeed > 0 && $dto->windSpeed <= 12) {
             return sprintf('wi-wind-beaufort-%s', $dto->windSpeed);
         }
+
         return self::UNKNOWN;
     }
 }

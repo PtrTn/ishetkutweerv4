@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Infrastructure\Controller;
 
 use App\Infrastructure\Feed\FeedItem;
@@ -9,18 +11,14 @@ use Symfony\Component\HttpFoundation\Response;
 
 class FeedController
 {
-
-    /**
-     * @var FeedManager
-     */
-    private $feedManager;
+    private FeedManager $feedManager;
 
     public function __construct(FeedManager $feedManager)
     {
         $this->feedManager = $feedManager;
     }
 
-    public function rssFeed()
+    public function rssFeed(): Response
     {
         // Todo, replace hardcoded data.
         $feed = $this->feedManager->get('weather');
@@ -36,7 +34,7 @@ class FeedController
         return new Response($feed->render('rss'));
     }
 
-    public function atomFeed()
+    public function atomFeed(): Response
     {
         // Todo, replace hardcoded data.
         $feed = $this->feedManager->get('weather');

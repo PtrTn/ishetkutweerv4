@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Infrastructure\Feed;
 
 use DateTime;
@@ -7,25 +9,13 @@ use Eko\FeedBundle\Item\Writer\ItemInterface;
 
 class FeedItem implements ItemInterface
 {
-    /**
-     * @var string
-     */
-    private $title;
+    private string $title;
 
-    /**
-     * @var string
-     */
-    private $description;
+    private string $description;
 
-    /**
-     * @var string
-     */
-    private $link;
+    private string $link;
 
-    /**
-     * @var DateTime
-     */
-    private $publicationDate;
+    private DateTime $publicationDate;
 
     public function __construct(
         string $title,
@@ -39,22 +29,22 @@ class FeedItem implements ItemInterface
         $this->publicationDate = $publicationDate;
     }
 
-    public function getFeedItemTitle()
+    public function getFeedItemTitle(): string
     {
         return $this->title;
     }
 
-    public function getFeedItemDescription()
+    public function getFeedItemDescription(): string
     {
         return $this->description;
     }
 
-    public function getFeedItemLink()
+    public function getFeedItemLink(): string
     {
         return $this->link;
     }
 
-    public function getFeedItemPubDate()
+    public function getFeedItemPubDate(): DateTime
     {
         return $this->publicationDate;
     }
