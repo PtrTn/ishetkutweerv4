@@ -25,7 +25,7 @@ class WeatherEntity implements WeatherEntityInterface
      * @GeneratedValue
      * @Column(type="integer", name="id")
      */
-    public int $identifier;
+    public ?int $identifier;
 
     /** @Column(type="string", length=255) */
     public string $region;

@@ -68,15 +68,15 @@ class WeatherEntityRepository extends ServiceEntityRepository implements Weather
     public function getOutdatedEntities(): array
     {
         $latestEntities = $this->getLatestEntites();
-        $entityIds = array_map(static function (WeatherEntity $entity) {
-            return $entity->identifier;
+        $entityIds = array_map(static function (WeatherEntityInterface $entity) {
+            return $entity->getIdentifier();
         }, $latestEntities);
 
         $queryBuilder = $this->createQueryBuilder('w');
 
         return $queryBuilder
             ->select('w')
-            ->where($queryBuilder->expr()->notIn('w.id', $entityIds))
+            ->where($queryBuilder->expr()->notIn('w.identifier', $entityIds))
             ->getQuery()
             ->getResult();
     }
