@@ -4,15 +4,22 @@ orbs:
 jobs:
   build:
     docker:
-      - image: circleci/php:7.4-node-browsers
+      - image: circleci/php:7.4
+      - image: mariadb:10.4
+        name: mariadb
+        environment:
+          - MYSQL_ROOT_PASSWORD=ishetkutweer
+          - MYSQL_DATABASE=ishetkutweerv4_test
+          - MYSQL_USER=ishetkutweer
+          - MYSQL_PASSWORD=ishetkutweer
 
     steps:
       - checkout
       - run: sudo apt update
-      - run: sudo docker-php-ext-install zip
+      - run: sudo docker-php-ext-install zip pdo_mysql
       - run: echo 'memory_limit = 512M' | sudo tee -a /usr/local/etc/php/conf.d/docker-php-memlimit.ini
 
-      # Download and cache dependencies
+      # Download and cache composer dependencies
       - restore_cache:
           key: vendor-{{ checksum "composer.lock" }}
       - run: composer install -n --prefer-dist
@@ -21,8 +28,16 @@ jobs:
           paths:
             - ./vendor
 
+      # Download and cache GeoLite database
+      - restore_cache:
+          key: GeoLite2-City-{{ .Branch }}
+      - run: ./bin/console download:ipdata
+      - save_cache:
+          key: GeoLite2-City-{{ .Branch }}
+          paths:
+            - ./var/data/GeoLite2-City.mmdb
+
       # Run QA checks
-      - run: ./vendor/bin/simple-phpunit
       - run: ./vendor/bin/phpstan analyse src --level=2
       - run: ./vendor/bin/phpmd src ansi ./ruleset.xml
       - run: ./vendor/bin/phpcs src
@@ -31,6 +46,12 @@ jobs:
       - run: ./vendor/bin/phplint src
       - run: ./vendor/bin/phpcpd src
       - run: ./vendor/bin/security-checker security:check
+
+      # Database is needed for phpunit tests
+      - run: dockerize -wait tcp://mariadb:3306 -timeout 1m
+
+      # Run PHPUnit
+      - run: ./vendor/bin/simple-phpunit
 
       # Send out notifications
       - discord/status:
