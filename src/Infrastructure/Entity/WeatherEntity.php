@@ -14,7 +14,7 @@ use Doctrine\ORM\Mapping\Table;
 
 /**
  * @Entity(repositoryClass="App\Infrastructure\Repository\WeatherEntityRepository")
- * @Table("Weather")
+ * @Table("weather")
  * @SuppressWarnings(PHPMD.TooManyFields)
  * @SuppressWarnings(PHPMD.ExcessivePublicCount)
  */
