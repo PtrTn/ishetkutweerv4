@@ -5,7 +5,7 @@ jobs:
   build:
     docker:
       - image: circleci/php:7.4
-      - image: mariadb:10.4
+      - image: circleci/mariadb:10.4
         name: mariadb
         environment:
           - MYSQL_ROOT_PASSWORD=ishetkutweer
@@ -38,6 +38,8 @@ jobs:
             - ./var/data/GeoLite2-City.mmdb
 
       # Run QA checks
+      - run: ./vendor/bin/simple-phpunit --testsuite unit
+      - run: ./vendor/bin/simple-phpunit --testsuite integration
       - run: ./vendor/bin/phpstan analyse src --level=2
       - run: ./vendor/bin/phpmd src ansi ./ruleset.xml
       - run: ./vendor/bin/phpcs src
@@ -47,11 +49,11 @@ jobs:
       - run: ./vendor/bin/phpcpd src
       - run: ./vendor/bin/security-checker security:check
 
-      # Database is needed for phpunit tests
+      # Database is needed for acceptance tests
       - run: dockerize -wait tcp://mariadb:3306 -timeout 1m
 
-      # Run PHPUnit
-      - run: ./vendor/bin/simple-phpunit
+      # Run acceptance tests
+      - run: ./vendor/bin/simple-phpunit --testsuite acceptance
 
       # Send out notifications
       - discord/status:
