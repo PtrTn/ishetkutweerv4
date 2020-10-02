@@ -24,6 +24,7 @@
     },
     "require-dev": {
         "doctrine/coding-standard": "^8.0",
+        "doctrine/doctrine-fixtures-bundle": "^3.3",
         "mockery/mockery": "^1.2",
         "overtrue/phplint": "^2.0",
         "phpmd/phpmd": "^2.7",
