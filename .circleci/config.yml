@@ -1,13 +1,27 @@
 version: 2.1
 orbs:
   discord: teka23/discord@0.0.1
+  node: circleci/node@4.1.0
 workflows:
   version: 2
-  check_and_test:
+  ci_cd:
     jobs:
       - qa_checks
       - unit_integration_tests
       - acceptance_tests
+      - build-app:
+          filters:
+            branches:
+              only: master
+      - build-image-and-deploy:
+          requires:
+            - build-app
+            - qa_checks
+            - unit_integration_tests
+            - acceptance_tests
+          filters:
+            branches:
+              only: master
 jobs:
   qa_checks:
     docker:
@@ -107,6 +121,65 @@ jobs:
 
       # Run acceptance tests
       - run: ./vendor/bin/simple-phpunit --testsuite acceptance
+
+      # Send out notifications
+      - discord/status:
+          fail_only: true
+
+  build-app:
+    docker:
+      - image: circleci/php:7.4-cli-node
+        environment:
+          - APP_ENV=prod
+          - APP_DEBUG=0
+
+    steps:
+      - checkout
+      - run: sudo apt update
+      - run: sudo docker-php-ext-install zip pdo_mysql
+      - run: echo 'APP_ENV=prod' > .env.local
+      - run: composer install --no-dev --optimize-autoloader
+      - node/install-yarn
+      - run: yarn install
+      - run: yarn build
+      - run: ./bin/console download:ipdata
+      - run: ./bin/console cache:clear
+      - run: tar -cvzf app.tar bin/console config migrations public src templates translations var vendor composer.json docker/production docker-compose-prod.yml .env .env.local
+      - store_artifacts:
+          path: app.tar
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+
+      # Send out notifications
+      - discord/status:
+          fail_only: true
+
+  build-image-and-deploy:
+    docker:
+      - image: cimg/base:2020.10
+
+    steps:
+      - attach_workspace:
+          at: ./application
+      - add_ssh_keys
+      - setup_remote_docker
+
+      # Build the docker image and send it to dockerhub
+      - run: echo $DOCKERHUB_ACCESS_TOKEN | docker login --username $DOCKER_USERNAME --password-stdin
+      - run: docker build ./application -t ishetkutweer-web -f ./application/docker/production/php-fpm/Dockerfile
+      - run: docker tag ishetkutweer-web $DOCKER_USERNAME/ishetkutweer
+      - run: docker push $DOCKER_USERNAME/ishetkutweer
+      - add_ssh_keys
+      - run: ssh-keyscan -H $PROD_IP >> ~/.ssh/known_hosts
+      - run: ssh root@$PROD_IP 'mkdir -p /var/www/ishetkutweer/docker/production/nginx/'
+      - run: ssh root@$PROD_IP 'mkdir -p /var/www/ishetkutweer/docker/production/php-fpm/'
+      - run: "scp ./application/docker/production/nginx/nginx.conf root@$PROD_IP:/var/www/ishetkutweer/docker/production/nginx/"
+      - run: "scp ./application/docker/production/php-fpm/php-ini-overrides.ini root@$PROD_IP:/var/www/ishetkutweer/docker/production/php-fpm/"
+      - run: "scp ./application/docker-compose-prod.yml root@$PROD_IP:/var/www/ishetkutweer/"
+      - run: ssh root@$PROD_IP 'echo '"$DOCKERHUB_ACCESS_TOKEN"' | docker login --username '"$DOCKER_USERNAME"' --password-stdin'
+      - run: ssh root@$PROD_IP 'cd /var/www/ishetkutweer && docker-compose -f docker-compose-prod.yml pull && docker-compose -f docker-compose-prod.yml up -d'
 
       # Send out notifications
       - discord/status:
