@@ -50,7 +50,6 @@ jobs:
       - checkout
       - run: sudo apt update
       - run: sudo docker-php-ext-install zip
-      - run: echo 'memory_limit = 512M' | sudo tee -a /usr/local/etc/php/conf.d/docker-php-memlimit.ini
 
       # Download and cache composer dependencies
       - restore_cache:
