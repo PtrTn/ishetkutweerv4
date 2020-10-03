@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Controller;
 
+use App\Application\Exception\SorryWeatherNotFound;
 use App\Application\Query\WeatherByLatLonQuery;
 use App\Application\Query\WeatherByLocationQuery;
 use App\Application\QueryHandler\WeatherQueryHandler;
@@ -30,9 +31,13 @@ class HomeController extends AbstractController
     {
         $ipAddress = $request->getClientIp();
         $location = $this->ipLocator->getLocationForIp($ipAddress);
-        $data = $this->queryHandler->getWeatherDataByLatLonQuery(
-            new WeatherByLatLonQuery($location->lat, $location->lon)
-        );
+        try {
+            $data = $this->queryHandler->getWeatherDataByLatLonQuery(
+                new WeatherByLatLonQuery($location->lat, $location->lon)
+            );
+        } catch (SorryWeatherNotFound $exception) {
+            return $this->render('bundles/TwigBundle/Exception/error.html.twig');
+        }
 
         return $this->render('home.html.twig', [
             'data' => $data,
