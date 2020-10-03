@@ -3,9 +3,10 @@ orbs:
   discord: teka23/discord@0.0.1
 workflows:
   version: 2
-  build_and_test:
+  check_and_test:
     jobs:
       - qa_checks
+      - unit_integration_tests
       - acceptance_tests
 jobs:
   qa_checks:
@@ -28,8 +29,6 @@ jobs:
             - ./vendor
 
       # Run QA checks
-      - run: ./vendor/bin/simple-phpunit --testsuite unit
-      - run: ./vendor/bin/simple-phpunit --testsuite integration
       - run: ./vendor/bin/phpstan analyse src --level=2
       - run: ./vendor/bin/phpmd src ansi ./ruleset.xml
       - run: ./vendor/bin/phpcs src
@@ -38,6 +37,33 @@ jobs:
       - run: ./vendor/bin/phplint src
       - run: ./vendor/bin/phpcpd src
       - run: ./vendor/bin/security-checker security:check
+
+      # Send out notifications
+      - discord/status:
+          fail_only: true
+
+  unit_integration_tests:
+    docker:
+      - image: circleci/php:7.4
+
+    steps:
+      - checkout
+      - run: sudo apt update
+      - run: sudo docker-php-ext-install zip
+      - run: echo 'memory_limit = 512M' | sudo tee -a /usr/local/etc/php/conf.d/docker-php-memlimit.ini
+
+      # Download and cache composer dependencies
+      - restore_cache:
+          key: vendor-{{ checksum "composer.lock" }}
+      - run: composer install -n --prefer-dist
+      - save_cache:
+          key: vendor-{{ checksum "composer.lock" }}
+          paths:
+            - ./vendor
+
+      # Run unit and integration tests
+      - run: ./vendor/bin/simple-phpunit --testsuite unit
+      - run: ./vendor/bin/simple-phpunit --testsuite integration
 
       # Send out notifications
       - discord/status:
