@@ -22,7 +22,7 @@ class DistanceService
     /**
      * @param WeatherDto[] $weatherDtos
      */
-    public function getClosestWeerstation(array $weatherDtos, float $targetLat, float $targetLon): ?WeatherDto
+    public function findClosestWeerstation(array $weatherDtos, float $targetLat, float $targetLon): ?WeatherDto
     {
         $closestStation = null;
         $closestDistance = null;

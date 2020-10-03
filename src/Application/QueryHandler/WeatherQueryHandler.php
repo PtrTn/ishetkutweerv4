@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Application\QueryHandler;
 
+use App\Application\Exception\SorryWeatherNotFound;
 use App\Application\Mapper\WeatherEntityMapperInterface;
 use App\Application\Query\WeatherByLatLonQuery;
 use App\Application\Query\WeatherByLocationQuery;
@@ -40,7 +41,12 @@ class WeatherQueryHandler
             $dtos[] = $this->entityMapper->createDtoFromEntity($entity);
         }
 
-         return $this->distanceService->getClosestWeerstation($dtos, $query->lat, $query->lon);
+        $dto = $this->distanceService->findClosestWeerstation($dtos, $query->lat, $query->lon);
+        if ($dto === null) {
+            throw new SorryWeatherNotFound('Unable to find weather data');
+        }
+
+        return $dto;
     }
 
     public function getWeatherDataByLocationQuery(WeatherByLocationQuery $query): WeatherDto

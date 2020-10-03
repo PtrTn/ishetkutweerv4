@@ -30,7 +30,7 @@ class DistanceServiceTest extends TestCase
             $this->createWeatherDtoForLatLon(52.07, 5.88),
             $this->createWeatherDtoForLatLon(52.65, 4.98),
         ];
-        $weatherDto = $this->distanceService->getClosestWeerstation($weatherDtos, 52.05, 6);
+        $weatherDto = $this->distanceService->findClosestWeerstation($weatherDtos, 52.05, 6);
 
         $this->assertEquals(52.07, $weatherDto->location->lat);
         $this->assertEquals(5.88, $weatherDto->location->lon);
@@ -41,7 +41,7 @@ class DistanceServiceTest extends TestCase
      */
     public function shouldReturnNullIfNoClosestStation()
     {
-        $weatherDto = $this->distanceService->getClosestWeerstation([], 52.05, 6);
+        $weatherDto = $this->distanceService->findClosestWeerstation([], 52.05, 6);
         $this->assertNull($weatherDto, 'No weather dto expected to be closest, as none were provided');
     }
 
