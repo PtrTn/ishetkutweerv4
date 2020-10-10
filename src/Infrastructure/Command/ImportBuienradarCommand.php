@@ -18,7 +18,7 @@ use function sprintf;
 
 class ImportBuienradarCommand extends Command
 {
-    private const IMPORT_INTERVAL_IN_MINUTES = 10;
+    private const IMPORT_INTERVAL_IN_MINUTES = 1;
 
     private ImportJobEntityFactory $importJobEntityFactory;
 
