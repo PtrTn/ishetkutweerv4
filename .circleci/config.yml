@@ -179,7 +179,7 @@ jobs:
       - run: "scp ./application/docker/production/php-fpm/php-ini-overrides.ini root@$PROD_IP:/var/www/ishetkutweer/docker/production/php-fpm/"
       - run: "scp ./application/docker-compose-prod.yml root@$PROD_IP:/var/www/ishetkutweer/"
       - run: ssh root@$PROD_IP 'echo '"$DOCKERHUB_ACCESS_TOKEN"' | docker login --username '"$DOCKER_USERNAME"' --password-stdin'
-      - run: ssh root@$PROD_IP 'cd /var/www/ishetkutweer && docker-compose -f docker-compose-prod.yml pull && docker-compose -f docker-compose-prod.yml up -d'
+      - run: ssh root@$PROD_IP 'cd /var/www/ishetkutweer && docker-compose -f docker-compose-prod.yml pull && docker-compose -f docker-compose-prod.yml down -v && docker-compose -f docker-compose-prod.yml up -d'
 
       # Send out notifications
       - discord/status:
