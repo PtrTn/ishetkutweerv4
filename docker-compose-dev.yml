@@ -3,9 +3,7 @@ services:
     mariadb:
       image: mariadb:10.4
       container_name: ishetkutweer-dev-mariadb
-      working_dir: /application
       volumes:
-        - .:/application
         - ./docker/development/mariadb/test-database.sql:/docker-entrypoint-initdb.d/01-test-database.sql
       environment:
         - MYSQL_ROOT_PASSWORD=ishetkutweer
@@ -16,12 +14,11 @@ services:
         - "9003:3306"
 
     nginx:
-      build:
-        dockerfile: docker/development/nginx/Dockerfile
-        context: .
+      build: docker/development/nginx
       container_name: ishetkutweer-dev-nginx
-      working_dir: /application
+      working_dir: /var/www/ishetkutweer
       volumes:
+          - ./public:/var/www/ishetkutweer/public
           - ./docker/development/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
       ports:
        - "9000:80"
@@ -29,7 +26,7 @@ services:
     php-fpm:
       build: docker/development/php-fpm
       container_name: ishetkutweer-dev-php-fpm
-      working_dir: /application
+      working_dir: /var/www/ishetkutweer
       volumes:
-        - .:/application
+        - .:/var/www/ishetkutweer
         - ./docker/development/php-fpm/php-ini-overrides.ini:/etc/php/7.4/fpm/conf.d/99-overrides.ini
