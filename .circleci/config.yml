@@ -167,10 +167,13 @@ jobs:
       - setup_remote_docker
 
       # Build the docker image and send it to dockerhub
-      - run: echo $DOCKERHUB_ACCESS_TOKEN | docker login --username $DOCKER_USERNAME --password-stdin
-      - run: docker build ./application -t ishetkutweer-web -f ./application/docker/production/php-fpm/Dockerfile
-      - run: docker tag ishetkutweer-web $DOCKER_USERNAME/ishetkutweer
-      - run: docker push $DOCKER_USERNAME/ishetkutweer
+      - run: echo $DOCKERHUB_ACCESS_TOKEN | docker login $REGISTRY_URL --username $DOCKER_USERNAME --password-stdin
+      - run: docker build ./application -t ishetkutweer-php-fpm -f ./application/docker/production/php-fpm/Dockerfile
+      - run: docker tag ishetkutweer-php-fpm $REGISTRY_URL/$DOCKER_USERNAME/ishetkutweer-php-fpm
+      - run: docker push $REGISTRY_URL/$DOCKER_USERNAME/ishetkutweer-php-fpm:latest
+      - run: docker build ./application -t ishetkutweer-nginx -f ./application/docker/production/nginx/Dockerfile
+      - run: docker tag ishetkutweer-nginx $REGISTRY_URL/$DOCKER_USERNAME/ishetkutweer-nginx
+      - run: docker push $REGISTRY_URL/$DOCKER_USERNAME/ishetkutweer-nginx:latest
       - add_ssh_keys
       - run: ssh-keyscan -H $PROD_IP >> ~/.ssh/known_hosts
       - run: ssh root@$PROD_IP 'mkdir -p /var/www/ishetkutweer/docker/production/nginx/'
@@ -178,8 +181,8 @@ jobs:
       - run: "scp ./application/docker/production/nginx/nginx.conf root@$PROD_IP:/var/www/ishetkutweer/docker/production/nginx/"
       - run: "scp ./application/docker/production/php-fpm/php-ini-overrides.ini root@$PROD_IP:/var/www/ishetkutweer/docker/production/php-fpm/"
       - run: "scp ./application/docker-compose-prod.yml root@$PROD_IP:/var/www/ishetkutweer/"
-      - run: ssh root@$PROD_IP 'echo '"$DOCKERHUB_ACCESS_TOKEN"' | docker login --username '"$DOCKER_USERNAME"' --password-stdin'
-      - run: ssh root@$PROD_IP 'cd /var/www/ishetkutweer && docker-compose -f docker-compose-prod.yml pull && docker-compose -f docker-compose-prod.yml down -v && docker-compose -f docker-compose-prod.yml up -d'
+      - run: ssh root@$PROD_IP 'echo '"$DOCKERHUB_ACCESS_TOKEN"' | docker login '"$REGISTRY_URL"' --username '"$DOCKER_USERNAME"' --password-stdin'
+      - run: ssh root@$PROD_IP 'cd /var/www/ishetkutweer && docker-compose -f docker-compose-prod.yml pull && docker-compose -f docker-compose-prod.yml up -d'
 
       # Send out notifications
       - discord/status:

@@ -12,23 +12,18 @@ services:
       ports:
         - "9003:3306"
 
-    webserver:
-      image: nginx:1.18.0-alpine
-      container_name: ishetkutweer-prod-webserver
+    nginx:
+      image: repo.treescale.com/tetterpon/ishetkutweer-nginx:latest
+      container_name: ishetkutweer-prod-nginx
       working_dir: /var/www/ishetkutweer
       volumes:
-        - datavolume:/var/www/ishetkutweer
         - ./docker/production/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
       ports:
        - "80:80"
 
     php-fpm:
-      image: tetterpon/ishetkutweer:latest
+      image: repo.treescale.com/tetterpon/ishetkutweer-php-fpm:latest
       container_name: ishetkutweer-prod-php-fpm
       working_dir: /var/www/ishetkutweer
       volumes:
-        - datavolume:/var/www/ishetkutweer
         - ./docker/production/php-fpm/php-ini-overrides.ini:/etc/php/7.4/fpm/conf.d/99-overrides.ini
-
-volumes:
-  datavolume: {}
