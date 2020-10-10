@@ -9,6 +9,7 @@ RUN docker-php-ext-install pdo_mysql intl
 
 WORKDIR /var/www/ishetkutweer
 
+# Copy compiled code
 COPY config/ config/
 COPY migrations/ migrations/
 COPY public/ public/
@@ -21,3 +22,8 @@ COPY bin/console bin/console
 COPY composer.json composer.json
 COPY .env .env
 COPY .env.local .env.local
+
+# Install crontab
+COPY ./docker/production/php-fpm/crontab /etc/crontabs/root
+
+CMD /usr/sbin/crond -f & php-fpm
