@@ -5,6 +5,7 @@ services:
       container_name: ishetkutweer-dev-mariadb
       volumes:
         - ./docker/development/mariadb/test-database.sql:/docker-entrypoint-initdb.d/01-test-database.sql
+        - ./var/data/mysql:/var/lib/mysql
       environment:
         - MYSQL_ROOT_PASSWORD=ishetkutweer
         - MYSQL_DATABASE=ishetkutweerv4
