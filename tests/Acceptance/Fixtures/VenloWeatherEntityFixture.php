@@ -9,7 +9,7 @@ use DateTimeImmutable;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
-final class WeatherEntityFixture extends Fixture
+final class VenloWeatherEntityFixture extends Fixture
 {
     public function load(ObjectManager $manager): void
     {

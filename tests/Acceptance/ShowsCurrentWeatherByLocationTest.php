@@ -9,7 +9,7 @@ use App\Tests\Acceptance\Fixtures\VenloWeatherEntityFixture;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-final class ShowsCurrentWeatherTest extends WebTestCase
+final class ShowsCurrentWeatherByLocationTest extends WebTestCase
 {
     protected KernelBrowser $client;
     private FixtureLoader $fixtureLoader;
@@ -30,7 +30,7 @@ final class ShowsCurrentWeatherTest extends WebTestCase
     {
         $this->fixtureLoader->loadFixture(new VenloWeatherEntityFixture());
 
-        $this->client->request('GET', '/');
+        $this->client->request('GET', '/Venlo');
 
         $this->assertResponseIsSuccessful();
         $this->assertSelectorTextContains('[data-test="rating-text"]', 'Het is kutweer');
