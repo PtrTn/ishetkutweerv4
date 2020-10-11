@@ -4,8 +4,6 @@ services:
       image: mariadb:10.4
       container_name: ishetkutweer-prod-mariadb
       working_dir: /var/www/ishetkutweer
-      volumes:
-        - ./var/data/mysql:/var/lib/mysql
       environment:
         - MYSQL_ROOT_PASSWORD=ishetkutweer
         - MYSQL_DATABASE=ishetkutweerv4
