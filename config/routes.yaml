@@ -1,15 +1,7 @@
 weather_by_ip:
     path: /
-    controller: App\Infrastructure\Controller\HomeController::weatherByIp
-
-rss_feed:
-    path: /rss
-    controller: App\Infrastructure\Controller\FeedController::rssFeed
-
-atom_feed:
-    path: /atom
-    controller: App\Infrastructure\Controller\FeedController::atomFeed
+    controller: App\Infrastructure\Controller\WeatherByIpController::getWeatherByIp
 
 weather_by_location:
     path: /{location}
-    controller: App\Infrastructure\Controller\HomeController::weatherByLocation
+    controller: App\Infrastructure\Controller\WeatherByLocationController::getWeatherByLocation
