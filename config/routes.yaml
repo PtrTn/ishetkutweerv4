@@ -1,7 +1,14 @@
 weather_by_ip:
     path: /
     controller: App\Infrastructure\Controller\WeatherByIpController::getWeatherByIp
+    methods: GET
 
 weather_by_location:
     path: /{location}
     controller: App\Infrastructure\Controller\WeatherByLocationController::getWeatherByLocation
+    methods: GET
+
+regions:
+    path: /api/regions
+    controller: App\Infrastructure\Controller\RegionsApiController::getRegions
+    methods: GET
