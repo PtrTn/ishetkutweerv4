@@ -6,6 +6,7 @@ namespace App\Infrastructure\Controller;
 
 use App\Application\QueryHandler\FetchRegionsQueryHandler;
 use App\Infrastructure\Deserializer\RegionDtoDeserializer;
+use App\Infrastructure\Middleware\CacheMiddlewareInterface;
 use Swagger\Annotations as SWG;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,12 +17,16 @@ class RegionsApiController extends AbstractController
 
     private RegionDtoDeserializer $deserializer;
 
+    private CacheMiddlewareInterface $cacheMiddleware;
+
     public function __construct(
         FetchRegionsQueryHandler $queryHandler,
-        RegionDtoDeserializer $deserializer
+        RegionDtoDeserializer $deserializer,
+        CacheMiddlewareInterface $cacheMiddleware
     ) {
         $this->queryHandler = $queryHandler;
         $this->deserializer = $deserializer;
+        $this->cacheMiddleware = $cacheMiddleware;
     }
 
     /**
@@ -39,6 +44,8 @@ class RegionsApiController extends AbstractController
         $regions = $this->queryHandler->handle();
         $responseDtos = $this->deserializer->deserialize($regions);
 
-        return $this->json($responseDtos);
+        $response = $this->json($responseDtos);
+
+        return $this->cacheMiddleware->apply($response, CacheMiddlewareInterface::ONE_HOUR);
     }
 }
