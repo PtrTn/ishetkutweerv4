@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Service;
 
-use App\Domain\Dto\WeatherDto;
+use App\Domain\Model\CurrentWeather;
 use App\Domain\Rule\WeatherRule;
 use App\Domain\ValueObject\Rating;
 
@@ -21,11 +21,11 @@ class RatingService
         $this->rules = $rules;
     }
 
-    public function getRating(WeatherDto $dto): Rating
+    public function getRating(CurrentWeather $currentWeather): Rating
     {
         foreach ($this->rules as $rule) {
-            if ($rule->matches($dto)) {
-                return $rule->getRating($dto);
+            if ($rule->matches($currentWeather)) {
+                return $rule->getRating();
             }
         }
 

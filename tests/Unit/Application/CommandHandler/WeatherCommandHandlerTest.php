@@ -1,21 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Tests\Unit\Application\CommandHandler;
 
-use App\Application\ApiClient\BuienradarApiClientInterface;
-use App\Application\Assembler\WeatherDtoAssemblerInterface;
 use App\Application\CommandHandler\WeatherCommandHandler;
-use App\Application\Dto\Buienradar\BuienradarnlDto;
-use App\Application\Dto\Buienradar\VerwachtingMeerdaags;
-use App\Application\Dto\Buienradar\VerwachtingVandaag;
-use App\Application\Dto\Buienradar\WeergegevensDto;
-use App\Application\Dto\Buienradar\WeerstationDto;
-use App\Application\Dto\Buienradar\WeerstationsDto;
-use App\Application\Factory\WeatherDtoFactoryInterface;
-use App\Application\Mapper\WeatherEntityMapperInterface;
-use App\Application\Repository\WeatherEntityRepositoryInterface;
-use App\Domain\Dto\WeatherDto;
-use App\Infrastructure\Entity\WeatherEntity;
+use App\Application\Repository\WeatherRepositoryInterface;
+use App\Application\Repository\WeatherReportCollectionRepositoryInterface;
+use App\Domain\Model\WeatherReportCollection;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryTestCase;
 
@@ -24,57 +16,26 @@ class WeatherCommandHandlerTest extends MockeryTestCase
     /**
      * @test
      */
-    public function shouldStoreWeatherData()
+    public function shouldStoreWeatherData(): void
     {
-        $actueelWeer = new WeerstationsDto();
-        $actueelWeer->weerstations = [new WeerstationDto()];
-        $verwachtingMeerdaags = new VerwachtingMeerdaags();
-        $verwachtingVandaag = new VerwachtingVandaag();
-        $weergegevensDto = new WeergegevensDto();
-        $weergegevensDto->actueel_weer = $actueelWeer;
-        $weergegevensDto->verwachting_meerdaags = $verwachtingMeerdaags;
-        $weergegevensDto->verwachting_vandaag = $verwachtingVandaag;
-        $buienradarNlDto = new BuienradarnlDto();
-        $buienradarNlDto->weergegevens = $weergegevensDto;
+        $weatherDtoCollection = new WeatherReportCollection([]);
 
-        $apiClient = Mockery::mock(BuienradarApiClientInterface::class);
-        $apiClient
-            ->shouldReceive('getData')
-            ->andReturn($buienradarNlDto)
+        $weatherFetchService = Mockery::mock(WeatherRepositoryInterface::class);
+        $weatherFetchService
+            ->shouldReceive('fetchWeather')
+            ->andReturn($weatherDtoCollection)
             ->once();
 
-        $dtoFactory = Mockery::mock(WeatherDtoFactoryInterface::class);
-        $dtoFactory
-            ->shouldReceive('create')
-            ->andReturn(new WeatherDto())
-            ->once();
-
-        $assembler = Mockery::mock(WeatherDtoAssemblerInterface::class);
-        $assembler
-            ->shouldReceive('assemble')
-            ->andReturn(new WeatherDto())
-            ->once();
-
-        $entityFactory = Mockery::mock(WeatherEntityMapperInterface::class);
-        $entityFactory
-            ->shouldReceive('createEntityFromDto')
-            ->andReturn(new WeatherEntity())
-            ->once();
-
-        $entityRepository = Mockery::mock(WeatherEntityRepositoryInterface::class);
-        $entityRepository
-            ->shouldReceive('saveEntities')
+        $weatherStorageService = Mockery::mock(WeatherReportCollectionRepositoryInterface::class);
+        $weatherStorageService
+            ->shouldReceive('store')
             ->once();
 
         $commandHandler = new WeatherCommandHandler(
-            $apiClient,
-            $dtoFactory,
-            $assembler,
-            $entityFactory,
-            $entityRepository
+            $weatherFetchService,
+            $weatherStorageService
         );
 
         $commandHandler->storeWeatherData();
     }
-
 }

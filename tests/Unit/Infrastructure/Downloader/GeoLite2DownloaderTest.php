@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Tests\Unit\Infrastructure\ApiClient;
+declare(strict_types=1);
+
+namespace App\Tests\Unit\Infrastructure\Downloader;
 
 use App\Infrastructure\Downloader\GeoLite2Downloader;
 use App\Infrastructure\Downloader\GuzzleDownloader;
@@ -14,7 +16,7 @@ class GeoLite2DownloaderTest extends MockeryTestCase
     /**
      * @test
      */
-    public function shouldDownloadGeoLite()
+    public function shouldDownloadGeoLite(): void
     {
         $fileStorage = Mockery::mock(FileStorage::class);
         $fileStorage->shouldReceive('getPathForTemporaryFile', 'getPathForDataFile', 'remove');
@@ -25,10 +27,8 @@ class GeoLite2DownloaderTest extends MockeryTestCase
         $unpacker = Mockery::mock(GeoLite2Unpacker::class);
         $unpacker->shouldReceive('unpack');
 
-
         $geoLite2Downloader = new GeoLite2Downloader($fileStorage, $downloader, $unpacker, '123');
 
         $geoLite2Downloader->download();
     }
-
 }

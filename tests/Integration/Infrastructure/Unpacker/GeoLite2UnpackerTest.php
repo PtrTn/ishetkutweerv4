@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Tests\Integration\Infrastructure\Unpacker;
 
 use App\Infrastructure\FileStorage\FileStorage;
@@ -9,25 +11,13 @@ use Symfony\Component\Filesystem\Filesystem;
 
 class GeoLite2UnpackerTest extends KernelTestCase
 {
-    /**
-     * @var string
-     */
-    private $temporaryFolder;
+    private string $temporaryFolder;
 
-    /**
-     * @var string
-     */
-    private $dataFolder;
+    private string $dataFolder;
 
-    /**
-     * @var GeoLite2Unpacker
-     */
-    private $unpacker;
+    private GeoLite2Unpacker $unpacker;
 
-    /**
-     * @var Filesystem
-     */
-    private $fileSystem;
+    private Filesystem $fileSystem;
 
     public function setUp(): void
     {
@@ -42,7 +32,7 @@ class GeoLite2UnpackerTest extends KernelTestCase
     /**
      * @test
      */
-    public function shouldUnpackArchive()
+    public function shouldUnpackArchive(): void
     {
         $fixtureFile = __DIR__ . '/../../fixtures/GeoLite2-City_20181225.tar.gz';
         $expectedUnpackedFile = __DIR__ . '/unpacked-file.mmdb';

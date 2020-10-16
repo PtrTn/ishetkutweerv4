@@ -15,21 +15,19 @@ final class VenloWeatherEntityFixture extends Fixture
     {
         $entity = new WeatherEntity();
         $entity->identifier = 123;
-        $entity->region = 'Venlo';
-        $entity->stationName = 'Meetstation Arcen';
+        $entity->location = 'Venlo';
         $entity->lat = 51.50;
         $entity->lon = 6.20;
-        $entity->date = new DateTimeImmutable();
+        $entity->dateTime = new DateTimeImmutable();
         $entity->temperature = 3.8;
         $entity->rain = 0.5;
         $entity->windSpeed = 1.1;
-        $entity->windDirection = 'OZO';
+        $entity->windDirection = 270;
         $entity->temperatureRating = 3;
         $entity->rainRating = 3;
         $entity->windRating = 3;
         $entity->averageRating = 3;
-        $entity->background = 'rain.jpg';
-        $entity->summary = 'All is good';
+        $entity->description = 'All is good';
         $entity->day1Date = new DateTimeImmutable('+1 day');
         $entity->day1Temp = 12;
         $entity->day2Date = new DateTimeImmutable('+2 days');

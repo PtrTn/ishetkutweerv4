@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Infrastructure\Controller;
 
 use App\Application\Query\WeatherByLocationQuery;
-use App\Application\QueryHandler\WeatherQueryHandler;
+use App\Application\QueryHandler\WeatherByLocationQueryHandler;
 use App\Infrastructure\Middleware\CacheMiddlewareInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,14 +13,14 @@ use Twig\Environment;
 
 class WeatherByLocationController extends AbstractController
 {
-    private WeatherQueryHandler $queryHandler;
+    private WeatherByLocationQueryHandler $queryHandler;
 
     private Environment $templateEngine;
 
     private CacheMiddlewareInterface $cacheMiddleware;
 
     public function __construct(
-        WeatherQueryHandler $queryHandler,
+        WeatherByLocationQueryHandler $queryHandler,
         Environment $templateEngine,
         CacheMiddlewareInterface $cacheMiddleware
     ) {
@@ -31,14 +31,17 @@ class WeatherByLocationController extends AbstractController
 
     public function getWeatherByLocation(string $location): Response
     {
-        $data = $this->queryHandler->getWeatherDataByLocationQuery(
+        $weatherReport = $this->queryHandler->handle(
             new WeatherByLocationQuery($location)
         );
 
         $template = $this->templateEngine->render('home.html.twig', [
-            'data' => $data,
-            'location' => $data->location,
-            'forecast' => $data->forecast,
+            'currentWeather' => $weatherReport->getCurrentWeather(),
+            'description' => $weatherReport->getDescription()->getDescription(),
+            'forecast' => $weatherReport->getForecast(),
+            'rating' => $weatherReport->getRating(),
+            'location' => $weatherReport->getLocation(),
+            'dateTime' => $weatherReport->getDateTime()->getDateTimeImmutable(),
         ]);
 
         $response = new Response($template, Response::HTTP_OK);

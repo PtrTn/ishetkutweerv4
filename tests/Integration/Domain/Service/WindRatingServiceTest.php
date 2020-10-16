@@ -1,34 +1,39 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Tests\Integration\Domain\Service;
 
-use App\Domain\Dto\WeatherDto;
+use App\Domain\Model\CurrentWeather;
 use App\Domain\Service\RatingService;
 use App\Domain\ValueObject\Rating;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class WindRatingServiceTest extends KernelTestCase
 {
-    /**
-     * @var RatingService
-     */
-    private $ratingService;
+    private RatingService $ratingService;
 
     public function setUp(): void
     {
         self::bootKernel();
-        $this->ratingService = self::$container->get('WindRatingService');
+        $ratingService = self::$container->get('WindRatingService');
+        if ($ratingService instanceof RatingService) {
+            $this->ratingService = $ratingService;
+
+            return;
+        }
+
+        $this->fail('Unexpected type for rating service in container');
     }
 
     /**
      * @test
      */
-    public function shouldReturnMegaKutForTooMuchWind()
+    public function shouldReturnMegaKutForTooMuchWind(): void
     {
-        $dto = new WeatherDto();
-        $dto->windSpeed = 10.0;
+        $currentWeather = $this->getCurrentWeatherForWindSpeed(10);
 
-        $rating = $this->ratingService->getRating($dto);
+        $rating = $this->ratingService->getRating($currentWeather);
 
         $this->assertEquals(
             Rating::megaKut(),
@@ -40,12 +45,11 @@ class WindRatingServiceTest extends KernelTestCase
     /**
      * @test
      */
-    public function shouldReturnKutForAlotWind()
+    public function shouldReturnKutForAlotWind(): void
     {
-        $dto = new WeatherDto();
-        $dto->windSpeed = 8.0;
+        $currentWeather = $this->getCurrentWeatherForWindSpeed(8);
 
-        $rating = $this->ratingService->getRating($dto);
+        $rating = $this->ratingService->getRating($currentWeather);
 
         $this->assertEquals(
             Rating::kut(),
@@ -57,12 +61,11 @@ class WindRatingServiceTest extends KernelTestCase
     /**
      * @test
      */
-    public function shouldReturnBeetjeKutForSomeWind()
+    public function shouldReturnBeetjeKutForSomeWind(): void
     {
-        $dto = new WeatherDto();
-        $dto->windSpeed = 5.0;
+        $currentWeather = $this->getCurrentWeatherForWindSpeed(5);
 
-        $rating = $this->ratingService->getRating($dto);
+        $rating = $this->ratingService->getRating($currentWeather);
 
         $this->assertEquals(
             Rating::beetjeKut(),
@@ -74,12 +77,11 @@ class WindRatingServiceTest extends KernelTestCase
     /**
      * @test
      */
-    public function shouldReturNietKutForLittleWind()
+    public function shouldReturNietKutForLittleWind(): void
     {
-        $dto = new WeatherDto();
-        $dto->windSpeed = 3.0;
+        $currentWeather = $this->getCurrentWeatherForWindSpeed(3);
 
-        $rating = $this->ratingService->getRating($dto);
+        $rating = $this->ratingService->getRating($currentWeather);
 
         $this->assertEquals(
             Rating::nietKut(),
@@ -91,12 +93,11 @@ class WindRatingServiceTest extends KernelTestCase
     /**
      * @test
      */
-    public function shouldReturNietKutForNoWind()
+    public function shouldReturNietKutForNoWind(): void
     {
-        $dto = new WeatherDto();
-        $dto->windSpeed = 0.0;
+        $currentWeather = $this->getCurrentWeatherForWindSpeed(0);
 
-        $rating = $this->ratingService->getRating($dto);
+        $rating = $this->ratingService->getRating($currentWeather);
 
         $this->assertEquals(
             Rating::nietKut(),
@@ -105,19 +106,8 @@ class WindRatingServiceTest extends KernelTestCase
         );
     }
 
-    /**
-     * @test
-     */
-    public function shouldReturnNietKutForUnknownWind()
+    private function getCurrentWeatherForWindSpeed(float $windSpeed): CurrentWeather
     {
-        $dto = new WeatherDto();
-
-        $rating = $this->ratingService->getRating($dto);
-
-        $this->assertEquals(
-            Rating::nietKut(),
-            $rating,
-            'Unknown weather data should result in niet kut rating'
-        );
+        return new CurrentWeather(10, 0, $windSpeed, 90);
     }
 }

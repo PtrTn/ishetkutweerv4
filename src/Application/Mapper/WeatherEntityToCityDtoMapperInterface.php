@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Application\Mapper;
 
 use App\Application\Dto\RegionDto;
-use App\Application\Entity\WeatherEntityInterface;
+use App\Domain\Model\WeatherReport;
 
 interface WeatherEntityToCityDtoMapperInterface
 {
-    public function createDtoFromEntity(WeatherEntityInterface $entity): RegionDto;
+    public function createDtoFromEntity(WeatherReport $weatherReport): RegionDto;
 }

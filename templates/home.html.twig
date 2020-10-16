@@ -10,31 +10,31 @@
 
 {% block body %}
     <div class="container pt-4">
-            <div class="row w-100 {{ data.rating|backgroundColor }} text-light p-4 no-gutters">
+            <div class="row w-100 {{ rating|backgroundColor }} text-light p-4 no-gutters">
                 <div class="row w-100 justify-content-between">
                     <div class="col-12 col-sm-7">
-                        <h2 class="text-center text-sm-left" data-test="rating-text">{{ data.rating|formatRating }}</h2>
+                        <h2 class="text-center text-sm-left" data-test="rating-text">{{ rating|formatRating }}</h2>
                     </div>
                     <div class="col-12 col-sm-5 pull-right d-none d-sm-block">
-                        <h3 class="text-right">{{ location.region|capitalize }}</h3>
-                        <h4 class="text-right">{{ data.date|date('H:i') }}</h4>
+                        <h3 class="text-right">{{ location.name|capitalize }}</h3>
+                        <h4 class="text-right">{{ dateTime|date('H:i') }}</h4>
                     </div>
                 </div>
                 <div class="row w-100 mt-4">
                     <div class="col-12 text-center">
-                        <i class="wi {{ data|weatherIcon }} display-1"></i>
-                        <h4 class="mt-3">{{ data.summary }}</h4>
+                        <i class="wi {{ currentWeather|weatherIcon }} display-1"></i>
+                        <h4 class="mt-3">{{ description }}</h4>
                     </div>
                 </div>
             </div>
             <div class="row bg-white w-100 p-4 no-gutters">
                 <div class="col-6 col-md-3 d-flex flex-column text-center justify-content-around">
-                    <h1>{{ data.temperature }}&deg;</h1>
-                    <p>{{ data.date|localizeddate('full', 'none', 'nl', null, 'EEEE dd MMMM')|capitalize }}</p>
+                    <h1>{{ currentWeather.temperature }}&deg;</h1>
+                    <p>{{ dateTime|localizeddate('full', 'none', 'nl', null, 'EEEE dd MMMM')|capitalize }}</p>
                 </div>
                 <div class="col-6 col-md-3 d-flex flex-column text-center justify-content-around">
-                    <i class="wi {{ data|windIcon }} display-5"></i>
-                    <h4>{{ data.rain ?? '0' }} <small>mm/u</small></h4>
+                    <i class="wi {{ currentWeather|windIcon }} display-5"></i>
+                    <h4>{{ currentWeather.rain }} <small>mm/u</small></h4>
                 </div>
                 <div class="col-12 col-md-6 d-flex flex-column flex-sm-row justify-content-between pl-0 pl-md-3 pt-3 pt-md-0">
                     <div class="d-flex flex-row flex-sm-column pt-3 pt-sm-0 justify-content-around">

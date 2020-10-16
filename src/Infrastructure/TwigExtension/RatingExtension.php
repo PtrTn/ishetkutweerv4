@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\TwigExtension;
 
-use App\Domain\Dto\WeatherRatingDto;
+use App\Domain\Model\WeatherRating;
 use App\Domain\ValueObject\Rating;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
@@ -27,17 +27,17 @@ class RatingExtension extends AbstractExtension
         ];
     }
 
-    public function formatRating(WeatherRatingDto $ratingDto): string
+    public function formatRating(WeatherRating $weatherRating): string
     {
-        if ($ratingDto->averageRating->getRating() <= Rating::NIET_KUT) {
+        if ($weatherRating->getAverageRating()->getRating() <= Rating::NIET_KUT) {
             return self::NIET_KUT;
         }
 
-        if ($ratingDto->averageRating->getRating() <= Rating::BEETJE_KUT) {
+        if ($weatherRating->getAverageRating()->getRating() <= Rating::BEETJE_KUT) {
             return self::BEETJE_KUT;
         }
 
-        if ($ratingDto->averageRating->getRating() <= Rating::KUT) {
+        if ($weatherRating->getAverageRating()->getRating() <= Rating::KUT) {
             return self::KUT;
         }
 

@@ -1,18 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Tests\Unit\Domain\Rule\Rain;
 
-use App\Domain\Dto\WeatherDto;
+use App\Domain\Model\CurrentWeather;
 use App\Domain\Rule\Rain\TooMuchRainRule;
 use App\Domain\ValueObject\Rating;
 use PHPUnit\Framework\TestCase;
 
 class TooMuchRainRuleTest extends TestCase
 {
-    /**
-     * @var TooMuchRainRule
-     */
-    private $rule;
+    private TooMuchRainRule $rule;
 
     public function setUp(): void
     {
@@ -22,9 +21,9 @@ class TooMuchRainRuleTest extends TestCase
     /**
      * @test
      */
-    public function shouldReturnMegaKutRating()
+    public function shouldReturnMegaKutRating(): void
     {
-        $rating = $this->rule->getRating(new WeatherDto());
+        $rating = $this->rule->getRating();
 
         $this->assertEquals(Rating::megaKut(), $rating, 'Expected too much rain to return a mega kut rating');
     }
@@ -32,12 +31,11 @@ class TooMuchRainRuleTest extends TestCase
     /**
      * @test
      */
-    public function shouldMatchForTooMuchRain()
+    public function shouldMatchForTooMuchRain(): void
     {
-        $dto = new WeatherDto();
-        $dto->rain = 35.0;
+        $currentWeather = $this->getCurrentWeatherForRain(35);
 
-        $matched = $this->rule->matches($dto);
+        $matched = $this->rule->matches($currentWeather);
 
         $this->assertTrue($matched, 'Too much rain rule should match for 35mm rain');
     }
@@ -45,12 +43,11 @@ class TooMuchRainRuleTest extends TestCase
     /**
      * @test
      */
-    public function shouldNotMatchForALittleRain()
+    public function shouldNotMatchForALittleRain(): void
     {
-        $dto = new WeatherDto();
-        $dto->rain = 5.0;
+        $currentWeather = $this->getCurrentWeatherForRain(5);
 
-        $matched = $this->rule->matches($dto);
+        $matched = $this->rule->matches($currentWeather);
 
         $this->assertFalse($matched, 'Too much rain rule should not match for 5mm rain');
     }
@@ -58,26 +55,17 @@ class TooMuchRainRuleTest extends TestCase
     /**
      * @test
      */
-    public function shouldNotMatchForNoRain()
+    public function shouldNotMatchForNoRain(): void
     {
-        $dto = new WeatherDto();
-        $dto->rain = 0;
+        $currentWeather = $this->getCurrentWeatherForRain(0);
 
-        $matched = $this->rule->matches($dto);
+        $matched = $this->rule->matches($currentWeather);
 
         $this->assertFalse($matched, 'Too much rain rule should not match for 0mm rain');
     }
 
-    /**
-     * @test
-     */
-    public function shouldNotMatchForUnknownRain()
+    private function getCurrentWeatherForRain(float $rain): CurrentWeather
     {
-        $dto = new WeatherDto();
-        $dto->rain = NULL;
-
-        $matched = $this->rule->matches($dto);
-
-        $this->assertFalse($matched, 'Too much rain rule should not match for an unknown amount rain');
+        return new CurrentWeather(10, $rain, 5, 90);
     }
 }

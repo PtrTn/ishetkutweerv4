@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\ApiClient;
 
-use App\Application\ApiClient\BuienradarApiClientInterface;
-use App\Application\Dto\Buienradar\BuienradarnlDto;
+use App\Infrastructure\Dto\Buienradar\BuienradarnlDto;
 use GuzzleHttp\Client;
 use JMS\Serializer\SerializerInterface;
 use RuntimeException;
