@@ -6,16 +6,16 @@ namespace App\Application\QueryHandler;
 
 use App\Application\Dto\RegionDto;
 use App\Application\Mapper\WeatherEntityToCityDtoMapperInterface;
-use App\Application\Repository\WeatherEntityRepositoryInterface;
+use App\Application\Repository\WeatherReportCollectionRepositoryInterface;
 
 class FetchRegionsQueryHandler
 {
-    private WeatherEntityRepositoryInterface $repository;
+    private WeatherReportCollectionRepositoryInterface $repository;
 
     private WeatherEntityToCityDtoMapperInterface $mapper;
 
     public function __construct(
-        WeatherEntityRepositoryInterface $repository,
+        WeatherReportCollectionRepositoryInterface $repository,
         WeatherEntityToCityDtoMapperInterface $mapper
     ) {
         $this->repository = $repository;
@@ -25,10 +25,10 @@ class FetchRegionsQueryHandler
     /** @return RegionDto[] */
     public function handle(): array
     {
-        $entities = $this->repository->getLatestEntites();
+        $weatherReportCollection = $this->repository->getLatest();
         $dtos = [];
-        foreach ($entities as $entity) {
-            $dtos[] = $this->mapper->createDtoFromEntity($entity);
+        foreach ($weatherReportCollection->getWeatherReports() as $weatherReport) {
+            $dtos[] = $this->mapper->createDtoFromEntity($weatherReport);
         }
 
         return $dtos;

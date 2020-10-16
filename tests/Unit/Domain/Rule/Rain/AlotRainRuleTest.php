@@ -1,18 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Tests\Unit\Domain\Rule\Rain;
 
-use App\Domain\Dto\WeatherDto;
+use App\Domain\Model\CurrentWeather;
 use App\Domain\Rule\Rain\AlotRainRule;
 use App\Domain\ValueObject\Rating;
 use PHPUnit\Framework\TestCase;
 
 class AlotRainRuleTest extends TestCase
 {
-    /**
-     * @var AlotRainRule
-     */
-    private $rule;
+    private AlotRainRule $rule;
 
     public function setUp(): void
     {
@@ -22,9 +21,9 @@ class AlotRainRuleTest extends TestCase
     /**
      * @test
      */
-    public function shouldReturnKutRating()
+    public function shouldReturnKutRating(): void
     {
-        $rating = $this->rule->getRating(new WeatherDto());
+        $rating = $this->rule->getRating();
 
         $this->assertEquals(
             Rating::kut(),
@@ -36,12 +35,11 @@ class AlotRainRuleTest extends TestCase
     /**
      * @test
      */
-    public function shouldMatchForAlotRain()
+    public function shouldMatchForAlotRain(): void
     {
-        $dto = new WeatherDto();
-        $dto->rain = 15.0;
+        $currentWeather = $this->getCurrentWeatherForRain(15);
 
-        $matched = $this->rule->matches($dto);
+        $matched = $this->rule->matches($currentWeather);
 
         $this->assertTrue(
             $matched,
@@ -52,12 +50,11 @@ class AlotRainRuleTest extends TestCase
     /**
      * @test
      */
-    public function shouldNotMatchForALittleRain()
+    public function shouldNotMatchForALittleRain(): void
     {
-        $dto = new WeatherDto();
-        $dto->rain = 5.0;
+        $currentWeather = $this->getCurrentWeatherForRain(5);
 
-        $matched = $this->rule->matches($dto);
+        $matched = $this->rule->matches($currentWeather);
 
         $this->assertFalse(
             $matched,
@@ -68,12 +65,11 @@ class AlotRainRuleTest extends TestCase
     /**
      * @test
      */
-    public function shouldNotMatchForNoRain()
+    public function shouldNotMatchForNoRain(): void
     {
-        $dto = new WeatherDto();
-        $dto->rain = 0;
+        $currentWeather = $this->getCurrentWeatherForRain(0);
 
-        $matched = $this->rule->matches($dto);
+        $matched = $this->rule->matches($currentWeather);
 
         $this->assertFalse(
             $matched,
@@ -81,19 +77,8 @@ class AlotRainRuleTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
-    public function shouldNotMatchForUnknownRain()
+    private function getCurrentWeatherForRain(float $rain): CurrentWeather
     {
-        $dto = new WeatherDto();
-        $dto->rain = null;
-
-        $matched = $this->rule->matches($dto);
-
-        $this->assertFalse(
-            $matched,
-            'Alot of rain rule should not match for an unknown amount rain'
-        );
+        return new CurrentWeather(10, $rain, 5, 90);
     }
 }

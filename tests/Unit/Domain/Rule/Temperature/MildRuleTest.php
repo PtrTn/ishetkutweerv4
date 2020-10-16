@@ -1,18 +1,17 @@
 <?php
 
-namespace App\Tests\Unit\Domain\Rule\Rain;
+declare(strict_types=1);
 
-use App\Domain\Dto\WeatherDto;
+namespace App\Tests\Unit\Domain\Rule\Temperature;
+
+use App\Domain\Model\CurrentWeather;
 use App\Domain\Rule\Temperature\MildRule;
 use App\Domain\ValueObject\Rating;
 use PHPUnit\Framework\TestCase;
 
 class MildRuleTest extends TestCase
 {
-    /**
-     * @var MildRule
-     */
-    private $rule;
+    private MildRule $rule;
 
     public function setUp(): void
     {
@@ -22,9 +21,9 @@ class MildRuleTest extends TestCase
     /**
      * @test
      */
-    public function shouldReturnBeetjeKutRating()
+    public function shouldReturnBeetjeKutRating(): void
     {
-        $rating = $this->rule->getRating(new WeatherDto());
+        $rating = $this->rule->getRating();
 
         $this->assertEquals(
             Rating::beetjeKut(),
@@ -36,12 +35,11 @@ class MildRuleTest extends TestCase
     /**
      * @test
      */
-    public function shouldMatchForMildTemperature()
+    public function shouldMatchForMildTemperature(): void
     {
-        $dto = new WeatherDto();
-        $dto->temperature = 5.0;
+        $currentWeather = $this->getCurrentWeatherForTemperature(5);
 
-        $matched = $this->rule->matches($dto);
+        $matched = $this->rule->matches($currentWeather);
 
         $this->assertTrue(
             $matched,
@@ -52,12 +50,11 @@ class MildRuleTest extends TestCase
     /**
      * @test
      */
-    public function shouldNotMatchForHotTemperatures()
+    public function shouldNotMatchForHotTemperatures(): void
     {
-        $dto = new WeatherDto();
-        $dto->temperature = 30.0;
+        $currentWeather = $this->getCurrentWeatherForTemperature(30);
 
-        $matched = $this->rule->matches($dto);
+        $matched = $this->rule->matches($currentWeather);
 
         $this->assertFalse(
             $matched,
@@ -65,19 +62,8 @@ class MildRuleTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
-    public function shouldNotMatchForUnknownTemperatures()
+    private function getCurrentWeatherForTemperature(float $temperature): CurrentWeather
     {
-        $dto = new WeatherDto();
-        $dto->temperature = NULL;
-
-        $matched = $this->rule->matches($dto);
-
-        $this->assertFalse(
-            $matched,
-            'Mild rule should not match for an unknown temperatures'
-        );
+        return new CurrentWeather($temperature, 0, 5, 90);
     }
 }

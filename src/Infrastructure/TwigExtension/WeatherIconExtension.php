@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\TwigExtension;
 
-use App\Domain\Dto\WeatherDto;
+use App\Domain\Model\CurrentWeather;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 
@@ -30,44 +30,44 @@ class WeatherIconExtension extends AbstractExtension
     public function getFilters(): array
     {
         return [
-            new TwigFilter('weatherIcon', [$this, 'getIconForWeatherDto']),
-            new TwigFilter('windIcon', [$this, 'getWindIconForWeatherDto']),
+            new TwigFilter('weatherIcon', [$this, 'getIconForCurrentWeather']),
+            new TwigFilter('windIcon', [$this, 'getWindIconForCurrentWeather']),
         ];
     }
 
-    public function getIconForWeatherDto(WeatherDto $dto): string
+    public function getIconForCurrentWeather(CurrentWeather $currentWeather): string
     {
-        if ($dto->hasSnow()) {
+        if ($currentWeather->hasSnow()) {
             return self::SNOW;
         }
 
-        if ($dto->hasRain()) {
+        if ($currentWeather->hasRain()) {
             return self::RAIN;
         }
 
-        if ($dto->hasShowers()) {
+        if ($currentWeather->hasShowers()) {
             return self::SHOWERS;
         }
 
-        if ($dto->hasWind()) {
+        if ($currentWeather->hasWind()) {
             return self::WIND;
         }
 
-        if ($dto->hasBreeze()) {
+        if ($currentWeather->hasBreeze()) {
             return self::BREEZE;
         }
 
         return self::SUN;
     }
 
-    public function getWindIconForWeatherDto(WeatherDto $dto): string
+    public function getWindIconForCurrentWeather(CurrentWeather $currentWeather): string
     {
-        if ($dto->windSpeed === null) {
+        if ($currentWeather->getWindSpeed() === null) {
             return '';
         }
 
-        if ($dto->windSpeed > 0 && $dto->windSpeed <= 12) {
-            return sprintf('wi-wind-beaufort-%s', $dto->windSpeed);
+        if ($currentWeather->getWindSpeed() > 0 && $currentWeather->getWindSpeed() <= 12) {
+            return sprintf('wi-wind-beaufort-%s', $currentWeather->getWindSpeed());
         }
 
         return self::UNKNOWN;

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Application\Service;
 
-use App\Domain\Dto\WeatherDto;
+use App\Domain\Model\WeatherReport;
 use Geokit\LatLng;
 use Geokit\Math;
 
@@ -20,25 +20,25 @@ class DistanceService
     }
 
     /**
-     * @param WeatherDto[] $weatherDtos
+     * @param WeatherReport[] $weatherReports
      */
-    public function findClosestWeerstation(array $weatherDtos, float $targetLat, float $targetLon): ?WeatherDto
+    public function findClosestWeerstation(array $weatherReports, float $targetLat, float $targetLon): ?WeatherReport
     {
         $closestStation = null;
         $closestDistance = null;
-        foreach ($weatherDtos as $dto) {
+        foreach ($weatherReports as $weatherReport) {
             $distance = $this->getDistance(
                 $targetLat,
                 $targetLon,
-                floatval($dto->location->lat),
-                floatval($dto->location->lon)
+                floatval($weatherReport->getLocation()->getLat()),
+                floatval($weatherReport->getLocation()->getLon())
             );
             if (isset($closestDistance) && $distance >= $closestDistance) {
                 continue;
             }
 
             $closestDistance = $distance;
-            $closestStation = $dto;
+            $closestStation = $weatherReport;
         }
 
         return $closestStation;

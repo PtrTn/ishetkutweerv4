@@ -1,34 +1,39 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Tests\Integration\Domain\Service;
 
-use App\Domain\Dto\WeatherDto;
+use App\Domain\Model\CurrentWeather;
 use App\Domain\Service\RatingService;
 use App\Domain\ValueObject\Rating;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class RainRatingServiceTest extends KernelTestCase
 {
-    /**
-     * @var RatingService
-     */
-    private $ratingService;
+    private RatingService $ratingService;
 
     public function setUp(): void
     {
         self::bootKernel();
-        $this->ratingService = self::$container->get('RainRatingService');
+        $ratingService = self::$container->get('RainRatingService');
+        if ($ratingService instanceof RatingService) {
+            $this->ratingService = $ratingService;
+
+            return;
+        }
+
+        $this->fail('Unexpected type for rating service in container');
     }
 
     /**
      * @test
      */
-    public function shouldReturnMegaKutForTooMuchRain()
+    public function shouldReturnMegaKutForTooMuchRain(): void
     {
-        $dto = new WeatherDto();
-        $dto->rain = 35.0;
+        $currentWeather = $this->getCurrentWeatherForRain(35);
 
-        $rating = $this->ratingService->getRating($dto);
+        $rating = $this->ratingService->getRating($currentWeather);
 
         $this->assertEquals(
             Rating::megaKut(),
@@ -40,12 +45,11 @@ class RainRatingServiceTest extends KernelTestCase
     /**
      * @test
      */
-    public function shouldReturnKutForAlotRain()
+    public function shouldReturnKutForAlotRain(): void
     {
-        $dto = new WeatherDto();
-        $dto->rain = 15.0;
+        $currentWeather = $this->getCurrentWeatherForRain(15);
 
-        $rating = $this->ratingService->getRating($dto);
+        $rating = $this->ratingService->getRating($currentWeather);
 
         $this->assertEquals(
             Rating::kut(),
@@ -57,12 +61,11 @@ class RainRatingServiceTest extends KernelTestCase
     /**
      * @test
      */
-    public function shouldReturnBeetjeKutForSomeRain()
+    public function shouldReturnBeetjeKutForSomeRain(): void
     {
-        $dto = new WeatherDto();
-        $dto->rain = 5.0;
+        $currentWeather = $this->getCurrentWeatherForRain(5);
 
-        $rating = $this->ratingService->getRating($dto);
+        $rating = $this->ratingService->getRating($currentWeather);
 
         $this->assertEquals(
             Rating::beetjeKut(),
@@ -74,12 +77,11 @@ class RainRatingServiceTest extends KernelTestCase
     /**
      * @test
      */
-    public function shouldReturnNietKutForNoRain()
+    public function shouldReturnNietKutForNoRain(): void
     {
-        $dto = new WeatherDto();
-        $dto->rain = 0.0;
+        $currentWeather = $this->getCurrentWeatherForRain(0);
 
-        $rating = $this->ratingService->getRating($dto);
+        $rating = $this->ratingService->getRating($currentWeather);
 
         $this->assertEquals(
             Rating::nietKut(),
@@ -88,19 +90,8 @@ class RainRatingServiceTest extends KernelTestCase
         );
     }
 
-    /**
-     * @test
-     */
-    public function shouldReturnNietKutForUnknownRain()
+    private function getCurrentWeatherForRain(float $rain): CurrentWeather
     {
-        $dto = new WeatherDto();
-
-        $rating = $this->ratingService->getRating($dto);
-
-        $this->assertEquals(
-            Rating::nietKut(),
-            $rating,
-            'Unknown weather data should result in niet kut rating'
-        );
+        return new CurrentWeather(10, $rain, 5, 90);
     }
 }

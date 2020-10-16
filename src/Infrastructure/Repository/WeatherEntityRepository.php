@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Repository;
 
-use App\Application\Entity\WeatherEntityInterface;
-use App\Application\Repository\WeatherEntityRepositoryInterface;
 use App\Infrastructure\Entity\WeatherEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
@@ -26,7 +24,7 @@ class WeatherEntityRepository extends ServiceEntityRepository implements Weather
         parent::__construct($registry, WeatherEntity::class);
     }
 
-    /** @param WeatherEntityInterface[] $entities */
+    /** @param  WeatherEntity[] $entities */
     public function saveEntities(array $entities): void
     {
         $entityManager = $this->getEntityManager();
@@ -37,7 +35,7 @@ class WeatherEntityRepository extends ServiceEntityRepository implements Weather
         $entityManager->flush();
     }
 
-    /** @param WeatherEntityInterface[] $entities */
+    /** @param  WeatherEntity[] $entities */
     public function deleteEntities(array $entities): void
     {
         $entityManager = $this->getEntityManager();
@@ -48,27 +46,41 @@ class WeatherEntityRepository extends ServiceEntityRepository implements Weather
         $entityManager->flush();
     }
 
-    /** @return WeatherEntityInterface[] */
+    /** @return WeatherEntity[] */
     public function getLatestEntites(): array
     {
         $queryBuilder = $this->createQueryBuilder('w1');
 
         return $queryBuilder
             ->select('w1')
-            ->leftJoin(WeatherEntity::class, 'w2', Join::WITH, 'w1.region = w2.region AND w1.date < w2.date')
-            ->where('w2.region IS NULL')
-            ->orderBy('w1.date', 'DESC')
-            ->orderBy('w1.region')
-            ->groupBy('w1.region')
+            ->leftJoin(WeatherEntity::class, 'w2', Join::WITH, 'w1.location = w2.location AND w1.dateTime < w2.dateTime')
+            ->where('w2.location IS NULL')
+            ->orderBy('w1.dateTime', 'DESC')
+            ->orderBy('w1.location')
+            ->groupBy('w1.location')
             ->getQuery()
             ->getResult();
     }
 
-    /** @return WeatherEntityInterface[] */
+    public function findLatestEntityForLocation(string $location): ?WeatherEntity
+    {
+        $queryBuilder = $this->createQueryBuilder('w1');
+
+        return $queryBuilder
+            ->select('w1')
+            ->where('w1.location = :location')
+            ->orderBy('w1.dateTime', 'DESC')
+            ->setParameter('location', $location)
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    /** @return WeatherEntity[] */
     public function getOutdatedEntities(): array
     {
         $latestEntities = $this->getLatestEntites();
-        $entityIds = array_map(static function (WeatherEntityInterface $entity) {
+        $entityIds = array_map(static function (WeatherEntity $entity) {
             return $entity->getIdentifier();
         }, $latestEntities);
 

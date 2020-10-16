@@ -1,34 +1,39 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Tests\Integration\Domain\Service;
 
-use App\Domain\Dto\WeatherDto;
+use App\Domain\Model\CurrentWeather;
 use App\Domain\Service\RatingService;
 use App\Domain\ValueObject\Rating;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class TemperatureRatingServiceTest extends KernelTestCase
 {
-    /**
-     * @var RatingService
-     */
-    private $ratingService;
+    private RatingService $ratingService;
 
     public function setUp(): void
     {
         self::bootKernel();
-        $this->ratingService = self::$container->get('TemperatureRatingService');
+        $ratingService = self::$container->get('TemperatureRatingService');
+        if ($ratingService instanceof RatingService) {
+            $this->ratingService = $ratingService;
+
+            return;
+        }
+
+        $this->fail('Unexpected type for rating service in container');
     }
 
     /**
      * @test
      */
-    public function shouldReturnMegaKutForTooHot()
+    public function shouldReturnMegaKutForTooHot(): void
     {
-        $dto = new WeatherDto();
-        $dto->temperature = 40.0;
+        $currentWeather = $this->getCurrentWeatherForTemperature(40);
 
-        $rating = $this->ratingService->getRating($dto);
+        $rating = $this->ratingService->getRating($currentWeather);
 
         $this->assertEquals(
             Rating::megaKut(),
@@ -37,12 +42,11 @@ class TemperatureRatingServiceTest extends KernelTestCase
         );
     }
 
-    public function shouldReturnMegaKutForTooCold()
+    public function shouldReturnMegaKutForTooCold(): void
     {
-        $dto = new WeatherDto();
-        $dto->temperature = -15.0;
+        $currentWeather = $this->getCurrentWeatherForTemperature(-15);
 
-        $rating = $this->ratingService->getRating($dto);
+        $rating = $this->ratingService->getRating($currentWeather);
 
         $this->assertEquals(
             Rating::megaKut(),
@@ -51,12 +55,11 @@ class TemperatureRatingServiceTest extends KernelTestCase
         );
     }
 
-    public function shouldReturnKutForHot()
+    public function shouldReturnKutForHot(): void
     {
-        $dto = new WeatherDto();
-        $dto->temperature = 33.0;
+        $currentWeather = $this->getCurrentWeatherForTemperature(33);
 
-        $rating = $this->ratingService->getRating($dto);
+        $rating = $this->ratingService->getRating($currentWeather);
 
         $this->assertEquals(
             Rating::kut(),
@@ -65,12 +68,11 @@ class TemperatureRatingServiceTest extends KernelTestCase
         );
     }
 
-    public function shouldReturnKutForCold()
+    public function shouldReturnKutForCold(): void
     {
-        $dto = new WeatherDto();
-        $dto->temperature = -5.0;
+        $currentWeather = $this->getCurrentWeatherForTemperature(-5);
 
-        $rating = $this->ratingService->getRating($dto);
+        $rating = $this->ratingService->getRating($currentWeather);
 
         $this->assertEquals(
             Rating::kut(),
@@ -79,12 +81,11 @@ class TemperatureRatingServiceTest extends KernelTestCase
         );
     }
 
-    public function shouldReturnBeetjeKutForMild()
+    public function shouldReturnBeetjeKutForMild(): void
     {
-        $dto = new WeatherDto();
-        $dto->temperature = 5.0;
+        $currentWeather = $this->getCurrentWeatherForTemperature(5);
 
-        $rating = $this->ratingService->getRating($dto);
+        $rating = $this->ratingService->getRating($currentWeather);
 
         $this->assertEquals(
             Rating::beetjeKut(),
@@ -93,19 +94,8 @@ class TemperatureRatingServiceTest extends KernelTestCase
         );
     }
 
-    /**
-     * @test
-     */
-    public function shouldReturnNietKutForUnknownTemperature()
+    private function getCurrentWeatherForTemperature(float $temperature): CurrentWeather
     {
-        $dto = new WeatherDto();
-
-        $rating = $this->ratingService->getRating($dto);
-
-        $this->assertEquals(
-            Rating::nietKut(),
-            $rating,
-            'Unknown weather data should result in niet kut rating'
-        );
+        return new CurrentWeather($temperature, 0, 5, 90);
     }
 }

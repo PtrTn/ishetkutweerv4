@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\TwigExtension;
 
-use App\Domain\Dto\WeatherRatingDto;
+use App\Domain\Model\WeatherRating;
 use App\Domain\ValueObject\Rating;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
@@ -23,21 +23,21 @@ class ColorExtension extends AbstractExtension
     public function getFilters(): array
     {
         return [
-            new TwigFilter('backgroundColor', [$this, 'getBackgroundColorForRatingDto']),
+            new TwigFilter('backgroundColor', [$this, 'getBackgroundColorForWeatherRating']),
         ];
     }
 
-    public function getBackgroundColorForRatingDto(WeatherRatingDto $ratingDto): string
+    public function getBackgroundColorForWeatherRating(WeatherRating $weatherRating): string
     {
-        if ($ratingDto->averageRating->getRating() <= Rating::NIET_KUT) {
+        if ($weatherRating->getAverageRating()->getRating() <= Rating::NIET_KUT) {
             return self::GOOD;
         }
 
-        if ($ratingDto->averageRating->getRating() <= Rating::BEETJE_KUT) {
+        if ($weatherRating->getAverageRating()->getRating() <= Rating::BEETJE_KUT) {
             return self::MEDIUM;
         }
 
-        if ($ratingDto->averageRating->getRating() <= Rating::KUT) {
+        if ($weatherRating->getAverageRating()->getRating() <= Rating::KUT) {
             return self::BAD;
         }
 

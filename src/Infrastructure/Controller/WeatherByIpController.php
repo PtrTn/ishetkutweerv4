@@ -6,7 +6,7 @@ namespace App\Infrastructure\Controller;
 
 use App\Application\Exception\SorryWeatherNotFound;
 use App\Application\Query\WeatherByLatLonQuery;
-use App\Application\QueryHandler\WeatherQueryHandler;
+use App\Application\QueryHandler\WeatherByLatLonQueryHandler;
 use App\Infrastructure\Locator\IpLocator;
 use App\Infrastructure\Middleware\CacheMiddlewareInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,7 +18,7 @@ class WeatherByIpController extends AbstractController
 {
     private IpLocator $ipLocator;
 
-    private WeatherQueryHandler $queryHandler;
+    private WeatherByLatLonQueryHandler $queryHandler;
 
     private Environment $templateEngine;
 
@@ -26,7 +26,7 @@ class WeatherByIpController extends AbstractController
 
     public function __construct(
         IpLocator $ipLocator,
-        WeatherQueryHandler $queryHandler,
+        WeatherByLatLonQueryHandler $queryHandler,
         Environment $templateEngine,
         CacheMiddlewareInterface $cacheMiddleware
     ) {
@@ -41,7 +41,7 @@ class WeatherByIpController extends AbstractController
         $ipAddress = $request->getClientIp();
         $location = $this->ipLocator->getLocationForIp($ipAddress);
         try {
-            $data = $this->queryHandler->getWeatherDataByLatLonQuery(
+            $weatherReport = $this->queryHandler->handle(
                 new WeatherByLatLonQuery($location->lat, $location->lon)
             );
         } catch (SorryWeatherNotFound $exception) {
@@ -49,9 +49,12 @@ class WeatherByIpController extends AbstractController
         }
 
         $template = $this->templateEngine->render('home.html.twig', [
-            'data' => $data,
-            'location' => $data->location,
-            'forecast' => $data->forecast,
+            'currentWeather' => $weatherReport->getCurrentWeather(),
+            'description' => $weatherReport->getDescription()->getDescription(),
+            'forecast' => $weatherReport->getForecast(),
+            'rating' => $weatherReport->getRating(),
+            'location' => $weatherReport->getLocation(),
+            'dateTime' => $weatherReport->getDateTime()->getDateTimeImmutable(),
         ]);
 
         $response = new Response($template, Response::HTTP_OK);

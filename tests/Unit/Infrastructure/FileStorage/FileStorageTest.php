@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Tests\Unit\Infrastructure\ApiClient;
+declare(strict_types=1);
+
+namespace App\Tests\Unit\Infrastructure\FileStorage;
 
 use App\Infrastructure\FileStorage\FileStorage;
 use Mockery;
@@ -12,7 +14,7 @@ class FileStorageTest extends MockeryTestCase
     /**
      * @test
      */
-    public function shouldCreateFoldersIfNotExists()
+    public function shouldCreateFoldersIfNotExists(): void
     {
         $fileSystem = Mockery::mock(Filesystem::class);
         $fileSystem
@@ -32,7 +34,7 @@ class FileStorageTest extends MockeryTestCase
     /**
      * @test
      */
-    public function shouldNotCreateFoldersIfExists()
+    public function shouldNotCreateFoldersIfExists(): void
     {
         $fileSystem = Mockery::mock(Filesystem::class);
         $fileSystem
@@ -51,11 +53,11 @@ class FileStorageTest extends MockeryTestCase
     /**
      * @test
      */
-    public function shouldRenameFile()
+    public function shouldRenameFile(): void
     {
         $sourceFile = 'some-file.jpg';
         $destinationFile = 'another-file.jpg';
-        $overwrite = TRUE;
+        $overwrite = true;
 
         $fileSystem = Mockery::mock(Filesystem::class);
         $fileSystem
@@ -72,7 +74,7 @@ class FileStorageTest extends MockeryTestCase
     /**
      * @test
      */
-    public function shouldRemoveFile()
+    public function shouldRemoveFile(): void
     {
         $fileToBeRemoved = 'some-file.jpg';
 
@@ -87,5 +89,4 @@ class FileStorageTest extends MockeryTestCase
         $fileStorage = new FileStorage($fileSystem, '', '');
         $fileStorage->remove($fileToBeRemoved);
     }
-
 }

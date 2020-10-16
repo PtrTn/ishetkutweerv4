@@ -4,22 +4,18 @@ declare(strict_types=1);
 
 namespace App\Domain\Rule\Temperature;
 
-use App\Domain\Dto\WeatherDto;
+use App\Domain\Model\CurrentWeather;
 use App\Domain\Rule\WeatherRule;
 use App\Domain\ValueObject\Rating;
 
 class TooHotOrColdRule implements WeatherRule
 {
-    public function matches(WeatherDto $dto): bool
+    public function matches(CurrentWeather $currentWeather): bool
     {
-        if (! isset($dto->temperature)) {
-            return false;
-        }
-
-        return $dto->temperature > 35 || $dto->temperature < -10;
+        return $currentWeather->getTemperature() > 35 || $currentWeather->getTemperature() < -10;
     }
 
-    public function getRating(WeatherDto $dto): Rating
+    public function getRating(): Rating
     {
         return Rating::megaKut();
     }

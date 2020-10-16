@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Entity;
 
-use App\Application\Entity\WeatherEntityInterface;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
@@ -18,7 +17,7 @@ use Doctrine\ORM\Mapping\Table;
  * @SuppressWarnings(PHPMD.TooManyFields)
  * @SuppressWarnings(PHPMD.ExcessivePublicCount)
  */
-class WeatherEntity implements WeatherEntityInterface
+class WeatherEntity
 {
     /**
      * @Id
@@ -28,19 +27,16 @@ class WeatherEntity implements WeatherEntityInterface
     public ?int $identifier;
 
     /** @Column(type="string", length=255) */
-    public string $region;
+    public string $location;
 
-    /** @Column(type="string", length=255) */
-    public string $stationName;
+    /** @Column(type="float", nullable=true) */
+    public ?float $lat;
 
-    /** @Column(type="float") */
-    public float $lat;
-
-    /** @Column(type="float") */
-    public float $lon;
+    /** @Column(type="float", nullable=true) */
+    public ?float $lon;
 
     /** @Column(type="datetime_immutable") */
-    public DateTimeImmutable $date;
+    public DateTimeImmutable $dateTime;
 
     /** @Column(type="float", nullable=true) */
     public ?float $temperature = null;
@@ -51,8 +47,8 @@ class WeatherEntity implements WeatherEntityInterface
     /** @Column(type="float", nullable=true) */
     public ?float $windSpeed = null;
 
-    /** @Column(type="string", length=255) */
-    public string $windDirection;
+    /** @Column(type="integer", nullable=true) */
+    public ?int $windDirection;
 
     /** @Column(type="integer") */
     public int $temperatureRating;
@@ -67,10 +63,7 @@ class WeatherEntity implements WeatherEntityInterface
     public int $averageRating;
 
     /** @Column(type="string", length=255) */
-    public string $background;
-
-    /** @Column(type="string", length=255) */
-    public string $summary;
+    public string $description;
 
     /** @Column(type="datetime_immutable") */
     public DateTimeImmutable $day1Date;
@@ -107,29 +100,24 @@ class WeatherEntity implements WeatherEntityInterface
         return $this->identifier;
     }
 
-    public function getRegion(): string
+    public function getLocation(): string
     {
-        return $this->region;
+        return $this->location;
     }
 
-    public function getStationName(): string
-    {
-        return $this->stationName;
-    }
-
-    public function getLat(): float
+    public function getLat(): ?float
     {
         return $this->lat;
     }
 
-    public function getLon(): float
+    public function getLon(): ?float
     {
         return $this->lon;
     }
 
-    public function getDate(): DateTimeImmutable
+    public function getDateTime(): DateTimeImmutable
     {
-        return $this->date;
+        return $this->dateTime;
     }
 
     public function getTemperature(): ?float
@@ -147,7 +135,7 @@ class WeatherEntity implements WeatherEntityInterface
         return $this->windSpeed;
     }
 
-    public function getWindDirection(): string
+    public function getWindDirection(): ?int
     {
         return $this->windDirection;
     }
@@ -172,14 +160,9 @@ class WeatherEntity implements WeatherEntityInterface
         return $this->averageRating;
     }
 
-    public function getBackground(): string
+    public function getDescription(): string
     {
-        return $this->background;
-    }
-
-    public function getSummary(): string
-    {
-        return $this->summary;
+        return $this->description;
     }
 
     public function getDay1Date(): DateTimeImmutable

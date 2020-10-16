@@ -45,77 +45,65 @@ services:
     App\Application\Factory\WeatherDtoFactory:
         class: App\Application\Factory\WeatherDtoFactory
 
-    App\Application\Assembler\WeatherRatingsDtoAssembler:
-        class: App\Application\Assembler\WeatherRatingsDtoAssembler
-        tags: ['weather_dto_assembler']
-
-    App\Application\Assembler\WeatherDtoBackgroundAssembler:
-        class: App\Application\Assembler\WeatherDtoBackgroundAssembler
-        tags: ['weather_dto_assembler']
-
-    App\Application\Assembler\WeatherDtoAssemblerInterface:
-        class: App\Application\Assembler\WeatherDtoAssemblerManager
-        arguments: [!tagged 'weather_dto_assembler']
-
     App\Domain\Rule\Temperature\TooHotOrColdRule:
         class: App\Domain\Rule\Temperature\TooHotOrColdRule
         tags:
-            - { name: 'temperature_rule', priority: 30 }
+            - { name: 'temperature_rules', priority: 30 }
 
     App\Domain\Rule\Temperature\HotOrColdRule:
         class: App\Domain\Rule\Temperature\HotOrColdRule
         tags:
-            - { name: 'temperature_rule', priority: 20 }
+            - { name: 'temperature_rules', priority: 20 }
 
     App\Domain\Rule\Temperature\MildRule:
         class: App\Domain\Rule\Temperature\MildRule
         tags:
-            - { name: 'temperature_rule', priority: 10 }
+            - { name: 'temperature_rules', priority: 10 }
 
     App\Domain\Rule\Rain\TooMuchRainRule:
         class: App\Domain\Rule\Rain\TooMuchRainRule
         tags:
-            - { name: 'rain_rule', priority: 30 }
+            - { name: 'rain_rules', priority: 30 }
 
     App\Domain\Rule\Rain\AlotRainRule:
         class: App\Domain\Rule\Rain\AlotRainRule
         tags:
-            - { name: 'rain_rule', priority: 20 }
+            - { name: 'rain_rules', priority: 20 }
 
     App\Domain\Rule\Rain\SomeRainRule:
         class: App\Domain\Rule\Rain\SomeRainRule
         tags:
-            - { name: 'rain_rule', priority: 10 }
+            - { name: 'rain_rules', priority: 10 }
 
     App\Domain\Rule\Wind\TooMuchWindRule:
         class: App\Domain\Rule\Wind\TooMuchWindRule
         tags:
-            - { name: 'wind_rule', priority: 30 }
+            - { name: 'wind_rules', priority: 30 }
 
     App\Domain\Rule\Wind\AlotWindRule:
         class: App\Domain\Rule\Wind\AlotWindRule
         tags:
-            - { name: 'wind_rule', priority: 20 }
+            - { name: 'wind_rules', priority: 20 }
 
     App\Domain\Rule\Wind\SomeWindRule:
         class: App\Domain\Rule\Wind\SomeWindRule
         tags:
-            - { name: 'wind_rule', priority: 10 }
+            - { name: 'wind_rules', priority: 10 }
 
     TemperatureRatingService:
         class: App\Domain\Service\RatingService
-        arguments: [!tagged 'temperature_rule']
+        arguments: [!tagged 'temperature_rules']
 
     RainRatingService:
         class: App\Domain\Service\RatingService
-        arguments: [!tagged 'rain_rule']
+        arguments: [!tagged 'rain_rules']
 
     WindRatingService:
         class: App\Domain\Service\RatingService
-        arguments: [!tagged 'wind_rule']
+        arguments: [!tagged 'wind_rules']
 
-    App\Application\Factory\WeatherRatingDtoFactory:
-        class: App\Application\Factory\WeatherRatingDtoFactory
+    App\Infrastructure\Factory\WeatherRatingFactory:
+        class: App\Infrastructure\Factory\WeatherRatingFactory
         arguments:
             - '@TemperatureRatingService'
             - '@RainRatingService'

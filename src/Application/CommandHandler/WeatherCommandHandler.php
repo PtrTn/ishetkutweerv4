@@ -4,53 +4,26 @@ declare(strict_types=1);
 
 namespace App\Application\CommandHandler;
 
-use App\Application\ApiClient\BuienradarApiClientInterface;
-use App\Application\Assembler\WeatherDtoAssemblerInterface;
-use App\Application\Factory\WeatherDtoFactoryInterface;
-use App\Application\Mapper\WeatherEntityMapperInterface;
-use App\Application\Repository\WeatherEntityRepositoryInterface;
+use App\Application\Repository\WeatherReportCollectionRepositoryInterface;
+use App\Application\Repository\WeatherRepositoryInterface;
 
 class WeatherCommandHandler
 {
-    private BuienradarApiClientInterface $apiClient;
+    private WeatherRepositoryInterface $weatherFetchService;
 
-    private WeatherDtoFactoryInterface $dtoFactory;
-
-    private WeatherDtoAssemblerInterface $assembler;
-
-    private WeatherEntityMapperInterface $entityFactory;
-
-    private WeatherEntityRepositoryInterface $entityRepository;
+    private WeatherReportCollectionRepositoryInterface $weatherStorageService;
 
     public function __construct(
-        BuienradarApiClientInterface $apiClient,
-        WeatherDtoFactoryInterface $dtoFactory,
-        WeatherDtoAssemblerInterface $assembler,
-        WeatherEntityMapperInterface $entityFactory,
-        WeatherEntityRepositoryInterface $entityRepository
+        WeatherRepositoryInterface $weatherFetchService,
+        WeatherReportCollectionRepositoryInterface $weatherStorageService
     ) {
-        $this->apiClient = $apiClient;
-        $this->dtoFactory = $dtoFactory;
-        $this->assembler = $assembler;
-        $this->entityFactory = $entityFactory;
-        $this->entityRepository = $entityRepository;
+        $this->weatherFetchService = $weatherFetchService;
+        $this->weatherStorageService = $weatherStorageService;
     }
 
     public function storeWeatherData(): void
     {
-        $data = $this->apiClient->getData();
-
-        $entities = [];
-        foreach ($data->weergegevens->actueel_weer->weerstations as $weerstationDto) {
-            $dto = $this->dtoFactory->create(
-                $data->weergegevens->verwachting_vandaag,
-                $data->weergegevens->verwachting_meerdaags,
-                $weerstationDto
-            );
-            $dto = $this->assembler->assemble($dto);
-            $entities[] = $this->entityFactory->createEntityFromDto($dto);
-        }
-
-        $this->entityRepository->saveEntities($entities);
+        $weatherReportCollection = $this->weatherFetchService->fetchWeather();
+        $this->weatherStorageService->store($weatherReportCollection);
     }
 }

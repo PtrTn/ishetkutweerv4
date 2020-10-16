@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Tests\Unit\Infrastructure\Downloader;
 
 use App\Infrastructure\Downloader\GuzzleDownloader;
@@ -12,7 +14,7 @@ class GuzzleDownloaderTest extends MockeryTestCase
     /**
      * @test
      */
-    public function shouldDownloadUsingGuzzle()
+    public function shouldDownloadUsingGuzzle(): void
     {
         $url  = 'http://some-url.com/and-some-other/stuff';
         $destinationFile = '/tmp/downloaded-file';
@@ -25,5 +27,4 @@ class GuzzleDownloaderTest extends MockeryTestCase
 
         $downloader->download($url, $destinationFile);
     }
-
 }

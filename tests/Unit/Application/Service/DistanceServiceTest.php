@@ -1,19 +1,26 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Tests\Unit\Application\Service;
 
 use App\Application\Service\DistanceService;
-use App\Domain\Dto\LocationDto;
-use App\Domain\Dto\WeatherDto;
+use App\Domain\Model\CurrentWeather;
+use App\Domain\Model\Description;
+use App\Domain\Model\Forecast;
+use App\Domain\Model\ForecastDay;
+use App\Domain\Model\Location;
+use App\Domain\Model\ReportDateTime;
+use App\Domain\Model\WeatherRating;
+use App\Domain\Model\WeatherReport;
+use App\Domain\ValueObject\Rating;
+use DateTimeImmutable;
 use Geokit\Math;
 use PHPUnit\Framework\TestCase;
 
 class DistanceServiceTest extends TestCase
 {
-    /**
-     * @var DistanceService
-     */
-    private $distanceService;
+    private DistanceService $distanceService;
 
     public function setUp(): void
     {
@@ -23,7 +30,7 @@ class DistanceServiceTest extends TestCase
     /**
      * @test
      */
-    public function shouldGetClosestStation()
+    public function shouldGetClosestStation(): void
     {
         $weatherDtos = [
             $this->createWeatherDtoForLatLon(51.50, 6.20),
@@ -32,28 +39,44 @@ class DistanceServiceTest extends TestCase
         ];
         $weatherDto = $this->distanceService->findClosestWeerstation($weatherDtos, 52.05, 6);
 
-        $this->assertEquals(52.07, $weatherDto->location->lat);
-        $this->assertEquals(5.88, $weatherDto->location->lon);
+        $this->assertEquals(52.07, $weatherDto->getLocation()->getLat());
+        $this->assertEquals(5.88, $weatherDto->getLocation()->getLon());
     }
 
     /**
      * @test
      */
-    public function shouldReturnNullIfNoClosestStation()
+    public function shouldReturnNullIfNoClosestStation(): void
     {
         $weatherDto = $this->distanceService->findClosestWeerstation([], 52.05, 6);
         $this->assertNull($weatherDto, 'No weather dto expected to be closest, as none were provided');
     }
 
-    private function createWeatherDtoForLatLon(float $lat, float $lon): WeatherDto
+    private function createWeatherDtoForLatLon(float $lat, float $lon): WeatherReport
     {
-        $locationDto = new LocationDto();
-        $locationDto->lat = $lat;
-        $locationDto->lon = $lon;
-
-        $weatherDto = new WeatherDto();
-        $weatherDto->location = $locationDto;
-
-        return $weatherDto;
+        return new WeatherReport(
+            new CurrentWeather(
+                3.8,
+                0.5,
+                1.1,
+                270,
+            ),
+            new Description('ALl is good'),
+            new Forecast(
+                new ForecastDay(new DateTimeImmutable('+1 day'), 5),
+                new ForecastDay(new DateTimeImmutable('+2 days'), 5),
+                new ForecastDay(new DateTimeImmutable('+3 days'), 5),
+                new ForecastDay(new DateTimeImmutable('+4 days'), 5),
+                new ForecastDay(new DateTimeImmutable('+5 days'), 5),
+            ),
+            new WeatherRating(
+                new Rating(Rating::BEETJE_KUT),
+                new Rating(Rating::BEETJE_KUT),
+                new Rating(Rating::BEETJE_KUT),
+                new Rating(Rating::BEETJE_KUT)
+            ),
+            new Location('Venlo', $lat, $lon),
+            new ReportDateTime(new DateTimeImmutable()),
+        );
     }
 }
