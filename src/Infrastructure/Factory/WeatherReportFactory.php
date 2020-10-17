@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Factory;
 
-use App\Domain\Model\CurrentWeather;
 use App\Domain\Model\Description;
 use App\Domain\Model\Location;
 use App\Domain\Model\ReportDateTime;
@@ -15,17 +14,19 @@ use App\Infrastructure\Dto\Buienradar\WeerstationDto;
 use InvalidArgumentException;
 
 use function floatval;
-use function intval;
 
 class WeatherReportFactory
 {
+    private CurrentWeatherFactory $currentWeatherFactory;
     private ForecastFactory $forecastFactory;
     private WeatherRatingFactory $weatherRatingFactory;
 
     public function __construct(
+        CurrentWeatherFactory $currentWeatherFactory,
         ForecastFactory $forecastDtoFactory,
         WeatherRatingFactory $weatherRatingDtoFactory
     ) {
+        $this->currentWeatherFactory = $currentWeatherFactory;
         $this->forecastFactory = $forecastDtoFactory;
         $this->weatherRatingFactory = $weatherRatingDtoFactory;
     }
@@ -35,27 +36,7 @@ class WeatherReportFactory
         VerwachtingMeerdaags $verwachtingMeerdaags,
         WeerstationDto $weerstationDto
     ): WeatherReport {
-        $temperature = '-';
-        if ($weerstationDto->temperatuurGC !== '-') {
-            $temperature = $weerstationDto->temperatuurGC;
-        }
-
-        if ($weerstationDto->temperatuur10cm !== '-') {
-            $temperature = $weerstationDto->temperatuur10cm;
-        }
-
-        $rain = 0;
-        if ($weerstationDto->regenMMPU !== '-') {
-            $rain = $this->stringToFloat($weerstationDto->regenMMPU);
-        }
-
-        $currentWeather = new CurrentWeather(
-            $this->stringToFloat($temperature),
-            $rain,
-            $this->stringToFloat($weerstationDto->windsnelheidBF),
-            $this->stringToInt($weerstationDto->windrichtingGR),
-        );
-
+        $currentWeather = $this->currentWeatherFactory->create($weerstationDto);
         $description = new Description($verwachtingVandaag->titel);
         $forecast = $this->forecastFactory->create($verwachtingMeerdaags);
         $rating = $this->weatherRatingFactory->create($currentWeather);
@@ -74,15 +55,6 @@ class WeatherReportFactory
             $location,
             $dateTime,
         );
-    }
-
-    private function stringToInt(string $string): int
-    {
-        if ($string === '-') {
-            throw new InvalidArgumentException('Missing data');
-        }
-
-        return intval($string);
     }
 
     private function stringToFloat(string $string): float
