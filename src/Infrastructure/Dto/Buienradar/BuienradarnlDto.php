@@ -1,14 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Infrastructure\Dto\Buienradar;
 
 use JMS\Serializer\Annotation\Type;
 
 class BuienradarnlDto
 {
-    /**
-     * @var WeergegevensDto
-     * @Type("App\Infrastructure\Dto\Buienradar\WeergegevensDto")
-     */
-    public $weergegevens;
+    /** @Type("App\Infrastructure\Dto\Buienradar\WeergegevensDto") */
+    public WeergegevensDto $weergegevens;
 }

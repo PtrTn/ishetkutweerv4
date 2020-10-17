@@ -1,11 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Infrastructure\Dto\Buienradar;
 
 use DateTimeImmutable;
 use JMS\Serializer\Annotation as Serializer;
 use JMS\Serializer\Annotation\Type;
 
+/** @SuppressWarnings(PHPMD.TooManyFields) */
 class WeerstationDto
 {
     /**
@@ -14,11 +17,8 @@ class WeerstationDto
      */
     public $stationcode;
 
-    /**
-     * @var StationnaamDto
-     * @Type("App\Infrastructure\Dto\Buienradar\StationnaamDto")
-     */
-    public $stationnaam;
+    /** @Type("App\Infrastructure\Dto\Buienradar\StationnaamDto") */
+    public StationnaamDto $stationnaam;
 
     /**
      * @var string|float
@@ -32,11 +32,8 @@ class WeerstationDto
      */
     public $lon;
 
-    /**
-     * @var DateTimeImmutable
-     * @Type("DateTimeImmutable<'m/d/Y H:i:s'>")
-     */
-    public $datum;
+    /** @Type("DateTimeImmutable<'m/d/Y H:i:s'>") */
+    public DateTimeImmutable $datum;
 
     /**
      * @var string|int
@@ -72,11 +69,8 @@ class WeerstationDto
      */
     public $windrichtingGR;
 
-    /**
-     * @var string
-     * @Type("string")
-     */
-    public $windrichting;
+    /** @Type("string") */
+    public string $windrichting;
 
     /**
      * @var string|float
@@ -111,11 +105,8 @@ class WeerstationDto
      */
     public $zonintensiteitWM2;
 
-    /**
-     * @var string
-     * @Type("string")
-     */
-    public $icoonactueel;
+    /** @Type("string") */
+    public string $icoonactueel;
 
     /**
      * @var string|float
@@ -123,11 +114,8 @@ class WeerstationDto
      */
     public $temperatuur10cm;
 
-    /**
-     * @var string
-     * @Type("string")
-     */
-    public $url;
+    /** @Type("string") */
+    public string $url;
 
     /**
      * @var string|float

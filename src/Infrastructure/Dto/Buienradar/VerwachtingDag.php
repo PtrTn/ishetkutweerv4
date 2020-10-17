@@ -1,86 +1,49 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Infrastructure\Dto\Buienradar;
 
 use JMS\Serializer\Annotation\Type;
 
 class VerwachtingDag
 {
-    /**
-     * @var string
-     * @Type("string")
-     */
-    public $datum;
+    /** @Type("string") */
+    public string $datum;
 
-    /**
-     * @var string
-     * @Type("string")
-     */
-    public $dagweek;
+    /** @Type("string") */
+    public string $dagweek;
 
-    /**
-     * @var string
-     * @Type("string")
-     */
-    public $kanszon;
+    /** @Type("string") */
+    public string $kanszon;
 
-    /**
-     * @var string
-     * @Type("string")
-     */
-    public $kansregen;
+    /** @Type("string") */
+    public string $kansregen;
 
-    /**
-     * @var string
-     * @Type("string")
-     */
-    public $minmmregen;
+    /** @Type("string") */
+    public string $minmmregen;
 
-    /**
-     * @var string
-     * @Type("string")
-     */
-    public $maxmmregen;
+    /** @Type("string") */
+    public string $maxmmregen;
 
-    /**
-     * @var string
-     * @Type("string")
-     */
-    public $mintemp;
+    /** @Type("string") */
+    public string $mintemp;
 
-    /**
-     * @var string
-     * @Type("string")
-     */
-    public $mintempmax;
+    /** @Type("string") */
+    public string $mintempmax;
 
-    /**
-     * @var string
-     * @Type("string")
-     */
-    public $maxtemp;
+    /** @Type("string") */
+    public string $maxtemp;
 
-    /**
-     * @var string
-     * @Type("string")
-     */
-    public $maxtempmax;
+    /** @Type("string") */
+    public string $maxtempmax;
 
-    /**
-     * @var string
-     * @Type("string")
-     */
-    public $windrichting;
+    /** @Type("string") */
+    public string $windrichting;
 
-    /**
-     * @var string
-     * @Type("string")
-     */
-    public $windkracht;
+    /** @Type("string") */
+    public string $windkracht;
 
-    /**
-     * @var string
-     * @Type("string")
-     */
-    public $sneeuwcms;
+    /** @Type("string") */
+    public string $sneeuwcms;
 }

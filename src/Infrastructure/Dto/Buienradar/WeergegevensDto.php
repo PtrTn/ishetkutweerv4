@@ -1,69 +1,40 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Infrastructure\Dto\Buienradar;
 
-use JMS\Serializer\Annotation\Exclude;
 use JMS\Serializer\Annotation\Type;
 
 class WeergegevensDto
 {
-    /**
-     * @var string
-     * @Type("string")
-     */
-    public $titel;
+    /** @Type("string") */
+    public string $titel;
 
-    /**
-     * @var string
-     * @Type("string")
-     */
-    public $link;
+    /** @Type("string") */
+    public string $link;
 
-    /**
-     * @var string
-     * @Type("string")
-     */
-    public $omschrijving;
+    /** @Type("string") */
+    public string $omschrijving;
 
-    /**
-     * @var string
-     * @Type("string")
-     */
-    public $language;
+    /** @Type("string") */
+    public string $language;
 
-    /**
-     * @var string
-     * @Type("string")
-     */
-    public $copyright;
+    /** @Type("string") */
+    public string $copyright;
 
-    /**
-     * @var string
-     * @Type("string")
-     */
-    public $gebruik;
+    /** @Type("string") */
+    public string $gebruik;
 
-    /**
-     * @Exclude
-     */
-    public $image;
+    /** @Type("App\Infrastructure\Dto\Buienradar\Image") */
+    public Image $image;
 
-    /**
-     * @var WeerstationsDto
-     * @Type("App\Infrastructure\Dto\Buienradar\WeerstationsDto")
-     */
-    public $actueel_weer;
+    /** @Type("App\Infrastructure\Dto\Buienradar\WeerstationsDto") */
+    public WeerstationsDto $actueel_weer;
 
-    /**
-     * @var VerwachtingMeerdaags
-     * @Type("App\Infrastructure\Dto\Buienradar\VerwachtingMeerdaags")
-     */
-    public $verwachting_meerdaags;
+    /** @Type("App\Infrastructure\Dto\Buienradar\VerwachtingMeerdaags") */
+    public VerwachtingMeerdaags $verwachting_meerdaags;
 
-
-    /**
-     * @var VerwachtingVandaag
-     * @Type("App\Infrastructure\Dto\Buienradar\VerwachtingVandaag")
-     */
-    public $verwachting_vandaag;
+    /** @Type("App\Infrastructure\Dto\Buienradar\VerwachtingVandaag") */
+    public VerwachtingVandaag $verwachting_vandaag;
 }
