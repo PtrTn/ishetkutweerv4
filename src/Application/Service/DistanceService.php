@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Application\Service;
 
 use App\Domain\Model\WeatherReport;
+use App\Domain\Model\WeatherReportCollection;
 use Geokit\LatLng;
 use Geokit\Math;
 
@@ -19,14 +20,11 @@ class DistanceService
         $this->math = $math;
     }
 
-    /**
-     * @param WeatherReport[] $weatherReports
-     */
-    public function findClosestWeerstation(array $weatherReports, float $targetLat, float $targetLon): ?WeatherReport
+    public function findClosestWeerstation(WeatherReportCollection $weatherReports, float $targetLat, float $targetLon): ?WeatherReport
     {
         $closestStation = null;
         $closestDistance = null;
-        foreach ($weatherReports as $weatherReport) {
+        foreach ($weatherReports->toArray() as $weatherReport) {
             $distance = $this->getDistance(
                 $targetLat,
                 $targetLon,

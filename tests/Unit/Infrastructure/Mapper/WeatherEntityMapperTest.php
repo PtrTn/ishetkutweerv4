@@ -124,12 +124,12 @@ class WeatherEntityMapperTest extends MockeryTestCase
         $this->assertSame($lat, $dto->getLocation()->getLat());
         $this->assertSame($lon, $dto->getLocation()->getLon());
         $this->assertSame($regionName, $dto->getLocation()->getName());
-        $this->assertSame($date, $dto->getDateTime()->getDateTimeImmutable());
+        $this->assertSame($date, $dto->getDateTime()->toDateTimeImmutable());
         $this->assertSame($temperature, $dto->getCurrentWeather()->getTemperature());
         $this->assertSame($rain, $dto->getCurrentWeather()->getRain());
         $this->assertSame($windSpeed, $dto->getCurrentWeather()->getWindSpeed());
         $this->assertSame($windDirection, $dto->getCurrentWeather()->getWindDirection());
-        $this->assertSame($description, $dto->getDescription()->getDescription());
+        $this->assertSame($description, $dto->getDescription()->toString());
         $this->assertEquals(new Rating($kutRating), $dto->getRating()->getTemperatureRating());
         $this->assertEquals(new Rating($kutRating), $dto->getRating()->getRainRating());
         $this->assertEquals(new Rating($kutRating), $dto->getRating()->getWindRating());

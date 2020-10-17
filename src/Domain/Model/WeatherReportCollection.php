@@ -16,7 +16,7 @@ final class WeatherReportCollection
     }
 
     /** @return WeatherReport[] */
-    public function getWeatherReports(): array
+    public function toArray(): array
     {
         return $this->weatherReports;
     }

@@ -28,7 +28,7 @@ final class WeatherReportCollectionRepository implements WeatherReportCollection
     public function store(WeatherReportCollection $weatherReportCollection): void
     {
         $entities = [];
-        foreach ($weatherReportCollection->getWeatherReports() as $weatherReport) {
+        foreach ($weatherReportCollection->toArray() as $weatherReport) {
             $entities[] = $this->entityFactory->createEntityFromWeatherReport($weatherReport);
         }
 

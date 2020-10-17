@@ -13,6 +13,7 @@ use App\Domain\Model\Location;
 use App\Domain\Model\ReportDateTime;
 use App\Domain\Model\WeatherRating;
 use App\Domain\Model\WeatherReport;
+use App\Domain\Model\WeatherReportCollection;
 use App\Domain\ValueObject\Rating;
 use DateTimeImmutable;
 use Geokit\Math;
@@ -32,12 +33,12 @@ class DistanceServiceTest extends TestCase
      */
     public function shouldGetClosestStation(): void
     {
-        $weatherDtos = [
+        $weatherReportCollection = new WeatherReportCollection([
             $this->createWeatherDtoForLatLon(51.50, 6.20),
             $this->createWeatherDtoForLatLon(52.07, 5.88),
             $this->createWeatherDtoForLatLon(52.65, 4.98),
-        ];
-        $weatherDto = $this->distanceService->findClosestWeerstation($weatherDtos, 52.05, 6);
+        ]);
+        $weatherDto = $this->distanceService->findClosestWeerstation($weatherReportCollection, 52.05, 6);
 
         $this->assertEquals(52.07, $weatherDto->getLocation()->getLat());
         $this->assertEquals(5.88, $weatherDto->getLocation()->getLon());
@@ -48,7 +49,7 @@ class DistanceServiceTest extends TestCase
      */
     public function shouldReturnNullIfNoClosestStation(): void
     {
-        $weatherDto = $this->distanceService->findClosestWeerstation([], 52.05, 6);
+        $weatherDto = $this->distanceService->findClosestWeerstation(new WeatherReportCollection([]), 52.05, 6);
         $this->assertNull($weatherDto, 'No weather dto expected to be closest, as none were provided');
     }
 
