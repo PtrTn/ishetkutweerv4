@@ -31,7 +31,7 @@ class WeatherEntityMapper implements WeatherEntityMapperInterface
         $entity->rainRating = $weatherReport->getRating()->getRainRating()->getRating();
         $entity->windRating = $weatherReport->getRating()->getWindRating()->getRating();
         $entity->averageRating = $weatherReport->getRating()->getAverageRating()->getRating();
-        $entity->description = $weatherReport->getDescription()->getDescription();
+        $entity->description = $weatherReport->getDescription()->toString();
         $entity->day1Date = $weatherReport->getForecast()->getDay1()->getDate();
         $entity->day1Temp = $weatherReport->getForecast()->getDay1()->getTemperature();
         $entity->day2Date = $weatherReport->getForecast()->getDay2()->getDate();
@@ -42,7 +42,7 @@ class WeatherEntityMapper implements WeatherEntityMapperInterface
         $entity->day4Temp = $weatherReport->getForecast()->getDay4()->getTemperature();
         $entity->day5Date = $weatherReport->getForecast()->getDay5()->getDate();
         $entity->day5Temp = $weatherReport->getForecast()->getDay5()->getTemperature();
-        $entity->dateTime = $weatherReport->getDateTime()->getDateTimeImmutable();
+        $entity->dateTime = $weatherReport->getDateTime()->toDateTimeImmutable();
 
         return $entity;
     }

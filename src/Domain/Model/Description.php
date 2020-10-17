@@ -13,7 +13,7 @@ final class Description
         $this->description = $description;
     }
 
-    public function getDescription(): string
+    public function toString(): string
     {
         return $this->description;
     }

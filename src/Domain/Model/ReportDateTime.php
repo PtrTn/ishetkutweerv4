@@ -15,7 +15,7 @@ final class ReportDateTime
         $this->dateTimeImmutable = $dateTimeImmutable;
     }
 
-    public function getDateTimeImmutable(): DateTimeImmutable
+    public function toDateTimeImmutable(): DateTimeImmutable
     {
         return $this->dateTimeImmutable;
     }

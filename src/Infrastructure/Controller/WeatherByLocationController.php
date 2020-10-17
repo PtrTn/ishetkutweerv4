@@ -37,11 +37,11 @@ class WeatherByLocationController extends AbstractController
 
         $template = $this->templateEngine->render('home.html.twig', [
             'currentWeather' => $weatherReport->getCurrentWeather(),
-            'description' => $weatherReport->getDescription()->getDescription(),
+            'description' => $weatherReport->getDescription()->toString(),
             'forecast' => $weatherReport->getForecast(),
             'rating' => $weatherReport->getRating(),
             'location' => $weatherReport->getLocation(),
-            'dateTime' => $weatherReport->getDateTime()->getDateTimeImmutable(),
+            'dateTime' => $weatherReport->getDateTime()->toDateTimeImmutable(),
         ]);
 
         $response = new Response($template, Response::HTTP_OK);

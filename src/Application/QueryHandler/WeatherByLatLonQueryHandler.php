@@ -28,7 +28,7 @@ class WeatherByLatLonQueryHandler
     {
         $weatherReports = $this->weatherReportCollectionRepository->getLatest();
 
-        $weatherReport = $this->distanceService->findClosestWeerstation($weatherReports->getWeatherReports(), $query->lat, $query->lon);
+        $weatherReport = $this->distanceService->findClosestWeerstation($weatherReports, $query->lat, $query->lon);
         if ($weatherReport === null) {
             throw new SorryWeatherNotFound('Unable to find weather data');
         }

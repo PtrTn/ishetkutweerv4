@@ -27,7 +27,7 @@ class FetchRegionsQueryHandler
     {
         $weatherReportCollection = $this->repository->getLatest();
         $dtos = [];
-        foreach ($weatherReportCollection->getWeatherReports() as $weatherReport) {
+        foreach ($weatherReportCollection->toArray() as $weatherReport) {
             $dtos[] = $this->mapper->createDtoFromEntity($weatherReport);
         }
 
