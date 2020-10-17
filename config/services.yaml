@@ -125,3 +125,10 @@ services:
         class: GeoIp2\Database\Reader
         arguments:
             - '%kernel.project_dir%/var/data/GeoLite2-City.mmdb'
+
+    League\Csv\Reader:
+        class: League\Csv\Reader
+        factory: ['League\Csv\Reader', 'createFromPath']
+        arguments:
+            - '%kernel.project_dir%/assets/data/postcodes.csv'
+            - 'r'
