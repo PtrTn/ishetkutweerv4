@@ -6,20 +6,26 @@ namespace App\Infrastructure\Dto\Buienradar;
 
 use JMS\Serializer\Annotation\Type;
 
-class VerwachtingVandaag
+class Image
 {
     /** @Type("string") */
     public string $titel;
 
     /** @Type("string") */
-    public string $tijdweerbericht;
+    public string $link;
 
     /** @Type("string") */
-    public string $samenvatting;
+    public string $url;
 
-    /** @Type("string") */
-    public string $tekst;
+    /**
+     * @var string|float
+     * @Type("string")
+     */
+    public $width;
 
-    /** @Type("string") */
-    public string $formattedtekst;
+    /**
+     * @var string|float
+     * @Type("string")
+     */
+    public $height;
 }

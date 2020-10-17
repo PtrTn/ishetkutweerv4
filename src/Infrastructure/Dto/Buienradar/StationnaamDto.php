@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Infrastructure\Dto\Buienradar;
 
 use JMS\Serializer\Annotation\Type;
@@ -9,16 +11,14 @@ use JMS\Serializer\Annotation\XmlValue;
 class StationnaamDto
 {
     /**
-     * @var string
      * @Type("string")
      * @XmlAttribute
      */
-    public $regio;
+    public string $regio;
 
     /**
-     * @var string
      * @Type("string")
      * @XmlValue
      */
-    public $stationnaam;
+    public string $stationnaam;
 }

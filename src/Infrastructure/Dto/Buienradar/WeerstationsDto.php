@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Infrastructure\Dto\Buienradar;
 
 use JMS\Serializer\Annotation\Type;
@@ -12,5 +14,5 @@ class WeerstationsDto
      * @Type("array<App\Infrastructure\Dto\Buienradar\WeerstationDto>")
      * @XmlList(entry = "weerstation")
      */
-    public $weerstations;
+    public array $weerstations;
 }

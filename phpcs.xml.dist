@@ -10,7 +10,12 @@
     <arg value="nps"/>
 
     <file>src</file>
-    <exclude-pattern>*/Dto/Buienradar/*</exclude-pattern>
+
+    <!-- DTOs should represent external data and these are allowed to violate camel casing rules -->
+    <rule ref="Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps">
+        <exclude-pattern>*/Dto/Buienradar/*</exclude-pattern>
+    </rule>
+
     <exclude-pattern>src/Kernel.php</exclude-pattern>
 
     <!-- Include full Doctrine Coding Standard -->
