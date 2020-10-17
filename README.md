@@ -13,8 +13,8 @@ This website will show weather data in a simple and clear manner.
 6. Run `docker-compose -f docker-compose-dev.yml exec php-fpm yarn install` to fetch all javascript dependencies
 6. Run `docker-compose -f docker-compose-dev.yml exec php-fpm yarn dev` to build frontend assets
 7. Run `docker-compose -f docker-compose-dev.yml exec php-fpm bin/console doctrine:schema:create` to create all required database tables
-8. Run `docker-compose -f docker-compose-dev.yml exec php-fpm bin/console download:ipdata` to download Maxmind ip mappings
-9. Run `docker-compose -f docker-compose-dev.yml exec php-fpm bin/console import:buienradar` to download the latest weather data
+8. Run `docker-compose -f docker-compose-dev.yml exec php-fpm bin/console app:download:ipdata` to download Maxmind ip mappings
+9. Run `docker-compose -f docker-compose-dev.yml exec php-fpm bin/console app:import:buienradar` to download the latest weather data
 10. Visit `http://localhost:9000/` to see the running application
 
 # Running QA checks locally

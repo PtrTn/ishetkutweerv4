@@ -110,7 +110,7 @@ jobs:
       # Download and cache GeoLite database
       - restore_cache:
           key: GeoLite2-City-{{ .Branch }}
-      - run: ./bin/console download:ipdata
+      - run: ./bin/console app:download:ipdata
       - save_cache:
           key: GeoLite2-City-{{ .Branch }}
           paths:
@@ -142,7 +142,7 @@ jobs:
       - node/install-yarn
       - run: yarn install
       - run: yarn build
-      - run: ./bin/console download:ipdata
+      - run: ./bin/console app:download:ipdata
       - run: ./bin/console cache:clear
       - run: tar -cvzf app.tar bin/console config migrations public src templates translations var vendor composer.json docker/production docker-compose-prod.yml .env .env.local
       - store_artifacts:

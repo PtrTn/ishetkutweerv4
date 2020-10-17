@@ -16,8 +16,6 @@
         <exclude-pattern>*/Dto/Buienradar/*</exclude-pattern>
     </rule>
 
-    <exclude-pattern>src/Kernel.php</exclude-pattern>
-
     <!-- Include full Doctrine Coding Standard -->
     <rule ref="Doctrine">
         <exclude name="Generic.Formatting.MultipleStatementAlignment"/>

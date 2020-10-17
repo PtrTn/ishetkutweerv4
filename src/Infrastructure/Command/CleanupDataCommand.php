@@ -28,7 +28,7 @@ class CleanupDataCommand extends Command
     protected function configure(): void
     {
         $this
-            ->setName('cleanup:data')
+            ->setName('app:cleanup:data')
             ->setDescription('Clean up outdated weather data')
             ->setHelp('This command will remove any outdated weather data from the database');
     }

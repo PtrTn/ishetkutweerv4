@@ -25,7 +25,7 @@ class DownloadIpDataCommand extends Command
     protected function configure(): void
     {
         $this
-            ->setName('download:ipdata')
+            ->setName('app:download:ipdata')
             ->setDescription('Download data used for matching ips to a location')
             ->setHelp('This command will download GeoLite2 database, used for doing IP based location lookups');
     }

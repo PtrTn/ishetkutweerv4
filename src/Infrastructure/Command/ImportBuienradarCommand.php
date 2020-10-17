@@ -40,7 +40,7 @@ class ImportBuienradarCommand extends Command
     protected function configure(): void
     {
         $this
-            ->setName('import:buienradar')
+            ->setName('app:import:buienradar')
             ->setDescription('Import data from the buienradar API')
             ->setHelp('This command will download data from xml.buienradar.nl and store it in the database')
             ->addOption('force', 'f', InputOption::VALUE_NONE, 'Force import disregarding last import job time');
