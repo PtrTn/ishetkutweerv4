@@ -7,6 +7,7 @@ namespace App\Infrastructure\Repository;
 use App\Infrastructure\Entity\CityEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use RuntimeException;
 
 /**
  * @method CityEntity|null find($id, $lockMode = null, $lockVersion = null)
@@ -34,8 +35,23 @@ class CityEntityRepository extends ServiceEntityRepository implements CityEntity
     }
 
     /** @return CityEntity[] */
-    public function getAllEntities(): array
+    public function getAllCities(): array
     {
-        return $this->findAll();
+        return $this->createQueryBuilder('c1')
+            ->select('c1')
+            ->groupBy('c1.cityName')
+            ->orderBy('c1.cityName')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getByName(string $cityName): CityEntity
+    {
+        $city = $this->findOneBy(['cityName' => $cityName]);
+        if ($city === null) {
+            throw new RuntimeException('Unable to find city');
+        }
+
+        return $city;
     }
 }

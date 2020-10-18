@@ -14,7 +14,6 @@ final class VenloWeatherEntityFixture extends Fixture
     public function load(ObjectManager $manager): void
     {
         $entity = new WeatherEntity();
-        $entity->identifier = 123;
         $entity->location = 'Venlo';
         $entity->lat = 51.50;
         $entity->lon = 6.20;

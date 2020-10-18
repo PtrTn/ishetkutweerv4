@@ -1,0 +1,3 @@
+services:
+    App\Infrastructure\Middleware\CacheMiddlewareInterface:
+        class: App\Infrastructure\Middleware\CacheMiddleware

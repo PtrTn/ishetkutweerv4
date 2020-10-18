@@ -62,20 +62,6 @@ class WeatherEntityRepository extends ServiceEntityRepository implements Weather
             ->getResult();
     }
 
-    public function findLatestEntityForLocation(string $location): ?WeatherEntity
-    {
-        $queryBuilder = $this->createQueryBuilder('w1');
-
-        return $queryBuilder
-            ->select('w1')
-            ->where('w1.location = :location')
-            ->orderBy('w1.dateTime', 'DESC')
-            ->setParameter('location', $location)
-            ->setMaxResults(1)
-            ->getQuery()
-            ->getOneOrNullResult();
-    }
-
     /** @return WeatherEntity[] */
     public function getOutdatedEntities(): array
     {
