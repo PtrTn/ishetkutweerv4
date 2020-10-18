@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace App\Tests\Acceptance;
 
 use App\Tests\Acceptance\Fixtures\FixtureLoader;
+use App\Tests\Acceptance\Fixtures\VenloCityEntityFixture;
 use App\Tests\Acceptance\Fixtures\VenloWeatherEntityFixture;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-final class ShowsCurrentWeatherByLocationTest extends WebTestCase
+final class ShowsCurrentWeatherByCityTest extends WebTestCase
 {
     protected KernelBrowser $client;
     private FixtureLoader $fixtureLoader;
@@ -28,7 +29,9 @@ final class ShowsCurrentWeatherByLocationTest extends WebTestCase
 
     public function testShouldShowWeatherRatingText(): void
     {
-        $this->fixtureLoader->loadFixture(new VenloWeatherEntityFixture());
+        $this->fixtureLoader->addFixture(new VenloWeatherEntityFixture());
+        $this->fixtureLoader->addFixture(new VenloCityEntityFixture());
+        $this->fixtureLoader->loadFixtures();
 
         $this->client->request('GET', '/Venlo');
 

@@ -28,7 +28,7 @@ final class ShowsCurrentWeatherTest extends WebTestCase
 
     public function testShouldShowWeatherRatingText(): void
     {
-        $this->fixtureLoader->loadFixture(new VenloWeatherEntityFixture());
+        $this->fixtureLoader->addAndLoadFixture(new VenloWeatherEntityFixture());
 
         $this->client->request('GET', '/');
 

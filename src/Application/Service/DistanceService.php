@@ -20,7 +20,7 @@ class DistanceService
         $this->math = $math;
     }
 
-    public function findClosestWeerstation(WeatherReportCollection $weatherReports, float $targetLat, float $targetLon): ?WeatherReport
+    public function findClosestWeatherReport(WeatherReportCollection $weatherReports, float $targetLat, float $targetLon): ?WeatherReport
     {
         $closestStation = null;
         $closestDistance = null;

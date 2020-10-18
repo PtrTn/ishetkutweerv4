@@ -6,7 +6,7 @@ namespace App\Infrastructure\Dto;
 
 use JsonSerializable;
 
-final class RegionResponseDto implements JsonSerializable
+final class CityResponseDto implements JsonSerializable
 {
     public string $region;
 

@@ -10,17 +10,13 @@ use App\Infrastructure\Mapper\WeatherEntityMapperInterface;
 
 final class WeatherReportCollectionRepository implements WeatherReportCollectionRepositoryInterface
 {
-    private WeatherEntityMapperInterface $entityFactory;
-
     private WeatherEntityRepositoryInterface $entityRepository;
     private WeatherEntityMapperInterface $entityMapper;
 
     public function __construct(
-        WeatherEntityMapperInterface $entityFactory,
         WeatherEntityRepositoryInterface $entityRepository,
         WeatherEntityMapperInterface $entityMapper
     ) {
-        $this->entityFactory = $entityFactory;
         $this->entityRepository = $entityRepository;
         $this->entityMapper = $entityMapper;
     }
@@ -29,7 +25,7 @@ final class WeatherReportCollectionRepository implements WeatherReportCollection
     {
         $entities = [];
         foreach ($weatherReportCollection->toArray() as $weatherReport) {
-            $entities[] = $this->entityFactory->createEntityFromWeatherReport($weatherReport);
+            $entities[] = $this->entityMapper->createEntityFromWeatherReport($weatherReport);
         }
 
         $this->entityRepository->saveEntities($entities);

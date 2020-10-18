@@ -2,26 +2,26 @@
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Controller;
+namespace App\Infrastructure\Controller\Api;
 
-use App\Application\QueryHandler\FetchRegionsQueryHandler;
-use App\Infrastructure\Deserializer\RegionDtoDeserializer;
+use App\Application\QueryHandler\FetchCitiesQueryHandler;
+use App\Infrastructure\Deserializer\CitiesDtoDeserializer;
 use App\Infrastructure\Middleware\CacheMiddlewareInterface;
 use Swagger\Annotations as SWG;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 
-class RegionsApiController extends AbstractController
+class CitiesController extends AbstractController
 {
-    private FetchRegionsQueryHandler $queryHandler;
+    private FetchCitiesQueryHandler $queryHandler;
 
-    private RegionDtoDeserializer $deserializer;
+    private CitiesDtoDeserializer $deserializer;
 
     private CacheMiddlewareInterface $cacheMiddleware;
 
     public function __construct(
-        FetchRegionsQueryHandler $queryHandler,
-        RegionDtoDeserializer $deserializer,
+        FetchCitiesQueryHandler $queryHandler,
+        CitiesDtoDeserializer $deserializer,
         CacheMiddlewareInterface $cacheMiddleware
     ) {
         $this->queryHandler = $queryHandler;
@@ -32,17 +32,17 @@ class RegionsApiController extends AbstractController
     /**
      * @SWG\Response(
      *     response=200,
-     *     description="Returns a list of regions",
+     *     description="Returns a list of cities",
      *     @SWG\Schema(
      *         type="array",
      *         @SWG\Items(type="string")
      *     )
      * )
      */
-    public function getRegions(): Response
+    public function getCities(): Response
     {
-        $regions = $this->queryHandler->handle();
-        $responseDtos = $this->deserializer->deserialize($regions);
+        $cities = $this->queryHandler->handle();
+        $responseDtos = $this->deserializer->deserialize($cities);
 
         $response = $this->json($responseDtos);
 

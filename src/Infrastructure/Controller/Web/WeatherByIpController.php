@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Controller;
+namespace App\Infrastructure\Controller\Web;
 
 use App\Application\Exception\SorryWeatherNotFound;
 use App\Application\Query\WeatherByLatLonQuery;

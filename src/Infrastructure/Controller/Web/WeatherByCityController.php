@@ -2,25 +2,25 @@
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Controller;
+namespace App\Infrastructure\Controller\Web;
 
-use App\Application\Query\WeatherByLocationQuery;
-use App\Application\QueryHandler\WeatherByLocationQueryHandler;
+use App\Application\Query\WeatherByCityQuery;
+use App\Application\QueryHandler\WeatherByCityQueryHandler;
 use App\Infrastructure\Middleware\CacheMiddlewareInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment;
 
-class WeatherByLocationController extends AbstractController
+class WeatherByCityController extends AbstractController
 {
-    private WeatherByLocationQueryHandler $queryHandler;
+    private WeatherByCityQueryHandler $queryHandler;
 
     private Environment $templateEngine;
 
     private CacheMiddlewareInterface $cacheMiddleware;
 
     public function __construct(
-        WeatherByLocationQueryHandler $queryHandler,
+        WeatherByCityQueryHandler $queryHandler,
         Environment $templateEngine,
         CacheMiddlewareInterface $cacheMiddleware
     ) {
@@ -29,10 +29,10 @@ class WeatherByLocationController extends AbstractController
         $this->cacheMiddleware = $cacheMiddleware;
     }
 
-    public function getWeatherByLocation(string $location): Response
+    public function getWeatherByCity(string $city): Response
     {
         $weatherReport = $this->queryHandler->handle(
-            new WeatherByLocationQuery($location)
+            new WeatherByCityQuery($city)
         );
 
         $template = $this->templateEngine->render('home.html.twig', [

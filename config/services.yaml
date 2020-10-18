@@ -132,3 +132,6 @@ services:
         arguments:
             - '%kernel.project_dir%/assets/data/postcodes.csv'
             - 'r'
+
+    App\Infrastructure\Middleware\CacheMiddlewareInterface:
+        class: App\Infrastructure\Middleware\NoCacheMiddleware

@@ -27,6 +27,4 @@ interface WeatherEntityRepositoryInterface
      * @return WeatherEntity[]
      */
     public function getOutdatedEntities(): array;
-
-    public function findLatestEntityForLocation(string $location): ?WeatherEntity;
 }

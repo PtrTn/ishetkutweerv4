@@ -14,5 +14,7 @@ interface CityEntityRepositoryInterface
     public function saveEntities(array $entities): void;
 
     /** @return CityEntity[] */
-    public function getAllEntities(): array;
+    public function getAllCities(): array;
+
+    public function getByName(string $cityName): CityEntity;
 }

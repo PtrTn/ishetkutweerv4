@@ -18,6 +18,7 @@ final class FixtureLoader
     private EntityManager $entityManager;
     private ORMExecutor $executor;
     private SchemaTool $schemaTool;
+    private Loader $loader;
 
     public function __construct(KernelInterface $kernel)
     {
@@ -28,6 +29,7 @@ final class FixtureLoader
         $this->entityManager = $entityManager;
         $this->executor = new ORMExecutor($this->entityManager, new ORMPurger());
         $this->schemaTool = new SchemaTool($this->entityManager);
+        $this->loader = new Loader();
     }
 
     public function createSchema(): void
@@ -40,10 +42,19 @@ final class FixtureLoader
         $this->schemaTool->dropSchema($this->entityManager->getMetadataFactory()->getAllMetadata());
     }
 
-    public function loadFixture(Fixture $fixture): void
+    public function addAndLoadFixture(Fixture $fixture): void
     {
-        $loader = new Loader();
-        $loader->addFixture($fixture);
-        $this->executor->execute($loader->getFixtures());
+        $this->addFixture($fixture);
+        $this->loadFixtures();
+    }
+
+    public function addFixture(Fixture $fixture): void
+    {
+        $this->loader->addFixture($fixture);
+    }
+
+    public function loadFixtures(): void
+    {
+        $this->executor->execute($this->loader->getFixtures());
     }
 }

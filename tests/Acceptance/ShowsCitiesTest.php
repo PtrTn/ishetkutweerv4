@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace App\Tests\Acceptance;
 
 use App\Tests\Acceptance\Fixtures\FixtureLoader;
-use App\Tests\Acceptance\Fixtures\VenloWeatherEntityFixture;
+use App\Tests\Acceptance\Fixtures\VenloCityEntityFixture;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-final class ShowsRegionsTest extends WebTestCase
+final class ShowsCitiesTest extends WebTestCase
 {
     protected KernelBrowser $client;
     private FixtureLoader $fixtureLoader;
@@ -28,9 +28,9 @@ final class ShowsRegionsTest extends WebTestCase
 
     public function testShouldListRegions(): void
     {
-        $this->fixtureLoader->loadFixture(new VenloWeatherEntityFixture());
+        $this->fixtureLoader->addAndLoadFixture(new VenloCityEntityFixture());
 
-        $this->client->request('GET', '/api/regions');
+        $this->client->request('GET', '/api/cities');
         $response = $this->client->getResponse();
 
         $this->assertResponseIsSuccessful();
