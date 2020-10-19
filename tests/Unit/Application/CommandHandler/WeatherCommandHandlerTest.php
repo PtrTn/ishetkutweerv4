@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Application\CommandHandler;
 
 use App\Application\CommandHandler\WeatherCommandHandler;
-use App\Application\Repository\WeatherRepositoryInterface;
+use App\Application\Importer\WeatherImporterInterface;
 use App\Application\Repository\WeatherReportCollectionRepositoryInterface;
 use App\Domain\Model\WeatherReportCollection;
 use Mockery;
@@ -20,9 +20,9 @@ class WeatherCommandHandlerTest extends MockeryTestCase
     {
         $weatherDtoCollection = new WeatherReportCollection([]);
 
-        $weatherFetchService = Mockery::mock(WeatherRepositoryInterface::class);
+        $weatherFetchService = Mockery::mock(WeatherImporterInterface::class);
         $weatherFetchService
-            ->shouldReceive('fetchWeather')
+            ->shouldReceive('import')
             ->andReturn($weatherDtoCollection)
             ->once();
 

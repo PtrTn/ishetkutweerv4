@@ -7,6 +7,7 @@ namespace App\Infrastructure\Repository;
 use App\Infrastructure\Entity\CityEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Generator;
 use RuntimeException;
 
 /**
@@ -17,21 +18,11 @@ use RuntimeException;
  */
 class CityEntityRepository extends ServiceEntityRepository implements CityEntityRepositoryInterface
 {
+    private const BULK_SIZE = 5000;
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, CityEntity::class);
-    }
-
-    /** @param CityEntity[] $entities */
-    public function saveEntities(array $entities): void
-    {
-        $entityManager = $this->getEntityManager();
-        foreach ($entities as $entity) {
-            $entityManager->persist($entity);
-        }
-
-        $entityManager->flush();
-        $entityManager->clear(CityEntity::class);
     }
 
     /** @return CityEntity[] */
@@ -53,5 +44,23 @@ class CityEntityRepository extends ServiceEntityRepository implements CityEntity
         }
 
         return $city;
+    }
+
+    public function saveEntities(Generator $entities): void
+    {
+        $bulkSize = 0;
+        $entityManager = $this->getEntityManager();
+        foreach ($entities as $entity) {
+            $bulkSize++;
+            $entityManager->persist($entity);
+
+            if ($bulkSize < self::BULK_SIZE) {
+                continue;
+            }
+
+            $entityManager->flush();
+            $entityManager->clear(CityEntity::class);
+            $bulkSize = 0;
+        }
     }
 }
