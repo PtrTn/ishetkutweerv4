@@ -12,4 +12,6 @@ interface CityRepositoryInterface
     public function getAllCities(): Cities;
 
     public function getByName(string $cityName): City;
+
+    public function store(Cities $cities): void;
 }

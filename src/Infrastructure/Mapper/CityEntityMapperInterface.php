@@ -7,6 +7,7 @@ namespace App\Infrastructure\Mapper;
 use App\Domain\Model\Cities;
 use App\Domain\Model\City;
 use App\Infrastructure\Entity\CityEntity;
+use Generator;
 
 interface CityEntityMapperInterface
 {
@@ -14,4 +15,6 @@ interface CityEntityMapperInterface
     public function createModelFromEntities(array $entities): Cities;
 
     public function createModelFromEntity(CityEntity $entity): City;
+
+    public function createEntitiesFromModels(Cities $cities): Generator;
 }

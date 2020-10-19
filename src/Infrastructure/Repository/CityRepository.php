@@ -35,4 +35,10 @@ final class CityRepository implements CityRepositoryInterface
 
         return $this->entityMapper->createModelFromEntity($city);
     }
+
+    public function store(Cities $cities): void
+    {
+        $entities = $this->entityMapper->createEntitiesFromModels($cities);
+        $this->entityRepository->saveEntities($entities);
+    }
 }

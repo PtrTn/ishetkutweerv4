@@ -9,21 +9,21 @@ use App\Application\Repository\WeatherReportCollectionRepositoryInterface;
 
 class WeatherCommandHandler
 {
-    private WeatherImporterInterface $weatherFetchService;
+    private WeatherImporterInterface $weatherImporter;
 
-    private WeatherReportCollectionRepositoryInterface $weatherStorageService;
+    private WeatherReportCollectionRepositoryInterface $weatherReportCollectionRepository;
 
     public function __construct(
-        WeatherImporterInterface $weatherFetchService,
-        WeatherReportCollectionRepositoryInterface $weatherStorageService
+        WeatherImporterInterface $weatherImporter,
+        WeatherReportCollectionRepositoryInterface $weatherReportCollectionRepository
     ) {
-        $this->weatherFetchService = $weatherFetchService;
-        $this->weatherStorageService = $weatherStorageService;
+        $this->weatherImporter = $weatherImporter;
+        $this->weatherReportCollectionRepository = $weatherReportCollectionRepository;
     }
 
     public function storeWeatherData(): void
     {
-        $weatherReportCollection = $this->weatherFetchService->import();
-        $this->weatherStorageService->store($weatherReportCollection);
+        $weatherReportCollection = $this->weatherImporter->import();
+        $this->weatherReportCollectionRepository->store($weatherReportCollection);
     }
 }
