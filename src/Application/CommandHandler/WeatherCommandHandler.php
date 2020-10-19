@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace App\Application\CommandHandler;
 
+use App\Application\Importer\WeatherImporterInterface;
 use App\Application\Repository\WeatherReportCollectionRepositoryInterface;
-use App\Application\Repository\WeatherRepositoryInterface;
 
 class WeatherCommandHandler
 {
-    private WeatherRepositoryInterface $weatherFetchService;
+    private WeatherImporterInterface $weatherFetchService;
 
     private WeatherReportCollectionRepositoryInterface $weatherStorageService;
 
     public function __construct(
-        WeatherRepositoryInterface $weatherFetchService,
+        WeatherImporterInterface $weatherFetchService,
         WeatherReportCollectionRepositoryInterface $weatherStorageService
     ) {
         $this->weatherFetchService = $weatherFetchService;
@@ -23,7 +23,7 @@ class WeatherCommandHandler
 
     public function storeWeatherData(): void
     {
-        $weatherReportCollection = $this->weatherFetchService->fetchWeather();
+        $weatherReportCollection = $this->weatherFetchService->import();
         $this->weatherStorageService->store($weatherReportCollection);
     }
 }

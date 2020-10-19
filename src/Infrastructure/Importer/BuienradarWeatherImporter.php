@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Repository;
+namespace App\Infrastructure\Importer;
 
-use App\Application\Repository\WeatherRepositoryInterface;
+use App\Application\Importer\WeatherImporterInterface;
 use App\Domain\Model\WeatherReportCollection;
 use App\Infrastructure\ApiClient\BuienradarApiClientInterface;
 use App\Infrastructure\Factory\WeatherReportCollectionFactoryInterface;
 
-final class BuienradarWeatherRepository implements WeatherRepositoryInterface
+final class BuienradarWeatherImporter implements WeatherImporterInterface
 {
     private BuienradarApiClientInterface $apiClient;
 
@@ -23,7 +23,7 @@ final class BuienradarWeatherRepository implements WeatherRepositoryInterface
         $this->dtoFactory = $dtoFactory;
     }
 
-    public function fetchWeather(): WeatherReportCollection
+    public function import(): WeatherReportCollection
     {
         $data = $this->apiClient->getData();
 
