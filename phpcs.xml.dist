@@ -19,6 +19,7 @@
     <!-- Include full Doctrine Coding Standard -->
     <rule ref="Doctrine">
         <exclude name="Generic.Formatting.MultipleStatementAlignment"/>
+        <exclude name="Generic.Files.LineEndings.InvalidEOLChar"/>
         <exclude name="SlevomatCodingStandard.Classes.SuperfluousInterfaceNaming.SuperfluousSuffix"/>
     </rule>
 
