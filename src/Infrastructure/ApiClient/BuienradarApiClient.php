@@ -10,7 +10,7 @@ use GuzzleHttp\Exception\GuzzleException;
 use JMS\Serializer\Exception\RuntimeException;
 use JMS\Serializer\SerializerInterface;
 
-class BuienradarApiClient implements BuienradarApiClientInterface
+class BuienradarApiClient
 {
     private const API_URL = 'http://xml.buienradar.nl/';
 

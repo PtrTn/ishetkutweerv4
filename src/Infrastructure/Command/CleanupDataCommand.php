@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Command;
 
-use App\Infrastructure\Repository\WeatherEntityRepositoryInterface;
+use App\Infrastructure\Repository\WeatherEntityRepository;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -17,9 +17,9 @@ use function sprintf;
  */
 class CleanupDataCommand extends Command
 {
-    private WeatherEntityRepositoryInterface $repository;
+    private WeatherEntityRepository $repository;
 
-    public function __construct(WeatherEntityRepositoryInterface $repository)
+    public function __construct(WeatherEntityRepository $repository)
     {
         parent::__construct();
         $this->repository = $repository;

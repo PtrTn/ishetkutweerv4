@@ -7,16 +7,16 @@ namespace App\Infrastructure\Repository;
 use App\Application\Repository\CityRepositoryInterface;
 use App\Domain\Model\Cities;
 use App\Domain\Model\City;
-use App\Infrastructure\Mapper\CityEntityMapperInterface;
+use App\Infrastructure\Mapper\CityEntityMapper;
 
 final class CityRepository implements CityRepositoryInterface
 {
-    private CityEntityRepositoryInterface $entityRepository;
-    private CityEntityMapperInterface $entityMapper;
+    private CityEntityRepository $entityRepository;
+    private CityEntityMapper $entityMapper;
 
     public function __construct(
-        CityEntityRepositoryInterface $entityRepository,
-        CityEntityMapperInterface $entityMapper
+        CityEntityRepository $entityRepository,
+        CityEntityMapper $entityMapper
     ) {
         $this->entityRepository = $entityRepository;
         $this->entityMapper = $entityMapper;

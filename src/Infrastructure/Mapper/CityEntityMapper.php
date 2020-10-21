@@ -10,7 +10,7 @@ use App\Infrastructure\Entity\CityEntity;
 use ArrayIterator;
 use Generator;
 
-class CityEntityMapper implements CityEntityMapperInterface
+class CityEntityMapper
 {
     /** @param CityEntity[] $entities */
     public function createModelFromEntities(array $entities): Cities
