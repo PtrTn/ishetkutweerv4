@@ -88,7 +88,10 @@
             "@phplint",
             "@phpcpd",
             "@deptrac",
-            "@security-checker"
+            "@security-checker",
+            "@lint-yaml",
+            "@lint-container",
+            "@lint-twig"
         ],
         "phpunit-unit": "simple-phpunit --testsuite unit",
         "phpunit-integration": "simple-phpunit --testsuite integration",
@@ -100,6 +103,9 @@
         "phpcpd": "phpcpd src",
         "deptrac": "deptrac",
         "security-checker": "security-checker security:check",
+        "lint-yaml": "@php bin/console lint:yaml ./config --parse-tags",
+        "lint-container": "@php bin/console lint:container",
+        "lint-twig": "@php bin/console lint:twig ./templates",
         "phpcbf": "phpcbf src"
     },
     "conflict": {
