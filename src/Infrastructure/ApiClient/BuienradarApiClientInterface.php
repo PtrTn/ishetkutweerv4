@@ -8,5 +8,6 @@ use App\Infrastructure\Dto\Buienradar\BuienradarnlDto;
 
 interface BuienradarApiClientInterface
 {
+    /** @throws SorryUnableToGetData */
     public function getData(): BuienradarnlDto;
 }
