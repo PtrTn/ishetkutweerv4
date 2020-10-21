@@ -51,6 +51,9 @@ jobs:
       - run: ./vendor/bin/phplint src
       - run: ./vendor/bin/phpcpd src
       - run: ./vendor/bin/security-checker security:check
+      - run: ./bin/console lint:yaml ./config --parse-tags
+      - run: ./bin/console lint:container
+      - run: ./bin/console lint:twig ./templates
 
       # Send out notifications
       - discord/status:

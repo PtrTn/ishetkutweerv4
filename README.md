@@ -19,14 +19,17 @@ This website will show weather data in a simple and clear manner.
 
 # Running QA checks locally
 To run all QA tests locally run `docker-compose -f docker-compose-dev.yml exec php-fpm composer check`
-To run individual checks run one of the following commands:
-- Unit tests `docker-compose -f docker-compose-dev.yml exec php-fpm composer phpunit-unit`
-- Integration tests `docker-compose -f docker-compose-dev.yml exec php-fpm composer phpunit-integration`
-- Acceptance tests `docker-compose -f docker-compose-dev.yml exec php-fpm composer phpunit-acceptance`
-- Php static analysis tool `docker-compose -f docker-compose-dev.yml exec php-fpm composer phpstan`
-- Php mess detector `docker-compose -f docker-compose-dev.yml exec php-fpm composer phpmd`
-- Php code sniffer `docker-compose -f docker-compose-dev.yml exec php-fpm composer phpcs`
-- Php lint `docker-compose -f docker-compose-dev.yml exec php-fpm composer phplint`
-- Php copy/paste detector `docker-compose -f docker-compose-dev.yml exec php-fpm composer phpcpd`
-- Dependency tracker `docker-compose -f docker-compose-dev.yml exec php-fpm composer deptrac`
-- Security checker `docker-compose -f docker-compose-dev.yml exec php-fpm composer security-checker`
+The following checks are run:
+- Unit tests
+- Integration tests
+- Acceptance tests
+- Php static analysis tool
+- Php mess detector
+- Php code sniffer
+- Php lint
+- Php copy/past
+- Dependency tracker
+- Security checker
+- Configuration linting
+- Container linting
+- Twig template linting
