@@ -6,10 +6,9 @@ namespace App\Infrastructure\ApiClient;
 
 use App\Infrastructure\Dto\Buienradar\BuienradarnlDto;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
+use JMS\Serializer\Exception\RuntimeException;
 use JMS\Serializer\SerializerInterface;
-use RuntimeException;
-
-use function assert;
 
 class BuienradarApiClient implements BuienradarApiClientInterface
 {
@@ -25,16 +24,29 @@ class BuienradarApiClient implements BuienradarApiClientInterface
         $this->serializer = $serializer;
     }
 
+    /** @throws SorryUnableToGetData */
     public function getData(): BuienradarnlDto
     {
-        $response = $this->httpClient->get(self::API_URL);
+        try {
+            $response = $this->httpClient->get(self::API_URL);
+        } catch (GuzzleException $exception) {
+            throw SorryUnableToGetData::connectionException($exception);
+        }
+
         if ($response->getStatusCode() !== 200) {
-            throw new RuntimeException('Unable to contact buienradar API');
+            throw SorryUnableToGetData::invalidStatusCode($response);
         }
 
         $data = $response->getBody()->getContents();
-        $data = $this->serializer->deserialize($data, BuienradarnlDto::class, 'xml');
-        assert($data instanceof BuienradarnlDto);
+        try {
+            $data = $this->serializer->deserialize($data, BuienradarnlDto::class, 'xml');
+        } catch (RuntimeException $exception) {
+            throw SorryUnableToGetData::deserializationError($exception);
+        }
+
+        if ($data instanceof BuienradarnlDto === false) {
+            throw SorryUnableToGetData::unexpectedDeserializationResult($data);
+        }
 
         return $data;
     }
