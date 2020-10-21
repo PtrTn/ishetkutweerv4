@@ -6,18 +6,18 @@ namespace App\Infrastructure\Importer;
 
 use App\Application\Importer\WeatherImporterInterface;
 use App\Domain\Model\WeatherReportCollection;
-use App\Infrastructure\ApiClient\BuienradarApiClientInterface;
-use App\Infrastructure\Factory\WeatherReportCollectionFactoryInterface;
+use App\Infrastructure\ApiClient\BuienradarApiClient;
+use App\Infrastructure\Factory\WeatherReportCollectionFactory;
 
 final class BuienradarWeatherImporter implements WeatherImporterInterface
 {
-    private BuienradarApiClientInterface $apiClient;
+    private BuienradarApiClient $apiClient;
 
-    private WeatherReportCollectionFactoryInterface $dtoFactory;
+    private WeatherReportCollectionFactory $dtoFactory;
 
     public function __construct(
-        BuienradarApiClientInterface $apiClient,
-        WeatherReportCollectionFactoryInterface $dtoFactory
+        BuienradarApiClient $apiClient,
+        WeatherReportCollectionFactory $dtoFactory
     ) {
         $this->apiClient = $apiClient;
         $this->dtoFactory = $dtoFactory;

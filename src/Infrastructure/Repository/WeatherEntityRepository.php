@@ -17,7 +17,7 @@ use function array_map;
  * @method WeatherEntity[]    findAll()
  * @method WeatherEntity[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class WeatherEntityRepository extends ServiceEntityRepository implements WeatherEntityRepositoryInterface
+class WeatherEntityRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {

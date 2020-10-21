@@ -8,7 +8,7 @@ use App\Domain\Model\WeatherReportCollection;
 use App\Infrastructure\Dto\Buienradar\BuienradarnlDto;
 use InvalidArgumentException;
 
-class WeatherReportCollectionFactory implements WeatherReportCollectionFactoryInterface
+class WeatherReportCollectionFactory
 {
     private WeatherReportFactory $weatherReportFactory;
 

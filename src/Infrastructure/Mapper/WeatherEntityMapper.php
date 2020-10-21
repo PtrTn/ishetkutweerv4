@@ -15,7 +15,7 @@ use App\Domain\Model\WeatherReport;
 use App\Domain\ValueObject\Rating;
 use App\Infrastructure\Entity\WeatherEntity;
 
-class WeatherEntityMapper implements WeatherEntityMapperInterface
+class WeatherEntityMapper
 {
     public function createEntityFromWeatherReport(WeatherReport $weatherReport): WeatherEntity
     {

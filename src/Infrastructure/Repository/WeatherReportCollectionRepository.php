@@ -6,16 +6,16 @@ namespace App\Infrastructure\Repository;
 
 use App\Application\Repository\WeatherReportCollectionRepositoryInterface;
 use App\Domain\Model\WeatherReportCollection;
-use App\Infrastructure\Mapper\WeatherEntityMapperInterface;
+use App\Infrastructure\Mapper\WeatherEntityMapper;
 
 final class WeatherReportCollectionRepository implements WeatherReportCollectionRepositoryInterface
 {
-    private WeatherEntityRepositoryInterface $entityRepository;
-    private WeatherEntityMapperInterface $entityMapper;
+    private WeatherEntityRepository $entityRepository;
+    private WeatherEntityMapper $entityMapper;
 
     public function __construct(
-        WeatherEntityRepositoryInterface $entityRepository,
-        WeatherEntityMapperInterface $entityMapper
+        WeatherEntityRepository $entityRepository,
+        WeatherEntityMapper $entityMapper
     ) {
         $this->entityRepository = $entityRepository;
         $this->entityMapper = $entityMapper;

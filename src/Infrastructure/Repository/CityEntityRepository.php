@@ -16,7 +16,7 @@ use RuntimeException;
  * @method CityEntity[]    findAll()
  * @method CityEntity[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class CityEntityRepository extends ServiceEntityRepository implements CityEntityRepositoryInterface
+class CityEntityRepository extends ServiceEntityRepository
 {
     private const BULK_SIZE = 5000;
 
