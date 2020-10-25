@@ -8,18 +8,33 @@ use JMS\Serializer\Annotation\Type;
 
 class VerwachtingVandaag
 {
-    /** @Type("string") */
-    public string $titel;
+    /**
+     * @var mixed
+     * @Type("string")
+     */
+    public $titel;
 
-    /** @Type("string") */
-    public string $tijdweerbericht;
+    /**
+     * @var mixed
+     * @Type("string")
+     */
+    public $tijdweerbericht;
 
-    /** @Type("string") */
-    public string $samenvatting;
+    /**
+     * @var mixed
+     * @Type("string")
+     */
+    public $samenvatting;
 
-    /** @Type("string") */
-    public string $tekst;
+    /**
+     * @var mixed
+     * @Type("string")
+     */
+    public $tekst;
 
-    /** @Type("string") */
-    public string $formattedtekst;
+    /**
+     * @var mixed
+     * @Type("string")
+     */
+    public $formattedtekst;
 }

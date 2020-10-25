@@ -46,6 +46,7 @@ class CityEntityRepository extends ServiceEntityRepository
         return $city;
     }
 
+    /** @param Generator<CityEntity> $entities */
     public function saveEntities(Generator $entities): void
     {
         $bulkSize = 0;

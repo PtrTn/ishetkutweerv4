@@ -7,6 +7,7 @@ namespace App\Application\Service;
 use DateTimeImmutable;
 use IntlDateFormatter;
 use InvalidArgumentException;
+use RuntimeException;
 
 use function sprintf;
 
@@ -22,9 +23,13 @@ class DateTimeImmutableFactory
             IntlDateFormatter::NONE,
             IntlDateFormatter::NONE,
             null,
-            null,
+            IntlDateFormatter::GREGORIAN,
             $pattern
         );
+        if ($formatter === false) {
+            throw new RuntimeException('Unable to create datetime formatter');
+        }
+
         $timestamp = $formatter->parse($datetime);
 
         $dateTimeImmutable = DateTimeImmutable::createFromFormat('U', (string) $timestamp);

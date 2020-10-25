@@ -33,8 +33,10 @@ final class CityImporter implements CityImporterInterface
     private const LATITUDE_HEADING = 'latitude';
     private const LONGITUDE_HEADING = 'longitude';
 
+    /** @var Reader<string[]> */
     private Reader $csvReader;
 
+    /** @param Reader<string[]> $csvReader */
     public function __construct(Reader $csvReader)
     {
         $this->csvReader = $csvReader;
@@ -57,6 +59,7 @@ final class CityImporter implements CityImporterInterface
         }
     }
 
+    /** @return Generator<City> */
     private function createGenerator(): Generator
     {
         foreach ($this->csvReader->getRecords() as $record) {

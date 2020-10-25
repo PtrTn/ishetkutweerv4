@@ -27,12 +27,12 @@ class Location
         return $this->name;
     }
 
-    public function getLat(): ?float
+    public function getLat(): float
     {
         return $this->lat;
     }
 
-    public function getLon(): ?float
+    public function getLon(): float
     {
         return $this->lon;
     }

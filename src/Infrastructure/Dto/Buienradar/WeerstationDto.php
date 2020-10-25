@@ -8,11 +8,13 @@ use DateTimeImmutable;
 use JMS\Serializer\Annotation as Serializer;
 use JMS\Serializer\Annotation\Type;
 
-/** @SuppressWarnings(PHPMD.TooManyFields) */
+/**
+ * @SuppressWarnings(PHPMD.TooManyFields)
+ */
 class WeerstationDto
 {
     /**
-     * @var string|int
+     * @var mixed
      * @Type("string")
      */
     public $stationcode;
@@ -21,13 +23,13 @@ class WeerstationDto
     public StationnaamDto $stationnaam;
 
     /**
-     * @var string|float
+     * @var mixed
      * @Type("string")
      */
     public $lat;
 
     /**
-     * @var string|float
+     * @var mixed
      * @Type("string")
      */
     public $lon;
@@ -36,34 +38,34 @@ class WeerstationDto
     public DateTimeImmutable $datum;
 
     /**
-     * @var string|int
+     * @var mixed
      * @Type("string")
      */
     public $luchtvochtigheid;
 
     /**
-     * @var string|float
+     * @var mixed
      * @Type("string")
      * @Serializer\SerializedName("temperatuurGC")
      */
     public $temperatuurGC;
 
     /**
-     * @var string|float
+     * @var mixed
      * @Type("string")
      * @Serializer\SerializedName("windsnelheidMS")
      */
     public $windsnelheidMS;
 
     /**
-     * @var string|float
+     * @var mixed
      * @Type("string")
      * @Serializer\SerializedName("windsnelheidBF")
      */
     public $windsnelheidBF;
 
     /**
-     * @var string|int
+     * @var mixed
      * @Type("string")
      * @Serializer\SerializedName("windrichtingGR")
      */
@@ -73,33 +75,33 @@ class WeerstationDto
     public string $windrichting;
 
     /**
-     * @var string|float
+     * @var mixed
      * @Type("string")
      */
     public $luchtdruk;
 
     /**
-     * @var string|int
+     * @var mixed
      * @Type("string")
      */
     public $zichtmeters;
 
     /**
-     * @var string|float
+     * @var mixed
      * @Type("string")
      * @Serializer\SerializedName("windstotenMS")
      */
     public $windstotenMS;
 
     /**
-     * @var string|float
+     * @var mixed
      * @Type("string")
      * @Serializer\SerializedName("regenMMPU")
      */
     public $regenMMPU;
 
     /**
-     * @var string|int
+     * @var mixed
      * @Type("string")
      * @Serializer\SerializedName("zonintensiteitWM2")
      */
@@ -109,23 +111,26 @@ class WeerstationDto
     public string $icoonactueel;
 
     /**
-     * @var string|float
+     * @var mixed
      * @Type("string")
      */
     public $temperatuur10cm;
 
-    /** @Type("string") */
-    public string $url;
+    /**
+     * @var mixed
+     * @Type("string")
+     */
+    public $url;
 
     /**
-     * @var string|float
+     * @var mixed
      * @Type("string")
      * @Serializer\SerializedName("latGraden")
      */
     public $latGraden;
 
     /**
-     * @var string|float
+     * @var mixed
      * @Type("string")
      * @Serializer\SerializedName("lonGraden")
      */

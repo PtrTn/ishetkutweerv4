@@ -53,9 +53,9 @@ final class SorryUnableToGetData extends Exception
     /** @param mixed $result */
     public static function unexpectedDeserializationResult($result): self
     {
-        $type = get_class($result);
-        if ($type === false) {
-            $type = gettype($type);
+        $type = gettype($result);
+        if ($type === 'object') {
+            $type = get_class($result);
         }
 
         return new self('Unexpected result from deserializing Buienradar API response', ['result_type' => $type]);

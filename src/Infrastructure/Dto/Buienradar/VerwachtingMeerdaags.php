@@ -9,11 +9,17 @@ use JMS\Serializer\Annotation\Type;
 
 class VerwachtingMeerdaags
 {
-    /** @Type("string") */
-    public string $tekst_middellang;
+    /**
+     * @var mixed
+     * @Type("string")
+     */
+    public $tekst_middellang;
 
-    /** @Type("string") */
-    public string $tekst_lang;
+    /**
+     * @var mixed
+     * @Type("string")
+     */
+    public $tekst_lang;
 
     /**
      * @Type("App\Infrastructure\Dto\Buienradar\VerwachtingDag")

@@ -18,13 +18,13 @@ class Image
     public string $url;
 
     /**
-     * @var string|float
+     * @var mixed
      * @Type("string")
      */
     public $width;
 
     /**
-     * @var string|float
+     * @var mixed
      * @Type("string")
      */
     public $height;

@@ -39,10 +39,13 @@ class WeatherByIpController extends AbstractController
     public function getWeatherByIp(Request $request): Response
     {
         $ipAddress = $request->getClientIp();
-        $location = $this->ipLocator->getLocationForIp($ipAddress);
+        $coordinates = $this->ipLocator->getLocationForIp($ipAddress);
         try {
             $weatherReport = $this->queryHandler->handle(
-                new WeatherByLatLonQuery($location->lat, $location->lon)
+                new WeatherByLatLonQuery(
+                    $coordinates->getLatitude()->toFloat(),
+                    $coordinates->getLongitude()->toFloat()
+                )
             );
         } catch (SorryWeatherNotFound $exception) {
             return $this->render('bundles/TwigBundle/Exception/error.html.twig');
