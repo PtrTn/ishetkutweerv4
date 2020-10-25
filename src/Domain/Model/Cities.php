@@ -8,6 +8,7 @@ use Iterator;
 
 use function iterator_to_array;
 
+/** @implements Iterator<int, City> */
 final class Cities implements Iterator
 {
     /** @var Iterator<City> */

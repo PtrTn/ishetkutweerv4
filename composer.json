@@ -96,7 +96,7 @@
         "phpunit-unit": "simple-phpunit --testsuite unit",
         "phpunit-integration": "simple-phpunit --testsuite integration",
         "phpunit-acceptance": "simple-phpunit --testsuite acceptance",
-        "phpstan": "phpstan analyse src --level=2",
+        "phpstan": "phpstan analyse src --level=8",
         "phpmd": "phpmd src ansi ./ruleset.xml",
         "phpcs": "phpcs src",
         "phplint": "phplint",

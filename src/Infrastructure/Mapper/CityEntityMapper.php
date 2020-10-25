@@ -34,6 +34,7 @@ class CityEntityMapper
         );
     }
 
+    /** @return Generator<CityEntity> */
     public function createEntitiesFromModels(Cities $cities): Generator
     {
         foreach ($cities as $city) {

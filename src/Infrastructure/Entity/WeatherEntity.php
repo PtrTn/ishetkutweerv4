@@ -29,26 +29,26 @@ class WeatherEntity
     /** @Column(type="string", length=255) */
     public string $location;
 
-    /** @Column(type="float", nullable=true) */
-    public ?float $lat;
+    /** @Column(type="float") */
+    public float $lat;
 
-    /** @Column(type="float", nullable=true) */
-    public ?float $lon;
+    /** @Column(type="float") */
+    public float $lon;
 
     /** @Column(type="datetime_immutable") */
     public DateTimeImmutable $dateTime;
 
-    /** @Column(type="float", nullable=true) */
-    public ?float $temperature = null;
+    /** @Column(type="float") */
+    public float $temperature;
 
-    /** @Column(type="float", nullable=true) */
-    public ?float $rain = null;
+    /** @Column(type="float") */
+    public float $rain;
 
-    /** @Column(type="float", nullable=true) */
-    public ?float $windSpeed = null;
+    /** @Column(type="float") */
+    public float $windSpeed;
 
-    /** @Column(type="integer", nullable=true) */
-    public ?int $windDirection;
+    /** @Column(type="integer") */
+    public int $windDirection;
 
     /** @Column(type="integer") */
     public int $temperatureRating;
@@ -95,7 +95,7 @@ class WeatherEntity
     /** @Column(type="float") */
     public float $day5Temp;
 
-    public function getIdentifier(): int
+    public function getIdentifier(): ?int
     {
         return $this->identifier;
     }
@@ -105,12 +105,12 @@ class WeatherEntity
         return $this->location;
     }
 
-    public function getLat(): ?float
+    public function getLat(): float
     {
         return $this->lat;
     }
 
-    public function getLon(): ?float
+    public function getLon(): float
     {
         return $this->lon;
     }
@@ -120,22 +120,22 @@ class WeatherEntity
         return $this->dateTime;
     }
 
-    public function getTemperature(): ?float
+    public function getTemperature(): float
     {
         return $this->temperature;
     }
 
-    public function getRain(): ?float
+    public function getRain(): float
     {
         return $this->rain;
     }
 
-    public function getWindSpeed(): ?float
+    public function getWindSpeed(): float
     {
         return $this->windSpeed;
     }
 
-    public function getWindDirection(): ?int
+    public function getWindDirection(): int
     {
         return $this->windDirection;
     }

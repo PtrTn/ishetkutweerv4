@@ -26,22 +26,22 @@ final class CurrentWeather
         $this->windDirection = $windDirection;
     }
 
-    public function getTemperature(): ?float
+    public function getTemperature(): float
     {
         return $this->temperature;
     }
 
-    public function getRain(): ?float
+    public function getRain(): float
     {
         return $this->rain;
     }
 
-    public function getWindSpeed(): ?float
+    public function getWindSpeed(): float
     {
         return $this->windSpeed;
     }
 
-    public function getWindDirection(): ?int
+    public function getWindDirection(): int
     {
         return $this->windDirection;
     }

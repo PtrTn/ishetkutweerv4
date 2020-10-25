@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Locator;
 
-use App\Application\Dto\LocationDto;
+use App\Domain\ValueObject\Coordinates;
+use App\Domain\ValueObject\Latitude;
+use App\Domain\ValueObject\Longitude;
 use GeoIp2\Database\Reader;
 use GeoIp2\Exception\AddressNotFoundException;
 use MaxMind\Db\Reader\InvalidDatabaseException;
@@ -18,8 +20,12 @@ class IpLocator
         $this->reader = $reader;
     }
 
-    public function getLocationForIp(string $ipAddress): LocationDto
+    public function getLocationForIp(?string $ipAddress): Coordinates
     {
+        if ($ipAddress === null) {
+            return $this->getDefaultLocation();
+        }
+
         try {
             $city = $this->reader->city($ipAddress);
         } catch (AddressNotFoundException $e) {
@@ -28,22 +34,24 @@ class IpLocator
             return $this->getDefaultLocation();
         }
 
-        $dto = new LocationDto();
-        $dto->lat = $city->location->latitude;
-        $dto->lon = $city->location->longitude;
+        if ($city->location->latitude === null || $city->location->longitude === null) {
+            return $this->getDefaultLocation();
+        }
 
-        return $dto;
+        return new Coordinates(
+            new Latitude($city->location->latitude),
+            new Longitude($city->location->longitude)
+        );
     }
 
     /**
      * Use Amsterdam as default location
      */
-    private function getDefaultLocation(): LocationDto
+    private function getDefaultLocation(): Coordinates
     {
-        $dto = new LocationDto();
-        $dto->lat = 52.30;
-        $dto->lon = 4.77;
-
-        return $dto;
+        return new Coordinates(
+            new Latitude(52.30),
+            new Longitude(4.77)
+        );
     }
 }

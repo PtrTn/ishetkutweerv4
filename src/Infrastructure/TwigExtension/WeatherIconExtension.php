@@ -62,10 +62,6 @@ class WeatherIconExtension extends AbstractExtension
 
     public function getWindIconForCurrentWeather(CurrentWeather $currentWeather): string
     {
-        if ($currentWeather->getWindSpeed() === null) {
-            return '';
-        }
-
         if ($currentWeather->getWindSpeed() > 0 && $currentWeather->getWindSpeed() <= 12) {
             return sprintf('wi-wind-beaufort-%s', $currentWeather->getWindSpeed());
         }
